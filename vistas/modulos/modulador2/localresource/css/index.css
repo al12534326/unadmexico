@@ -1,0 +1,35 @@
+
+
+
+/*///////////////////////////////*/
+
+
+
+
+
+
+
+form{
+  padding: 60px;
+  max-width: 90%;
+ 
+  margin: 0 auto;
+}
+
+form input, form textarea, select{
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+  border: none; 
+  color: #525c66; 
+  font-size: 1em;
+  resize: horizontal; 
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: 60px 60px;
+}
