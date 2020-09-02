@@ -31,7 +31,7 @@ switch($_GET['funcion'])
         $_SESSION["usuario"] = 'manuel';
         $_SESSION["idEmpresa"] = (json_decode($cadena)[0])->idEmpresa;
       //  $_SESSION["app"] = 'http://187.237.138.152:9025/' ; //http://187.237.138.152:9025/
-        $_SESSION["app"] = 'http://localhost:8066/' ; //http://187.237.138.152:9025/
+        $_SESSION["app"] = 'http://10.34.66.82:8055/' ; //http://187.237.138.152:9025/
 
         echo 'true';
        }

@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Local Resource-->
-        <link rel="icon" type="image/png" href="localresource/images/icons/favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="localresource/css/util.css">
+       <link rel="icon" type="image/png" href="localresource/images/icons/favicon.ico"/>
+       <link rel="stylesheet" type="text/css" href="localresource/css/util.css">
         <link rel="stylesheet" type="text/css" href="localresource/css/index.css">
     <!-- Local Resource-->
 
@@ -14,15 +14,15 @@
 </head>
 <body>
 
+<video autoplay muted loop id="myVideo">
+    <source src="localresource/video/puerto.webm" type="video/mp4">
+</video>
 
 	<div class="limiter">
 		<div class="container-login100">
-            <video autoplay muted loop id="myVideo">
-                <source src="localresource/video/puerto.webm" type="video/webm">
-                Your browser does not support HTML5 video.
-            </video>
 
-            <div style="background-color: #fff; width: 440px !important; height: 500px !important;  position: absolute; top: 40%; left: 40%;">
+
+            <div  id = "fondolog" style="background-color: #fff; width: 430px !important; height: 500px !important;  position: absolute; top: 20%; left: 40%;">
                 <div class="wrap-login100 p-t-50 p-b-90">
 
 					<span class="login100-form-title p-b-51">

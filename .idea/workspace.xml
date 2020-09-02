@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f180ca72-1b2f-491b-a879-e98647072f46" name="Default Changelist" comment="" />
+    <list default="true" id="f180ca72-1b2f-491b-a879-e98647072f46" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controladores/seguridad.php" beforeDir="false" afterPath="$PROJECT_DIR$/controladores/seguridad.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/esqueleto/globalresource/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/esqueleto/globalresource/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/categorias/localresource/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/categorias/localresource/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/inicio/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/inicio/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/login/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/modulos/productos/localresource/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/modulos/productos/localresource/css/index.css" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,39 +20,39 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controladores/salir.php">
+        <entry file="file://$PROJECT_DIR$/vistas/modulos/categorias/localresource/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+            <state relative-caret-position="420">
+              <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-end-line="28" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controladores/seguridad.php">
+        <entry file="file://$PROJECT_DIR$/vistas/modulos/productos/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vistas/modulos/empresas/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-column="56" />
+            <state relative-caret-position="734">
+              <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vistas/modulos/errorPage/falloAutenticacion.php">
+        <entry file="file://$PROJECT_DIR$/vistas/modulos/productos/localresource/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="323" column="38" selection-start-line="323" selection-start-column="34" selection-end-line="323" selection-end-column="38" />
+            <state relative-caret-position="570">
+              <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="39" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vistas/esqueleto/globalresource/css/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="599" lean-forward="true" selection-start-line="599" selection-end-line="651" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -51,22 +62,32 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>wrap-input100</find>
+      <find>gree</find>
+      <find>8066</find>
+      <find>40</find>
+      <find>Price</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/modelos/login.php" />
-        <option value="$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js" />
-        <option value="$PROJECT_DIR$/vistas/modulos/inicio/index.php" />
         <option value="$PROJECT_DIR$/vistas/modulos/empresas/index.php" />
-        <option value="$PROJECT_DIR$/controladores/login.php" />
-        <option value="$PROJECT_DIR$/controladores/seguridad.php" />
         <option value="$PROJECT_DIR$/vistas/modulos/errorPage/falloAutenticacion.php" />
         <option value="$PROJECT_DIR$/vistas/esqueleto/navbar.php" />
         <option value="$PROJECT_DIR$/controladores/salir.php" />
-        <option value="$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css" />
         <option value="$PROJECT_DIR$/vistas/modulos/login/index.php" />
+        <option value="$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css" />
+        <option value="$PROJECT_DIR$/controladores/login.php" />
+        <option value="$PROJECT_DIR$/controladores/seguridad.php" />
+        <option value="$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js" />
+        <option value="$PROJECT_DIR$/vistas/modulos/inicio/index.php" />
+        <option value="$PROJECT_DIR$/vistas/esqueleto/globalresource/css/index.css" />
+        <option value="$PROJECT_DIR$/vistas/modulos/categorias/localresource/css/index.css" />
+        <option value="$PROJECT_DIR$/vistas/modulos/productos/localresource/css/index.css" />
       </list>
     </option>
   </component>
@@ -85,37 +106,64 @@
         <subPane>
           <expand>
             <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
-              <item name="controladores" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
               <item name="vistas" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
               <item name="vistas" type="462c0819:PsiDirectoryNode" />
               <item name="esqueleto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
+              <item name="vistas" type="462c0819:PsiDirectoryNode" />
+              <item name="esqueleto" type="462c0819:PsiDirectoryNode" />
+              <item name="globalresource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
+              <item name="vistas" type="462c0819:PsiDirectoryNode" />
+              <item name="esqueleto" type="462c0819:PsiDirectoryNode" />
+              <item name="globalresource" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
               <item name="vistas" type="462c0819:PsiDirectoryNode" />
               <item name="modulos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ProyectoManuel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ProyectoManuel" type="462c0819:PsiDirectoryNode" />
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
               <item name="vistas" type="462c0819:PsiDirectoryNode" />
               <item name="modulos" type="462c0819:PsiDirectoryNode" />
-              <item name="errorPage" type="462c0819:PsiDirectoryNode" />
+              <item name="productos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
+              <item name="vistas" type="462c0819:PsiDirectoryNode" />
+              <item name="modulos" type="462c0819:PsiDirectoryNode" />
+              <item name="productos" type="462c0819:PsiDirectoryNode" />
+              <item name="localresource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unadmexico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unadmexico" type="462c0819:PsiDirectoryNode" />
+              <item name="vistas" type="462c0819:PsiDirectoryNode" />
+              <item name="modulos" type="462c0819:PsiDirectoryNode" />
+              <item name="productos" type="462c0819:PsiDirectoryNode" />
+              <item name="localresource" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -153,24 +201,20 @@
       <option name="presentableId" value="Default" />
       <updated>1595457060659</updated>
       <workItem from="1595457062073" duration="14609000" />
+      <workItem from="1599072312867" duration="7492000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14609000" />
+    <option name="totallyTimeSpent" value="22101000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17377399" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17537314" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" weight="0.3296582" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -178,19 +222,21 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3296582" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/load.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/controladores/cargaDiaria.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -226,16 +272,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../AduanaManuel/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="58" column="16" selection-start-line="55" selection-start-column="8" selection-end-line="58" selection-end-column="16" />
-          <folding>
-            <element signature="n#style#0;n#label#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../AduanaManuel/index.php" />
     <entry file="file://$PROJECT_DIR$/vistas/esqueleto/aside.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -246,59 +283,10 @@
     <entry file="file://$PROJECT_DIR$/vistas/esqueleto/footer.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/controladores/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="57" lean-forward="true" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vistas/modulos/inicio/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="71" lean-forward="true" selection-start-line="9" selection-start-column="71" selection-end-line="9" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vistas/esqueleto/navbar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="57" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="383" column="17" lean-forward="true" selection-start-line="383" selection-start-column="17" selection-end-line="383" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controladores/salir.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controladores/seguridad.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -311,8 +299,112 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vistas/modulos/errorPage/falloAutenticacion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
+        <state relative-caret-position="4716">
           <caret line="323" column="38" selection-start-line="323" selection-start-column="34" selection-end-line="323" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controladores/salir.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controladores/seguridad.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/localresource/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="8" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/inicio/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controladores/Antreportes.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controladores/automax.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/remesas/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="41" column="51" lean-forward="true" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#center#0;n#center#0;n#div#0;n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/productos/localresource/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2205" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/login/localresource/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660">
+          <caret line="1" selection-start-line="1" selection-end-line="7" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controladores/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="51" lean-forward="true" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/esqueleto/globalresource/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="599" lean-forward="true" selection-start-line="599" selection-end-line="651" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/categorias/localresource/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-end-line="28" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/productos/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vistas/modulos/productos/localresource/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="39" selection-end-column="3" />
         </state>
       </provider>
     </entry>

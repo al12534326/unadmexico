@@ -18,7 +18,7 @@ function autenticar(){
         }
 
   //  }, "http://187.237.138.152:9025/controladores/login.php?funcion=login&parametros="+user+","+pass);
-    }, "http://localhost:8066/controladores/login.php?funcion=login&parametros="+user+","+pass);
+    }, "http://10.34.66.82:8055/controladores/login.php?funcion=login&parametros="+user+","+pass);
 }
 
 
