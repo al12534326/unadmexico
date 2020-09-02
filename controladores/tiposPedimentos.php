@@ -51,6 +51,20 @@ require '../modelos/tiposPedimentos.php';
         break;
 
 
+        case 'guardar':
+
+            $parametros = explode(',', $_GET['parametros']);
+
+           
+            $nombre = urldecode ($parametros [0]);
+                        
+            $res = [];
+           
+            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarTiposPedimentos));
+            
+        break;
+
+
         case 'modificar':
             
              $parametros = explode(',', $_GET['parametros']);

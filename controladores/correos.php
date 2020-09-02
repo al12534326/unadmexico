@@ -25,38 +25,34 @@ require '../modelos/correos.php';
 
         break;
 
-        case 'guardar_empresa' : 
+        case 'guardar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
            
-            $nombre = urldecode ($parametros [0]);
-            $razon = urldecode ($parametros [1]);
-            $patente = urldecode ($parametros [2]);
-            $categoria = $parametros [3];
-            
+            $idEmpresa = urldecode ($parametros [0]);
+            $correo = urldecode ($parametros [1]);
+                       
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array( $nombre, $razon, $patente , $categoria), $insertarCorreo));
+            $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{correo}}"), array( $idEmpresa, $correo), $insertarCorreo));
             
         break;
 
-        case 'modificar_empresa' : 
+        case 'modificar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
             $id = $parametros [0];
-            $nombre = urldecode ($parametros [1]);
-            $razon = urldecode ($parametros [2]);
-            $patente = urldecode ($parametros [3]);
-            $categoria = $parametros [4];
+            $idEmpresa = urldecode ($parametros [1]);
+            $correo = urldecode ($parametros [2]);
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array($id, $nombre, $razon, $patente , $categoria), $modificarCorreo));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{correo}}"), array($id, $idEmpresa, $correo), $modificarCorreo));
         break;
 
-        case 'eliminar_empresa'  : 
+        case 'eliminar'  : 
 
 
 

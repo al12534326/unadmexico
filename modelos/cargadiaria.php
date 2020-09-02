@@ -1,5 +1,5 @@
 <?php
 
-	$InsertarVins = "exec CEinsertar_CT '{{vins}}'";
+	$InsertarVins = "exec insertarTransporteX '{{vins}}'";
 	
    

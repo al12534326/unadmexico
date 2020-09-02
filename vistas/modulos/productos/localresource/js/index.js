@@ -1,7 +1,7 @@
 //run
 var data = null;
 
-ObtenerProductos(null);
+Productos(null);
 
 
 var accion = 0;
@@ -9,12 +9,15 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardarUsuario(){
+function AccionGuardar(){
+    //e.preventDefault(); 
 
-       if (accion == 1){GuardarUsuario();}else{ ModificarUsuario(); }
+   //alert('AccionGuardar = ' + accion);
+
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
-function ObtenerProductos (valPaginacion)
+function Productos (valPaginacion)
 {
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
@@ -22,15 +25,15 @@ function ObtenerProductos (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
             for (item in res) {
                 tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
                 '<td class="column2">' +res[item].fechaCreacion + '</td>'+
-                '<td class="column2">' +res[item].nombre + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "EditarUsuario('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "EditarUsuario('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column3">' +res[item].nombre + '</td>'+
+                '<td class="column4" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -41,7 +44,7 @@ function ObtenerProductos (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -50,18 +53,18 @@ function ObtenerProductos (valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerProductos('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Productos('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerProductos('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Productos('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            paginacion =  '<li><aonclick="ObtenerProductos('+i+')" class="active" >1</a></li>';
+            paginacion =  '<li><aonclick="Productos('+i+')" class="active" >1</a></li>';
         }
 
         elemento.innerHTML = paginacion;
@@ -69,17 +72,20 @@ function ObtenerProductos (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/productos.php?funcion=listar_productos&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/productos.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
 
-function CrearUsuario(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR PRODUCTO';
     
 
@@ -98,7 +104,9 @@ function CrearUsuario(tipo){
     }
 }
 
-function EditarUsuario(nodo,tipo){
+function Editar(nodo,tipo){
+
+    //alert('editar ' + nodo);
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
@@ -106,16 +114,22 @@ function EditarUsuario(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR PRODUCTO';
+
+      var botonNuevo = document.getElementById("btnNuevo");
+      botonNuevo.style.display = "none";
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR PRODUCTO';
+
+      var botonNuevo = document.getElementById("btnNuevo");
+      botonNuevo.style.display = "none";
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -152,36 +166,57 @@ function EditarUsuario(nodo,tipo){
 }
 
 
-function GuardarUsuario(){
-
-
+function Guardar(){
+   // e.preventDefault();
     var a =  encodeURI(document.getElementById('producto').value)
-   
-
-    ajaxGeneral(function(res){
-        
-        
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/productos.php?funcion=guardar_producto&parametros="+a)
-
+    if (a != ''){
+        ajaxGeneral(function(res){
+        alert('Registro correcto');
+        Cancelar();
+       }, urlapp+"controladores/productos.php?funcion=guardar&parametros="+a)
+    }else
+    {alert('!Error el nombre del producto no puede estar en blanco!')
+    }
 }
 
 
-function ModificarUsuario(){
+function alertar(){
+ // alert('hola');
+}
+
+
+function cerrarBoton(){
+   // e.preventDefault();
+
+    Cancelar();
+   // this.parentElement.style.display='none';
+    
+}
+
+
+
+function Modificar(){
+   // e.preventDefault();
+
+    
 
     var a =  encodeURI(document.getElementById('id').value)
     var b =  encodeURI(document.getElementById('producto').value)
+
+    //alert('modificar =' + a +' b  ' + b);
+
          
     ajaxGeneral(function(res){
         
         
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/productos.php?funcion=modificar_producto&parametros="+a+','+b)
+        Cancelar();
+    }, urlapp+"controladores/productos.php?funcion=modificar&parametros="+a+','+b)
 
 }
 
 
-function EliminarUsuario(){
+function Eliminar(){
+    //e.preventDefault(); 
 
     var a =  encodeURI(document.getElementById('id').value)
 
@@ -190,15 +225,20 @@ function EliminarUsuario(){
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/productos.php?funcion=eliminar_producto&parametros="+a)
+       Cancelar();
+    }, urlapp+"controladores/productos.php?funcion=eliminar&parametros="+a)
 
 }
 
 
-function CancelarUsuario(){
+function Cancelar(){
+   // e.preventDefault();
 
-    ObtenerProductos(null);
+    Productos(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

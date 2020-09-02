@@ -1,20 +1,20 @@
 //run
 var data = null;
 
-ObtenerEmpresas(null);
-ObtenerCategorias();
+Empresas(null);
+Categorias();
 
 var accion = 0;
 
 
 // Funciones
 
-function AccionGuardarEmpresa(){
+function AccionGuardar(){
 
-    if (accion == 1){GuardarEmpresa();}else{ ModificarEmpresa(); }
+    if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
-function ObtenerEmpresas (valPaginacion) 
+function Empresas (valPaginacion) 
 {
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
@@ -22,7 +22,7 @@ function ObtenerEmpresas (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaEmpresa');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -32,7 +32,7 @@ function ObtenerEmpresas (valPaginacion)
                 '<td class="column3">' +res[item].patente + '</td>'+
                 '<td class="column4">' + res[item].nombre + '</td>'+
                 '<td class="column5">' + res[item].razonSocial + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "EditarEmpresa('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "EditarEmpresa('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column6" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -43,7 +43,7 @@ function ObtenerEmpresas (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -52,18 +52,18 @@ function ObtenerEmpresas (valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerEmpresas('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Empresas('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerEmpresas('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Empresas('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            paginacion =  '<li><aonclick="ObtenerEmpresas('+i+')" class="active" >1</a></li>';  
+            paginacion =  '<li><aonclick="Empresas('+i+')" class="active" >1</a></li>';  
         }
 
         elemento.innerHTML = paginacion;
@@ -71,11 +71,11 @@ function ObtenerEmpresas (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/empresas.php?funcion=listar_empresas&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/empresas.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
-function ObtenerCategorias()
+function Categorias()
 {
 
      ajaxGeneral(function(res){
@@ -90,17 +90,21 @@ function ObtenerCategorias()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/categorias.php?funcion=catalogo_categorias")
+    }, urlapp+"controladores/categorias.php?funcion=catalogo_categorias")
 
 
 }
 
-function CrearEmpresa(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
     
-    elementoTitle = document.getElementById('titlEmpresa');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR EMPRESA';
     
 
@@ -119,7 +123,7 @@ function CrearEmpresa(tipo){
     }
 }
 
-function EditarEmpresa(nodo,tipo){
+function Editar(nodo,tipo){
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
@@ -127,16 +131,24 @@ function EditarEmpresa(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlEmpresa');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR EMPRESA';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR EMPRESA';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -176,23 +188,24 @@ function EditarEmpresa(nodo,tipo){
 
 }
 
-function GuardarEmpresa(){
+function Guardar(){
 
     var a = encodeURI(document.getElementById('nombre').value)
     var b = encodeURI(document.getElementById('razon').value)
     var c =  encodeURI(document.getElementById('patente').value)
     var d = encodeURI(document.getElementById('select_categorias').value)
 
-    ajaxGeneral(function(res){
-        
-        
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/empresas.php?funcion=guardar_empresa&parametros="+a+','+b+','+c+','+d)
-
+    if (a !='' && b !='' && c!='' && d != ''){
+       ajaxGeneral(function(res){
+       alert('!Registro correcto');
+       Cancelar();
+    }, urlapp+"controladores/empresas.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
+}else
+{alert('!Todos los campos son obligatorios!')}
 }
 
 
-function ModificarEmpresa(){
+function Modificar(){
 
     var a =  encodeURI(document.getElementById('id').value)
     var b = encodeURI(document.getElementById('nombre').value)
@@ -204,12 +217,12 @@ function ModificarEmpresa(){
         
         
         CancelarEmpresa();
-    }, "http://localhost:8066/controladores/empresas.php?funcion=modificar_empresa&parametros="+a+','+b+','+c+','+d+','+e)
+    }, urlapp+"controladores/empresas.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e)
 
 }
 
 
-function EliminarEmpresa(){
+function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
@@ -218,15 +231,21 @@ function EliminarEmpresa(){
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/empresas.php?funcion=eliminar_empresa&parametros="+a)
+        Cancelar();
+    }, urlapp+"controladores/empresas.php?funcion=eliminar&parametros="+a)
 
 }
 
 
-function CancelarEmpresa(){
+function Cancelar(){
+    //e.preventDefault();
 
-    ObtenerEmpresas(null);
+    Empresas(null);
+
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

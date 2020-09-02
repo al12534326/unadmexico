@@ -1,4 +1,4 @@
-<?php 
+<?php session_start(); 
 require '../modelos/conexion.php';
 require '../modelos/cargadiaria.php';
 

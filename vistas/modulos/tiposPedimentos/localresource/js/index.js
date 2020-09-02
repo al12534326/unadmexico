@@ -22,15 +22,15 @@ function ObtenerInformacion (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
             for (item in res) {
                 tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
                 '<td class="column2">' +res[item].fechaCreacion + '</td>'+
-                '<td class="column2">' +res[item].nombre + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column3">' +res[item].nombre + '</td>'+
+                '<td class="column4" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -69,7 +69,7 @@ function ObtenerInformacion (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/tiposPedimentos.php?funcion=listar&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/tiposPedimentos.php?funcion=listar&parametros=5," + paginaActiva);
     
 }
 
@@ -78,8 +78,11 @@ function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR TIPO DE PEDIMENTO';
     
 
@@ -106,16 +109,22 @@ function Editar(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR TIPO DE PEDIMENTO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR TIPO DE PEDIMENTO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -153,17 +162,17 @@ function Editar(nodo,tipo){
 
 
 function Guardar(){
-
-
     var a =  encodeURI(document.getElementById('tipoPedimento').value)
-   
 
+    if (a != ''){
+ 
     ajaxGeneral(function(res){
         
-        
+        alert('!Registro correcto')
         Cancelar();
-    }, "http://localhost:8066/controladores/tiposPedimentos.php?funcion=guardar&parametros="+a)
-
+    }, urlapp+"controladores/tiposPedimentos.php?funcion=guardar&parametros="+a)
+}else
+{alert('!El campo del nombre del tipo de pediento no debe de ser vacio')}
 }
 
 
@@ -176,7 +185,7 @@ function Modificar(){
         
         
         Cancelar();
-    }, "http://localhost:8066/controladores/tiposPedimentos.php?funcion=modificar&parametros="+a+','+b)
+    }, urlapp+"controladores/tiposPedimentos.php?funcion=modificar&parametros="+a+','+b)
 
 }
 
@@ -191,14 +200,18 @@ function Eliminar(){
         
         
         Cancelar();
-    }, "http://localhost:8066/controladores/tiposPedimentos.php?funcion=eliminar&parametros="+a)
+    }, urlapp+"controladores/tiposPedimentos.php?funcion=eliminar&parametros="+a)
 
 }
 
 
 function Cancelar(){
+    //e.preventDefault();
 
     ObtenerInformacion(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

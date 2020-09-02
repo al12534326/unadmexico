@@ -44,7 +44,7 @@ require '../modelos/vines.php';
 		
 		case 'autorizar_modulador2': 
 
-            $parametros = explode(',', $_GET['parametros']);
+            $parametros = explode('¬', $_GET['parametros']);
         
            	$id = $parametros [0];
             $modulador = urldecode ($parametros [1]);

@@ -4,7 +4,7 @@ require '../modelos/usuarios.php';
 
     switch($_GET['funcion'])
     {
-        case 'listar_usuarios': 
+        case 'listar': 
 
             $parametros = explode(',', $_GET['parametros']);
         
@@ -23,7 +23,7 @@ require '../modelos/usuarios.php';
 
         break;
 
-        case 'guardar_usuario' : 
+        case 'guardar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -36,11 +36,11 @@ require '../modelos/usuarios.php';
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array( $idrol, $idpersonal, $usuario , $password, $email, ), $insertaUsuario));  
+            $stmt = $conn->query(str_replace( array("{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array( $idrol, $idpersonal, $usuario , md5($password), $email, ), $insertaUsuario));  
             
         break;
 
-        case 'modificar_usuario' : 
+        case 'modificar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -53,10 +53,10 @@ require '../modelos/usuarios.php';
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array($id, $idrol, $idpersonal, $usuario , $password, $email), $modificaUsuario));  
+            $stmt = $conn->query(str_replace( array("{{id}}","{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array($id, $idrol, $idpersonal, $usuario , md5($password), $email), $modificaUsuario));  
         break;
 
-        case 'eliminar_usuario'  : 
+        case 'eliminar'  : 
 
 
 

@@ -32,11 +32,11 @@ require '../modelos/remesas.php';
             $noRemesa = urldecode ($parametros [1]);
             $noOficio = urldecode ($parametros [2]);
             $descripcion = $parametros [3];
-            $cantidad = $parametros [3];
+            $cantidad = $parametros [4];
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array( $idPedimento, $noRemesa, $noOficio , $descripcion, $idTipoPedimento, $cantidad ), $insertarRemesa));
+            $stmt = $conn->query(str_replace( array("{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array( $idPedimento, $noRemesa, $noOficio , $descripcion,  $cantidad ), $insertarRemesa));
             
         break;
 
@@ -54,7 +54,7 @@ require '../modelos/remesas.php';
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array($id, $idPedimento, $noRemesa, $noOficio , $descripcion, $idTipoPedimento, $cantidad ), $modificarRemesa));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array($id, $idPedimento, $noRemesa, $noOficio , $descripcion, $cantidad ), $modificarRemesa));
         break;
 
         case 'eliminar'  :

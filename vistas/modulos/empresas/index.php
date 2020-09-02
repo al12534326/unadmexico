@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -29,12 +30,12 @@
              <!-- Global Component--> 
             
               <!-- Code Local-->
-              <div class="container-table100">  
+              <div class="container-table100" >  
                 <div class="wrap-table100">
-                    <center><h1>EMPRESAS</h1><center><br>
+                    <center><h1 >EMPRESAS</h1><center><br>
 
                     <div class="table100">
-                    <button  style="float:left;" onclick="CrearEmpresa(1)" class="buttom">NUEVA</button>
+                    <button id="btnNuevo" name="btnNuevo" style="float:left;" onclick="Crear(1)" class="buttom">NUEVA</button>
                     <br>
                     <br>
 
@@ -50,7 +51,7 @@
                             <th class="column6">ACCIONES</th>
                           </tr>
                         </thead>
-                        <tbody id ="crpTablaEmpresa">
+                        <tbody id ="crpTabla">
                         </tbody>
                       </table>
                       <!---->
@@ -62,16 +63,10 @@
                      </div>
 
                      <div id="content-form"  style="display:none">
-
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <section class="editEmpresa">
+                   
+                     <section class="edit">
                         <div style="border-style: solid;">
-                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titlEmpresa"><span></b> </div>
+                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titulo"><span></b> </div>
                           <form>
                                       
                                       <input id="id" name="id" type="hidden">
@@ -93,15 +88,15 @@
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardarEmpresa()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarEmpresa()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="EliminarEmpresa()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarEmpresa()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 

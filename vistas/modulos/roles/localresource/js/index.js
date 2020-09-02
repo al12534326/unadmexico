@@ -1,20 +1,19 @@
 //run
 var data = null;
 
-ObtenerRoles(null);
+Roles(null);
 
 
 var accion = 0;
 
-
 // Funciones
 
-function AccionGuardarUsuario(){
+function AccionGuardar(){
 
-       if (accion == 1){GuardarUsuario();}else{ ModificarUsuario(); }
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
-function ObtenerRoles(valPaginacion)
+function Roles(valPaginacion)
 {
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
@@ -22,15 +21,15 @@ function ObtenerRoles(valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
             for (item in res) {
                 tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
                 '<td class="column2">' +res[item].fechaCreacion + '</td>'+
-                '<td class="column2">' +res[item].nombre + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "EditarUsuario('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "EditarUsuario('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column3">' +res[item].nombre + '</td>'+
+                '<td class="column4" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -41,7 +40,7 @@ function ObtenerRoles(valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -50,18 +49,18 @@ function ObtenerRoles(valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerRoles('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Roles('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerRoles('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Roles('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            paginacion =  '<li><aonclick="ObtenerRoles('+i+')" class="active" >1</a></li>';
+            paginacion =  '<li><aonclick="Roles('+i+')" class="active" >1</a></li>';
         }
 
         elemento.innerHTML = paginacion;
@@ -69,17 +68,20 @@ function ObtenerRoles(valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/roles.php?funcion=listar_roles&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/roles.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
 
-function CrearUsuario(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR ROL';
     
 
@@ -98,7 +100,9 @@ function CrearUsuario(tipo){
     }
 }
 
-function EditarUsuario(nodo,tipo){
+function Editar(nodo,tipo){
+
+   // alert('editar ' + nodo);
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
@@ -106,16 +110,22 @@ function EditarUsuario(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR ROL';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR ROL';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -152,22 +162,20 @@ function EditarUsuario(nodo,tipo){
 }
 
 
-function GuardarUsuario(){
-
-
-    var a =  encodeURI(document.getElementById('categoria').value)
-   
+function Guardar(){
+    var a =  encodeURI(document.getElementById('rol').value)
+    if (a != ''){
 
     ajaxGeneral(function(res){
-        
-        
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/roles.php?funcion=guardar_rol&parametros="+a)
-
+        alert('Registro correcto');
+        Cancelar();
+    }, urlapp+"controladores/roles.php?funcion=guardar&parametros="+a)
+}else
+{alert('!Error el nombre del rol no puede estar vacio!')}
 }
 
 
-function ModificarUsuario(){
+function Modificar(){
 
     var a =  encodeURI(document.getElementById('id').value)
     var b =  encodeURI(document.getElementById('rol').value)
@@ -175,13 +183,13 @@ function ModificarUsuario(){
     ajaxGeneral(function(res){
         
         
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/roles.php?funcion=modificar_rol&parametros="+a+','+b)
+        Cancelar();
+    }, urlapp+"controladores/roles.php?funcion=modificar&parametros="+a+','+b)
 
 }
 
 
-function EliminarUsuario(){
+function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
@@ -190,15 +198,21 @@ function EliminarUsuario(){
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/roles.php?funcion=eliminar_rol&parametros="+a)
+        Cancelar();
+    }, urlapp+"controladores/roles.php?funcion=eliminar&parametros="+a)
 
 }
 
 
-function CancelarUsuario(){
+function Cancelar(){
+   // e.preventDefault();
 
-    ObtenerProductos(null);
+
+    Roles(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+  
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

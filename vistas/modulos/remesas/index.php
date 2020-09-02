@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -31,10 +32,10 @@
               <!-- Code Local-->
               <div class="container-table100">  
                 <div class="wrap-table100">
-                    <center><h1>REMESAS</h1><center><br>
+                    <center><h1 >REMESAS</h1><center><br>
 
                     <div class="table100">
-                    <button  style="float:left;" onclick="Crear(1)" class="buttom">NUEVA</button>
+                    <button id="btnNuevo" name="btnNuevo" style="float:left;" onclick="Crear(1)" class="buttom">NUEVA</button>
                     <br>
                     <br>
 
@@ -54,7 +55,7 @@
                             <th class="column10">ACCIONES</th>
                           </tr>
                         </thead>
-                        <tbody id ="crpTablaUsuarios">
+                        <tbody id ="crpTabla">
                         </tbody>
                       </table>
                       <!---->
@@ -67,31 +68,22 @@
 
                      <div id="content-form"  style="display:none">
 
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <section class="editUsuario">
+                    
+                     <section class="edit">
                         <div style="border-style: solid;">
-                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titlUsuario"><span></b> </div>
+                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titulo"><span></b> </div>
                           <form>
                                       
                                       <input id="id" name="id" type="hidden">
-                                      <input id="idProducto" name="idProducto" type="hidden">
-                                      <input id="idEmpresa" name="idEmpresa" type="hidden">
-                                      <input id="idTipoPedimento" name="idTipoPedimento" type="hidden">
-
-
+                                     
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>Pedimento:</b></label>
                                       <select name="select_pedimento" id="select_pedimento">
                                         <option value="value1" selected>SSA</option>
                                         <option value="value2">Amports</option>
                                       </select>
 
-                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>REMESA:</b></label>
-                                      <input name="remesa" type="text"  required autofocus id="remesa"/>
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NO. REMESA:</b></label>
+                                      <input name="remesa" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required autofocus id="remesa"/>
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>OFICIO:</b></label>
                                       <input name="oficio" type="text" id = "oficio" required />

@@ -80,7 +80,7 @@ require '../modelos/empresas.php';
 
 
 
-        case 'guardar_empresa' : 
+        case 'guardar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -96,7 +96,7 @@ require '../modelos/empresas.php';
             
         break;
 
-        case 'modificar_empresa' : 
+        case 'modificar' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -111,7 +111,7 @@ require '../modelos/empresas.php';
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array($id, $nombre, $razon, $patente , $categoria), $modificaEmpresa));  
         break;
 
-        case 'eliminar_empresa'  : 
+        case 'eliminar'  : 
 
 
 
@@ -128,9 +128,7 @@ require '../modelos/empresas.php';
            
         break;
 
-        case 4: 
-            
-        break;
+      
         
     }
 

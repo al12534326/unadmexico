@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -12,9 +13,8 @@
 
       <!-- Local Resource-->
       <!-- Local Resource-->
-
         
-          <section class="page-content">
+          <section class="page-content" style="margin-top:-10px !important;">
 
              <!-- Local Component-->
              <?php require "../../esqueleto/navbar.php";?>
@@ -28,6 +28,10 @@
             
             <section class="grid">
               <!-- Local Component-->
+			       <video autoplay muted loop id="myVideo">
+                <source src="localresource/video/puerto.webm" type="video/webm">
+                Your browser does not support HTML5 video.
+            </video>
                <!-- Local Component--> 
             </section>
 
@@ -42,7 +46,5 @@
       <script src="../../esqueleto/globalresource/js/index.js"></script>
     <!-- Global Resource-->
 
-    <!-- Local Resource-->
-       <script src="../../esqueleto/globalresource/js/index.js"></script>
-     <!-- Local Resource-->
+   
 </html>

@@ -1,2 +1,2 @@
 <?php 
-   echo 'pagina de inicio'; 
+header('Location: ./vistas/modulos/login/index.php');

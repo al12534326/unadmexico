@@ -55,7 +55,7 @@ require '../modelos/pedimentos.php';
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{noPedimentol}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array( $pedimento, $idProducto, $idEmpresa , $password, $idTipoPedimento ), $insertarPedimento));
+            $stmt = $conn->query(str_replace( array("{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array( $pedimento, $idProducto, $idEmpresa , $idTipoPedimento ), $insertarPedimento));
             
         break;
 
@@ -64,15 +64,15 @@ require '../modelos/pedimentos.php';
             $parametros = explode(',', $_GET['parametros']);
 
             $id = urldecode ($parametros [0]);
-            $pedimento = urldecode ($parametros [0]);
-            $idProducto = urldecode ($parametros [1]);
-            $idEmpresa = urldecode ($parametros [2]);
-            $idTipoPedimento = $parametros [3];
+            $pedimento = urldecode ($parametros [1]);
+            $idProducto = urldecode ($parametros [2]);
+            $idEmpresa = urldecode ($parametros [3]);
+            $idTipoPedimento = $parametros [4];
 
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array($id, $pedimento, $idProducto, $idEmpresa , $password, $idTipoPedimento), $modificarPedimento));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array($id, $pedimento, $idProducto, $idEmpresa , $idTipoPedimento), $modificarPedimento));
         break;
 
         case 'eliminar'  :

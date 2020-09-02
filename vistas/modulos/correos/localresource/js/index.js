@@ -9,9 +9,9 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardarEmpresa(){
+function AccionGuardar(){
 
-    if (accion == 1){GuardarEmpresa();}else{ ModificarEmpresa(); }
+    if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function ObtenerCorreos(valPaginacion)
@@ -22,7 +22,7 @@ function ObtenerCorreos(valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaEmpresa');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -30,7 +30,7 @@ function ObtenerCorreos(valPaginacion)
                 tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
                 '<td class="column2">' +res[item].nombreEmpresa + '</td>'+
                 '<td class="column3">' +res[item].correo + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "EditarEmpresa('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "EditarEmpresa('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column6" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -69,7 +69,7 @@ function ObtenerCorreos(valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/correos.php?funcion=listar_correos&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/correos.php?funcion=listar_correos&parametros=5," + paginaActiva);
     
 }
 
@@ -88,17 +88,21 @@ function ObtenerEmpresas()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/empresas.php?funcion=catalogo_empresas")
+    }, urlapp+"controladores/empresas.php?funcion=catalogo_empresas")
 
 
 }
 
-function CrearEmpresa(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
     
-    elementoTitle = document.getElementById('titlEmpresa');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR CORREO';
     
 
@@ -117,7 +121,7 @@ function CrearEmpresa(tipo){
     }
 }
 
-function EditarEmpresa(nodo,tipo){
+function Editar(nodo,tipo){
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
@@ -125,16 +129,24 @@ function EditarEmpresa(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlEmpresa');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR CORREO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR CORREO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -171,53 +183,63 @@ function EditarEmpresa(nodo,tipo){
 
 }
 
-function GuardarEmpresa(){
+function Guardar(){
 
-    var a = encodeURI(document.getElementById('idEmpresa').value)
+    var a = encodeURI(document.getElementById('select_empresas').value)
     var b = encodeURI(document.getElementById('correo').value)
 
+    if (b != ''){
+
     ajaxGeneral(function(res){
+        alert('Registro correcto');
 
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/correos.php?funcion=guardar_correo&parametros="+a+','+b)
-
+        Cancelar();
+    }, urlapp+"controladores/correos.php?funcion=guardar&parametros="+a+','+b)
+   }else
+   {alert('!Error el campo correo no debe de estar vacio')}
 }
 
 
-function ModificarEmpresa(){
+function Modificar(){
 
     var a =  encodeURI(document.getElementById('id').value)
-    var b = encodeURI(document.getElementById('idEmpresa').value)
+    var b = encodeURI(document.getElementById('select_empresas').value)
     var c = encodeURI(document.getElementById('correo').value)
 
        
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/correos.php?funcion=modificar_correo&parametros="+a+','+b+','+c)
+        Cancelar();
+    }, urlapp+"controladores/correos.php?funcion=modificar&parametros="+a+','+b+','+c)
 
 }
 
 
-function EliminarEmpresa(){
+function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     alert('Aqui ára eliminar la empresa = ' + a);
+     //alert('Aqui ára eliminar la empresa = ' + a);
     
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/correos.php?funcion=eliminar_correo&parametros="+a)
+        Cancelar();
+    }, urlapp+"controladores/correos.php?funcion=eliminar&parametros="+a)
 
 }
 
 
-function CancelarEmpresa(){
+function Cancelar(){
 
-    ObtenerEmpresas(null);
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
+
+   // ObtenerCorreos(null);
+   // ObtenerEmpresas(null);
+   window.location.replace("../../../vistas/modulos/correos/index.php");
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

@@ -1,6 +1,39 @@
 
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
 
+
+/* The alert message box */
+.alert {
+  padding: 20px;
+  background-color: #4CAF50; /* Green */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+
+
+
+
+
+
+
 :root {
   --page-header-bgColor: #242e42;
   --page-header-bgColor-hover: #1d2636;
@@ -449,7 +482,7 @@ body {
 }
 
 .container-table100 {
-  width: 100%;
+  width: 95%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -459,12 +492,13 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: -250px;
+  margin-top: -150px;
   padding: 33px 30px;
+  position: absolute;
 }
 
 .wrap-table100 {
-  width: 1170px;
+  width: 1550px;
 }
 
 table {
@@ -534,7 +568,7 @@ tbody tr:hover {
 }
 
 .column1 {
-  width: 260px;
+  width: 100px;
   padding-left: 40px;
 }
 
@@ -548,7 +582,7 @@ tbody tr:hover {
 
 .column4 {
   width: 110px;
-  text-align: right;
+  text-align: left;
 }
 
 .column5 {

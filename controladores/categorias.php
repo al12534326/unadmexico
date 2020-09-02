@@ -18,7 +18,7 @@ require '../modelos/categorias.php';
         break;
 
        
-        case 'listar_categorias':
+        case 'listar':
 
             $parametros = explode(',', $_GET['parametros']);
         
@@ -37,7 +37,7 @@ require '../modelos/categorias.php';
             
         break;
 
-        case 'guardar_categoria': 
+        case 'guardar': 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -51,7 +51,7 @@ require '../modelos/categorias.php';
         break;
 
 
-        case 'modificar_categoria': 
+        case 'modificar': 
             
              $parametros = explode(',', $_GET['parametros']);
 
@@ -65,7 +65,7 @@ require '../modelos/categorias.php';
             
         break;
 
-        case 'eliminar_categoria': 
+        case 'eliminar': 
 
              $parametros = explode(',', $_GET['parametros']);
 

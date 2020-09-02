@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -31,10 +32,10 @@
               <!-- Code Local-->
               <div class="container-table100">  
                 <div class="wrap-table100">
-                    <center><h1>Revision Modulador 2</h1><center><br>
+                    <center><h1 >Revision Modulador 2</h1><center><br>
 
                     <div class="table100">
-                    <button  style="float:left;" onclick="CrearUsuario(1)" class="buttom">NUEVO</button>
+                    <button  style="float:left;display:none;" onclick="Crear(1)" class="buttom">NUEVO</button>
                     <br>
                     <br>
 
@@ -52,7 +53,7 @@
 	                        <th class="column7">ACCIONES</th>
                           </tr>
                         </thead>
-                        <tbody id ="crpTablaUsuarios">
+                        <tbody id ="crpTabla">
                         </tbody>
                       </table>
                       <!---->
@@ -69,9 +70,9 @@
                      <br>
                      <br>
                     
-                     <section class="editUsuario">
+                     <section class="edit">
                         <div style="border-style: solid;">
-                        <div style="background-color:#242e42;padding-bottom:10px;padding-top:5px;" > <b style="color:white"><span id="titlUsuario"><span></b> </div>
+                        <div style="background-color:#242e42;padding-bottom:10px;padding-top:5px;" > <b style="color:white"><span id="titulo"><span></b> </div>
                           <form>
                                       
                                     

@@ -19,7 +19,7 @@ require '../modelos/productos.php';
             break;
 
 
-        case 'listar_productos':
+        case 'listar':
 
             $parametros = explode(',', $_GET['parametros']);
         
@@ -38,7 +38,7 @@ require '../modelos/productos.php';
 
         break;
 
-        case 'guardar_producto' :
+        case 'guardar' :
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -46,12 +46,18 @@ require '../modelos/productos.php';
 
             
             $res = [];
+
+            if ($nombre != '' ){
+                $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
+            }else{
+                $res = "error el campo al guardar el registro";
+            }
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
+           
             
         break;
 
-        case 'modificar_producto' :
+        case 'modificar' :
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -63,7 +69,7 @@ require '../modelos/productos.php';
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarProducto));
         break;
 
-        case 'eliminar_producto'  :
+        case 'eliminar'  :
 
 
 

@@ -20,7 +20,7 @@ require '../modelos/roles.php';
         break;
 
 
-        case 'listar_roles':
+        case 'listar':
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -39,7 +39,7 @@ require '../modelos/roles.php';
 
             break;
 
-        case 'guardar_rol':
+        case 'guardar':
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -53,7 +53,7 @@ require '../modelos/roles.php';
             break;
 
 
-        case 'modificar_rol':
+        case 'modificar':
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -67,7 +67,7 @@ require '../modelos/roles.php';
 
             break;
 
-        case 'eliminar_rol':
+        case 'eliminar':
 
             $parametros = explode(',', $_GET['parametros']);
 

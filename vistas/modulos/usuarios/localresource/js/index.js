@@ -1,23 +1,23 @@
 //run
 var data = null;
 
-ObtenerUsuarios(null);
-ObtenerRoles();
-ObtenerPersonal();
+Usuarios(null);
+Roles();
+Personal();
 
 var accion = 0;
 
 
 // Funciones
 
-function AccionGuardarUsuario(){
+function AccionGuardar(){
 
    
 
-    if (accion == 1){GuardarUsuario();}else{ ModificarUsuario(); }
+    if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
-function ObtenerUsuarios (valPaginacion) 
+function Usuarios (valPaginacion) 
 {
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
@@ -25,7 +25,7 @@ function ObtenerUsuarios (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -35,7 +35,7 @@ function ObtenerUsuarios (valPaginacion)
                 '<td class="column3">' +res[item].Personal + '</td>'+
                 '<td class="column4">' + res[item].usuario + '</td>'+
                 '<td class="column5">' + res[item].email + '</td>'+
-                '<td class="column6" style = "">' + '<i onclick = "EditarUsuario('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "EditarUsuario('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column6" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -46,7 +46,7 @@ function ObtenerUsuarios (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -55,18 +55,18 @@ function ObtenerUsuarios (valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerUsuarioss('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Usuarioss('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="ObtenerUsuarios('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="Usuarios('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            paginacion =  '<li><aonclick="ObtenerUsuarios('+i+')" class="active" >1</a></li>';  
+            paginacion =  '<li><aonclick="Usuarios('+i+')" class="active" >1</a></li>';  
         }
 
         elemento.innerHTML = paginacion;
@@ -74,11 +74,11 @@ function ObtenerUsuarios (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=listar_usuarios&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/usuarios.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
-function ObtenerRoles()
+function Roles()
 {
 
      ajaxGeneral(function(res){
@@ -93,12 +93,12 @@ function ObtenerRoles()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/roles.php?funcion=catalogo_roles")
+    }, urlapp+"controladores/roles.php?funcion=catalogo_roles")
 
 
 }
 
-function ObtenerPersonal()
+function Personal()
 {
 
      ajaxGeneral(function(res){
@@ -113,7 +113,7 @@ function ObtenerPersonal()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/personal.php?funcion=catalogo_personal")
+    }, urlapp+"controladores/personal.php?funcion=catalogo_personal")
 
 
 }
@@ -121,12 +121,15 @@ function ObtenerPersonal()
 
 
 
-function CrearUsuario(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR USUARIO';
     
 
@@ -145,7 +148,7 @@ function CrearUsuario(tipo){
     }
 }
 
-function EditarUsuario(nodo,tipo){
+function Editar(nodo,tipo){
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
@@ -153,16 +156,22 @@ function EditarUsuario(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR USUARIO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR USUARIO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+       botonNuevo.style.display = "none";
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -203,25 +212,27 @@ function EditarUsuario(nodo,tipo){
 }
 
 
-function GuardarUsuario(){
+function Guardar(){
 
     var a = encodeURI(document.getElementById('select_roles').value)
     var b = encodeURI(document.getElementById('select_personal').value)
     var c = encodeURI(document.getElementById('usuario').value)
     var d = encodeURI(document.getElementById('password').value)
     var e =  encodeURI(document.getElementById('email').value)
+
+    if(a != '' && b != '' && c != '' && d != '' && e != ''){
    
 
     ajaxGeneral(function(res){
-        
-        
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=guardar_usuario&parametros="+a+','+b+','+c+','+d+','+e)
-
+        alert('!Registro correcto!')
+        Cancelar();
+    }, urlapp+"controladores/usuarios.php?funcion=guardar&parametros="+a+','+b+','+c+','+d+','+e)
+   }else
+   {alert('!todos los campos deben de estar llenos!')}
 }
 
 
-function ModificarUsuario(){
+function Modificar(){
 
     var a =  encodeURI(document.getElementById('id').value)
     var b = encodeURI(document.getElementById('select_roles').value)
@@ -233,30 +244,34 @@ function ModificarUsuario(){
     ajaxGeneral(function(res){
         
         
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=modificar_usuario&parametros="+a+','+b+','+c+','+d+','+e+','+f)
+        Cancelar();
+    }, urlapp+"controladores/usuarios.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e+','+f)
 
 }
 
 
-function EliminarUsuario(){
+function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     alert('Aqui ára eliminar el Usuario = ' + a);
+    // alert('Aqui ára eliminar el Usuario = ' + a);
     
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=eliminar_usuario&parametros="+a)
+        Cancelar();
+    }, urlapp+"controladores/usuarios.php?funcion=eliminar&parametros="+a)
 
 }
 
 
-function CancelarUsuario(){
+function Cancelar(e){
+    e.preventDefault();
 
-    ObtenerUsuarios(null);
+    Usuarios(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

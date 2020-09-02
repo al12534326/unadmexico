@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -25,16 +26,18 @@
           <section class="page-content">
 
              <!-- Global Component-->
+            
              <?php require "../../esqueleto/navbar.php";?>
+            
              <!-- Global Component--> 
             
               <!-- Code Local-->
               <div class="container-table100">  
                 <div class="wrap-table100">
-                    <center><h1>USUARIOS</h1><center><br>
+                    <center><h1 >USUARIOS</h1><center><br>
 
                     <div class="table100">
-                    <button  style="float:left;" onclick="CrearUsuario(1)" class="buttom">NUEVO</button>
+                    <button id="btnNuevo" name="btnNuevo" style="float:left;" onclick="Crear(1)" class="buttom">NUEVO</button>
                     <br>
                     <br>
 
@@ -50,7 +53,7 @@
                             <th class="column6">ACCIONES</th>
                           </tr>
                         </thead>
-                        <tbody id ="crpTablaUsuarios">
+                        <tbody id ="crpTabla">
                         </tbody>
                       </table>
                       <!---->
@@ -63,15 +66,10 @@
 
                      <div id="content-form"  style="display:none">
 
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <section class="editUsuario">
+                  
+                     <section class="edit" style="margin-top:150px; !important">
                         <div style="border-style: solid;">
-                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titlUsuario"><span></b> </div>
+                        <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titulo"><span></b> </div>
                           <form>
                                       
                                       <input id="id" name="id" type="hidden">
@@ -96,7 +94,7 @@
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>USUARIO:</b></label>
                                       <input name="usuario" type="text"  required autofocus id="usuario"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PASSWORD:</b></label>
-                                      <input name="password" type="text"  required id = "password"/>	
+                                      <input name="password" type="password"  required id = "password"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>EMAIL:</b></label>
                                       <input name="email" type="text" id = "email" required />	
 
@@ -104,15 +102,15 @@
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardarUsuario()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarUsuario()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="EliminarUsuario()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarUsuario()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 

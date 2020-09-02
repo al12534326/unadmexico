@@ -2,7 +2,7 @@
 var data = null;
 
 Remesas(null);
-ObtenerPedimentos();
+Pedimentos();
 
 
 
@@ -25,7 +25,7 @@ function Remesas (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -39,7 +39,12 @@ function Remesas (valPaginacion)
                 '<td class="column6">' + res[item].cantidad + '</td>'+
                 '<td class="column6">' + res[item].noPedimento + '</td>'+
                 '<td class="column6">' + res[item].fechaPedimento + '</td>'+
-                '<td class="column7" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                '<td class="column7" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>'; 
+                if (res[item].totalVines == 0) {
+                    tabla = tabla + '<i style="margin-left:15px;" onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>'  + 
+                    '<i style="margin-left:15px;" onclick = "CargarRemesa('+res[item].id+','+3+')"class="fa fa-archive aria-hidden="true"></i>';
+                }
+                     tabla = tabla +  '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -50,7 +55,7 @@ function Remesas (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -78,11 +83,11 @@ function Remesas (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/remesas.php?funcion=listar&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/remesas.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
-function ObtenerPedimentos()
+function Pedimentos()
 {
 
      ajaxGeneral(function(res){
@@ -97,7 +102,7 @@ function ObtenerPedimentos()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/pedimentos.php?funcion=catalogo")
+    }, urlapp+"controladores/pedimentos.php?funcion=catalogo")
 
 
 }
@@ -108,8 +113,12 @@ function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR REMESA';
     
 
@@ -128,6 +137,36 @@ function Crear(tipo){
     }
 }
 
+
+
+function CargarRemesa(nodo,tipo){
+
+  
+    function esID(itemValor) { 
+        return itemValor.id == nodo;
+    }
+    
+     var found = data.find(esID);
+    
+   var idRemesa = found.id
+   var idPedimento = found.idPedimento
+   var remesa  = found.noRemesa
+   var noOficio  = found.noOficio
+   var descripcion  =found.descripcion
+   var cantidad = found.cantidad
+
+  // alert(noOficio);
+
+  // window.location.replace("../../../vistas/modulos/cargaMaster/index.php?id=" + idRemesa + "&idPedimento=" + idPedimento + "&remesa=" + remesa + "&noOficio=" + noOficio + "descripcion= " + descripcion + "&cantidad=" + cantidad);
+
+  window.location.replace("../../../vistas/modulos/cargaMaster/index.php?idRemesa=" + idRemesa + "&idPedimento=" + idPedimento + "&remesa=" + remesa + "&noOficio=" + noOficio + "&descripcion= " + descripcion + "&cantidad=" + cantidad);
+
+   // window.location.href = '..\cargaMaster.php';
+     //?$proveedor=' + document.formulario.campo.value;
+
+}
+
+
 function Editar(nodo,tipo){
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
@@ -136,16 +175,24 @@ function Editar(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR REMESA';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR REMESA';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -187,35 +234,40 @@ function Editar(nodo,tipo){
 
 function Guardar(){
 
+
     var a = encodeURI(document.getElementById('select_pedimento').value)
     var b = encodeURI(document.getElementById('remesa').value)
     var c = encodeURI(document.getElementById('oficio').value)
     var d = encodeURI(document.getElementById('descripcion').value)
-    var d = encodeURI(document.getElementById('cantidad').value)
+    var e = encodeURI(document.getElementById('cantidad').value)
 
-   
+    //alert('a = '+a + 'b = '+b + 'c = '+ c + 'd = '+d + ' e = '+e)
 
-    ajaxGeneral(function(res){
-        
-        
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/remesas.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
-
+    if (a != '' && b != '' && c != '' && d != '' && e != ''){
+      
+        ajaxGeneral(function(res){  
+        alert('!Registro correcto');
+        Cancelar();
+    }, urlapp+"controladores/remesas.php?funcion=guardar&parametros="+a+','+b+','+c+','+d+','+e)
+}else
+{alert('!Ningun campo debe de estar vacio!')}
 }
 
 
 function Modificar(){
     var a =  encodeURI(document.getElementById('id').value)
-    var a = encodeURI(document.getElementById('select_pedimento').value)
-    var b = encodeURI(document.getElementById('remesa').value)
-    var c = encodeURI(document.getElementById('oficio').value)
-    var d = encodeURI(document.getElementById('descripcion').value)
+    var b = encodeURI(document.getElementById('select_pedimento').value)
+    var c = encodeURI(document.getElementById('remesa').value)
+    var d = encodeURI(document.getElementById('oficio').value)
+    var e = encodeURI(document.getElementById('descripcion').value)
     var f = encodeURI(document.getElementById('cantidad').value)
+
+    if (c == 'n-a'){c = 1}
 
     ajaxGeneral(function(res){
 
         Cancelar();
-    }, "http://localhost:8066/controladores/remesas.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e+','+f)
+    }, urlapp+"controladores/remesas.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e+','+f)
 
 }
 
@@ -224,20 +276,25 @@ function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     alert('Aqui ára eliminar el Usuario = ' + a);
+     //alert('Aqui ára eliminar la remesa = ' + a);
     
     ajaxGeneral(function(res){
         
         
-        CancelarEmpresa();
-    }, "http://localhost:8066/controladores/remesas.php?funcion=eliminar&parametros="+a)
+        Cancelar();
+    }, urlapp+"controladores/remesas.php?funcion=eliminar&parametros="+a)
 
 }
 
 
 function Cancelar(){
+   // e.preventDefault();
 
     Pedimentos(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

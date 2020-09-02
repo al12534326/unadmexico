@@ -8,13 +8,18 @@
      </button>
    </form>-->
    <br>
+
+
    <div class="admin-profile">
-     <span class="greeting">Hello admin</span>
-     <div class="notifications">
-       <span class="badge">1</span>
+     <span class="greeting"><?php echo $_SESSION['Vusuario']?></span>
+     <div class="notifications" onclick="entro()">
+      <!-- <span class="badge">1</span>-->
        <svg>
-         <use xlink:href="#users"></use>
+         <use xlink:href="#settings"></use>
        </svg>
      </div>
    </div> 
  </section>
+
+
+  

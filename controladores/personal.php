@@ -20,7 +20,7 @@ require '../modelos/personal.php';
         break;
 
 
-        case 'listar_personal':
+        case 'listar':
 
 
             $parametros = explode(',', $_GET['parametros']);
@@ -42,7 +42,7 @@ require '../modelos/personal.php';
             break;
 
 
-        case 'guardar_personal' :
+        case 'guardar' :
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -59,7 +59,7 @@ require '../modelos/personal.php';
 
             break;
 
-        case 'modificar_personal' :
+        case 'modificar' :
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -74,7 +74,7 @@ require '../modelos/personal.php';
             $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{apellidoPaterno}}","{{apellidoMaterno}}","{{nombre}}"), array($id, $idEmpresa, $apellidoPaterno, $apellidoMaterno , $nombre), $modificarPersonal));
             break;
 
-        case 'eliminar_personal'  :
+        case 'eliminar'  :
 
 
 

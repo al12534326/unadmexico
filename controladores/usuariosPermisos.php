@@ -1,4 +1,7 @@
 <?php 
+session_start();
+
+//include '../../../controladores/seguridad.php'; 
 require '../modelos/conexion.php';
 require '../modelos/usuariosPermisos.php';
 
@@ -6,10 +9,19 @@ require '../modelos/usuariosPermisos.php';
     {
         case 'usuariosPermisos': 
       
-            $parametros = explode(',', $_GET['parametros']);
+           // $parametros = explode(',', $_GET['parametros']);
         
 
-            $usuario = $parametros [0];
+            //$usuario = $parametros [0];
+
+            if (isset($_SESSION["Vusuario"])){
+                $usuario = $_SESSION['Vusuario'];
+            }else{
+                $usuario = $_SESSION['Vusuario'] = "admin";
+            }
+
+                     
+          //  dd($usuario);
             
             $res = [];
            

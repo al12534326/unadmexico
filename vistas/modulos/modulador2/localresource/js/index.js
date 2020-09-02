@@ -15,24 +15,25 @@ function AccionAutorizar(accion){
 	
 	
 	var id =  encodeURI(document.getElementById('id').value);
-	var modulador = 1;
+	var modulador = 2;
 	var estado = accion;
     var obs = encodeURI(document.getElementById('observaciones').value);
-	
-	
+
+    if (obs != ''){
+
     ajaxGeneral(function(res){
-        
-        
+    alert('!Se autorizo corretamente')
     CancelarRevision1();
-    }, "http://localhost:8066/controladores/revision2.php?funcion=autorizar_modulador&parametros="+id+','+modulador+','+estado+','+obs)
-	
+    }, urlapp+"controladores/revision2.php?funcion=autorizar_modulador2&parametros="+id+'¬'+modulador+'¬'+estado+'¬'+obs)
+}else
+{alert('!El campo de observaciojes es obligatorio')}	
 }
 
 
 
-function AccionGuardarUsuario(){
+function AccionGuardar(){
 
-    if (accion == 1){GuardarUsuario();}else{ ModificarUsuario(); }
+    if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function RevisionModulador2(valPaginacion) 
@@ -43,7 +44,7 @@ function RevisionModulador2(valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -74,18 +75,18 @@ function RevisionModulador2(valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="RevisionModulador1('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="RevisionModulador2('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="RevisionModulador1('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="RevisionModulador2('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            paginacion =  '<li><aonclick="RevisionModulador1('+i+')" class="active" >1</a></li>';  
+            paginacion =  '<li><aonclick="RevisionModulador2('+i+')" class="active" >1</a></li>';  
         }
 
         elemento.innerHTML = paginacion;
@@ -95,7 +96,7 @@ function RevisionModulador2(valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/revision2.php?funcion=revisionModulador2&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/revision2.php?funcion=revisionModulador2&parametros=5," + paginaActiva);
     
 }
 
@@ -117,7 +118,7 @@ function ObtenerVins(id){
 
         elemento.innerHTML = tablaVines;
 
-    }, "http://localhost:8066/controladores/revision2.php?funcion=obtener_vines&parametros="+id)
+    }, urlapp+"controladores/revision2.php?funcion=obtener_vines&parametros="+id)
 	
 }
 
@@ -138,7 +139,7 @@ function ObtenerRoles()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/roles.php?funcion=catalogo_roles")
+    }, urlapp+"controladores/roles.php?funcion=catalogo_roles")
 
 
 }
@@ -158,7 +159,7 @@ function ObtenerPersonal()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/personal.php?funcion=catalogo_personal")
+    }, urlapp+"controladores/personal.php?funcion=catalogo_personal")
 
 
 }
@@ -166,7 +167,7 @@ function ObtenerPersonal()
 
 
 
-function CrearUsuario(tipo){
+function Crear(tipo){
 
     accion = tipo;
 
@@ -200,10 +201,10 @@ function EditarPlaca(nodo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     //if (tipo==1){
-       elementoTitle.innerHTML = 'REVISION DE PLACAS';
+       elementoTitle.innerHTML = 'REVISION DE PLACAS MODULADOR 2';
       
     //   tipoAccionEditar.style.display = "block";
     //   tipoAccionEliminar.style.display = "none";
@@ -231,6 +232,17 @@ function EditarPlaca(nodo){
     document.getElementById('placas').value = found.placas
     document.getElementById('noViaje').value =found.NoViaje
     document.getElementById('cantidad').value =found.cantidad
+    document.getElementById('observaciones').value =found.observacion
+
+    document.getElementById('id').setAttribute("disabled", true);
+    document.getElementById('fecha').setAttribute("disabled", false);
+    document.getElementById('empresa').setAttribute("disabled", false);
+    document.getElementById('placas').setAttribute("disabled", false);
+    document.getElementById('noViaje').setAttribute("disabled", false);
+    document.getElementById('cantidad').setAttribute("disabled", false);
+    
+
+
     //document.getElementById('').value = found.email
     
     var x = document.getElementById("content-table");
@@ -264,7 +276,7 @@ function GuardarUsuario(){
         
         
         CancelarRevision1()
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=guardar_usuario&parametros="+a+','+b+','+c+','+d+','+e)
+    }, urlapp+"controladores/usuarios.php?funcion=guardar_usuario&parametros="+a+','+b+','+c+','+d+','+e)
 
 }
 
@@ -282,7 +294,7 @@ function ModificarUsuario(){
         
         
         CancelarRevision1()
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=modificar_usuario&parametros="+a+','+b+','+c+','+d+','+e+','+f)
+    }, urlapp+"controladores/usuarios.php?funcion=modificar_usuario&parametros="+a+','+b+','+c+','+d+','+e+','+f)
 
 }
 
@@ -291,13 +303,13 @@ function EliminarUsuario(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     alert('Aqui ára eliminar el Usuario = ' + a);
+     //alert('Aqui ára eliminar el Usuario = ' + a);
     
     ajaxGeneral(function(res){
         
         
         CancelarRevision1()
-    }, "http://localhost:8066/controladores/usuarios.php?funcion=eliminar_usuario&parametros="+a)
+    }, urlapp+"controladores/usuarios.php?funcion=eliminar_usuario&parametros="+a)
 
 }
 

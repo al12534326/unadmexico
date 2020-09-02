@@ -27,7 +27,7 @@ function Pedimentos (valPaginacion)
     ajaxGeneral(function(res){
 
         data = res;
-        elemento = document.getElementById('crpTablaUsuarios');
+        elemento = document.getElementById('crpTabla');
 
         var tabla = '';
 
@@ -49,7 +49,7 @@ function Pedimentos (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -77,7 +77,7 @@ function Pedimentos (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, "http://localhost:8066/controladores/pedimentos.php?funcion=listar&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/pedimentos.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
@@ -96,7 +96,7 @@ function ObtenerEmpresas()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/empresas.php?funcion=catalogo")
+    }, urlapp+"controladores/empresas.php?funcion=catalogo")
 
 
 }
@@ -115,7 +115,7 @@ function ObtenerProductos()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/productos.php?funcion=catalogo")
+    }, urlapp+"controladores/productos.php?funcion=catalogo")
 }
 
 function ObtenerTiposPedimentos()
@@ -132,7 +132,7 @@ function ObtenerTiposPedimentos()
 
         elemento.innerHTML = select;
 
-    }, "http://localhost:8066/controladores/tiposPedimentos.php?funcion=catalogo")
+    }, urlapp+"controladores/tiposPedimentos.php?funcion=catalogo")
 }
 
 
@@ -142,8 +142,12 @@ function Crear(tipo){
 
     accion = tipo;
 
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
     
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR PEDIMENTO';
     
 
@@ -170,16 +174,32 @@ function Editar(nodo,tipo){
 
     console.log(nodo)
 
-    elementoTitle = document.getElementById('titlUsuario');
+    elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR PEDIMENTO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
     }else{
        elementoTitle.innerHTML = 'ELIMINAR PEDIMENTO';
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
+
+       var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "none";
+
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
@@ -200,7 +220,7 @@ function Editar(nodo,tipo){
     document.getElementById('select_producto').value = found.idProducto
     document.getElementById('select_tipoPedimento').value = found.idTipoPedimento
     document.getElementById('noPedimento').value =found.noPedimento
-    document.getElementById('fecha').value = found.fechaCreacion
+   // document.getElementById('fecha').value = found.fechaCreacion
     
     var x = document.getElementById("content-table");
     if (x.style.display === "none") {
@@ -221,33 +241,37 @@ function Editar(nodo,tipo){
 
 
 function Guardar(){
-    var a = encodeURI(document.getElementById('pedimento').value)
+    var a = encodeURI(document.getElementById('noPedimento').value)
     var b = encodeURI(document.getElementById('select_producto').value)
     var c = encodeURI(document.getElementById('select_empresa').value)
     var d = encodeURI(document.getElementById('select_tipoPedimento').value)
 
-   
-
-    ajaxGeneral(function(res){
-        
-        
-        CancelarUsuario();
-    }, "http://localhost:8066/controladores/pedimentos.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
-
+    if (a != '' && b != '' && c != '' && d != ''){
+        ajaxGeneral(function(res){
+        alert('Registro correcto');
+        Cancelar();
+    }, urlapp+"controladores/pedimentos.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
+}else
+{alert('!Todos los campos deben de contener valor')}
 }
 
 
 function Modificar(){
+   // alert('modificar pedimento');
+
     var a =  encodeURI(document.getElementById('id').value)
-    var b =  encodeURI(document.getElementById('pedimento').value)
+    var b =  encodeURI(document.getElementById('noPedimento').value)
     var c = encodeURI(document.getElementById('select_producto').value)
     var d = encodeURI(document.getElementById('select_empresa').value)
-    var e = encodeURI(document.getElementById('tipoPedimento').value)
+    var e = encodeURI(document.getElementById('select_tipoPedimento').value)
+
+
+   // alert('a = ' + a + 'b = ' +b + 'c = '+ c + 'd = ' + d + 'e = ' + e);
 
     ajaxGeneral(function(res){
 
         Cancelar();
-    }, "http://localhost:8066/controladores/pedimentos.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e)
+    }, urlapp+"controladores/pedimentos.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e)
 
 }
 
@@ -256,20 +280,29 @@ function Eliminar(){
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     alert('Aqui ára eliminar el Usuario = ' + a);
+   //  alert('Aqui ára eliminar el Usuario = ' + a);
     
     ajaxGeneral(function(res){
         
         
         CancelarEmpresa();
-    }, "http://localhost:8066/controladores/pedimentos.php?funcion=eliminar&parametros="+a)
+    }, urlapp+"controladores/pedimentos.php?funcion=eliminar&parametros="+a)
 
 }
 
 
 function Cancelar(){
+   // e.preventDefault();
 
     Pedimentos(null);
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
+
+    var botonNuevo = document.getElementById("btnNuevo");
+    botonNuevo.style.display = "block";
+
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

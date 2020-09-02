@@ -1,3 +1,4 @@
+<?php include '../../../controladores/seguridad.php'; ?>
 <html>
     <head>
       <!-- Global Resource-->
@@ -63,12 +64,6 @@
 
                      <div id="content-form"  style="display:block">
 
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
                      <section class="editUsuario">
                         <div style="border-style: solid;">
                         <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titlUsuario"><span></b> </div>
@@ -80,28 +75,25 @@
                                           <input type="file" id="my_upload" name="my_upload" accept=".xls, .xlsx"/>
 									  </p>
 
-                              </br></br>
-                              <label id="jsonObject"> JSON : </label>
-
-
-
-                                      <section class="paginacion">
+                    </br></br>
+                              <label id="jsonObject"></label>
+                              <br>
+                              <label style="color : red;" id="Aviso"></label>
+                              <section class="paginacion">
                                         
-                                        <div id="InsertaModifica">
+                                        <div style="display:none" id="InsertaModifica" name="insertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardarUsuario()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarUsuario()">CANCELAR</i></button></a></li>
+                                            <li style="display:none" id="cargaExcel" name="cargaExcel"><a ><button onclick="btmCargarExcel(event)" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">SALIR</i></button></a></li>
                                           </ul>
                                         </div>
 
-                                        <div id="Eliminar" style="display:none;">
+                                        <div id="salirCargaExcel" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="EliminarUsuario()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="CancelarUsuario()">CANCELAR</i></button></a></li>
+                                            <li style="display:none"><a ><button onclick="Cancelar(event)" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">SALIR</i></button></a></li>
                                           </ul>
                                         </div>
-
-
                                       </section>
                                       <br>
                              </form>	
