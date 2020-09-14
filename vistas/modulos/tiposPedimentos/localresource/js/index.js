@@ -172,7 +172,11 @@ function Guardar(){
         Cancelar();
     }, urlapp+"controladores/tiposPedimentos.php?funcion=guardar&parametros="+a)
 }else
-{alert('!El campo del nombre del tipo de pediento no debe de ser vacio')}
+{ //alert('!Error el nombre del producto no puede estar en blanco!')
+var alertx = document.getElementById("divAlerta");
+// alertx.innerHTML = "El campo de producto es obligatorio";
+alertx.style.display="block";
+}
 }
 
 
@@ -207,6 +211,8 @@ function Eliminar(){
 
 function Cancelar(){
     //e.preventDefault();
+    var alertx = document.getElementById("divAlerta");
+    alertx.style.display="none";
 
     ObtenerInformacion(null);
 

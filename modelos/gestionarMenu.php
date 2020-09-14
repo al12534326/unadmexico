@@ -1,0 +1,3 @@
+<?php
+    $getUsuarios = 'exec listarUsuarios';
+

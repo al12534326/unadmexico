@@ -171,7 +171,11 @@ function Guardar(){
         Cancelar();
     }, urlapp+"controladores/roles.php?funcion=guardar&parametros="+a)
 }else
-{alert('!Error el nombre del rol no puede estar vacio!')}
+{ //alert('!Error el nombre del producto no puede estar en blanco!')
+var alertx = document.getElementById("divAlerta");
+// alertx.innerHTML = "El campo de producto es obligatorio";
+alertx.style.display="block";
+}
 }
 
 
@@ -206,6 +210,9 @@ function Eliminar(){
 
 function Cancelar(){
    // e.preventDefault();
+
+   var alertx = document.getElementById("divAlerta");
+   alertx.style.display="none";
 
 
     Roles(null);

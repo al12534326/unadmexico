@@ -91,6 +91,8 @@
 									    <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CANTIDAD:</b></label>
                                         <input name="cantidad" type="text"  required id = "cantidad"/>
 									  
+                                        <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>HISTORIAL:</b></label>
+                                        <input name="histobservaciones" type="text" id = "histobservaciones" required />	
                                         <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>OBSERVACIONES:</b></label>
                                         <input name="observaciones" type="text" id = "observaciones" required />	
                                     </div>

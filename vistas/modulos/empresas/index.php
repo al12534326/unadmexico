@@ -79,7 +79,7 @@
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NOMBRE:</b></label>
                                       <input name="nombre" type="text"  required autofocus id="nombre"/>
-                     s                 <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>RAZON SOCIAL:</b></label>
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>RAZON SOCIAL:</b></label>
                                       <input name="razon" type="text"  required id = "razon"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PATENTE:</b></label>
                                       <input name="patente" type="text" id = "patente" required />	
@@ -103,6 +103,10 @@
 
                                       </section>
                                       <br>
+                                      <div style="display:none;" id="divAlerta" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>Todos los campos son obligatorios</strong> 
+                                      </div>
                              </form>	
                         </div>
                         </section>
