@@ -64,13 +64,13 @@
                                       <table>
                                           <thead>
                                           <tr class="table100-head">
-                                              <th class="column1">USUARIOS</th>
+                                              <th class="column1">Modulos</th>
                                               <th class="column2"> </th>
 
 
                                           </tr>
                                           </thead>
-                                          <tbody id ="crpTablaUsuarios">
+                                          <tbody id ="crpTablaModulos">
                                           </tbody>
                                       </table>
 

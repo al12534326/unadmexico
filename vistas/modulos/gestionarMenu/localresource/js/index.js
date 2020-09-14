@@ -36,7 +36,7 @@ function verificarModulos(idUsuario){
 
             for (item in res) {
 
-                    tabla = tabla+ '<tr><td class="column1">' + res[item].usuario  + '</td>'+
+                    tabla = tabla+ '<tr><td class="column1">' + res[item].menu  + '</td>'+
                     '<td class="column2">' + '<input onclick="verificarPermisos(' + res[item].idModulo + ',' + res[item].idUsuario  +')"' + ' value="' + x + '" id="r' + x +'" name="r" type="checkbox" />' + '</td></tr>';
 
                 x = x + 1;
