@@ -110,6 +110,10 @@
                                         </div>
                                       </section>
                                       <br>
+                                      <div style="display:none;" id="divAlerta" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>Todos los campos son obligatorios</strong> 
+                                      </div>
                              </form>	
                         </div>
                         </section>

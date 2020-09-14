@@ -195,7 +195,7 @@
 
         textarea {
             overflow: auto
-        }
+        }s
 
         [type=checkbox],
         [type=radio] {

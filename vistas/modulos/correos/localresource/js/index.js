@@ -196,7 +196,11 @@ function Guardar(){
         Cancelar();
     }, urlapp+"controladores/correos.php?funcion=guardar&parametros="+a+','+b)
    }else
-   {alert('!Error el campo correo no debe de estar vacio')}
+   { //alert('!Error el nombre del producto no puede estar en blanco!')
+   var alertx = document.getElementById("divAlerta");
+  // alertx.innerHTML = "El campo de producto es obligatorio";
+   alertx.style.display="block";
+   }
 }
 
 
@@ -232,6 +236,9 @@ function Eliminar(){
 
 
 function Cancelar(){
+
+    var alertx = document.getElementById("divAlerta");
+    alertx.style.display="none";
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "block";

@@ -45,7 +45,7 @@
                           <tr class="table100-head">
                             <th class="column1">ID</th>
                             <th class="column2">FECHA</th>
-                            <th class="column3">TIPOD DE PEDIMENTO</th>
+                            <th class="column3">TIPO DE PEDIMENTO</th>
                             <th class="column4">ACCIONES</th>
                           </tr>
                         </thead>
@@ -93,6 +93,10 @@
 
                                       </section>
                                       <br>
+                                      <div style="display:none;" id="divAlerta" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El campo tipo de pedimento es obligatorio</strong> 
+                                      </div>
                              </form>	
                         </div>
                         </section>

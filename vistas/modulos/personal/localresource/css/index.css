@@ -24,3 +24,51 @@ form input, form textarea, select{
   font-size: 1em;
   resize: horizontal; 
 }
+
+
+@media screen and (max-width: 992px) {
+  table tbody tr td:nth-child(1):before {
+    content: "ID";
+  }
+  table tbody tr td:nth-child(2):before {
+    content: "EMPRESA";
+  }
+  table tbody tr td:nth-child(3):before {
+    content: "APELLIDO PATERNO";
+  }
+
+  table tbody tr td:nth-child(4):before {
+    content: "APELLIDO MATERNO";
+  }
+  table tbody tr td:nth-child(5):before {
+    content: "NOMBRE";
+  }
+
+
+  table tbody tr td:nth-child(6):before {
+    content: "ACCIONES";
+  }
+
+}
+
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

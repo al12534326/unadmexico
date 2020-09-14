@@ -93,6 +93,10 @@
 
                                       </section>
                                       <br>
+                                      <div style="display:none;" id="divAlerta" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El campo de rol es obligatorio</strong> 
+                                      </div>
                              </form>	
                         </div>
                         </section>

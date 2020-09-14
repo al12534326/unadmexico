@@ -202,7 +202,11 @@ function Guardar(){
         CancelarEmpresa();
     }, urlapp+"controladores/personal.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
 }else
-{alert('!Todos los campos deben de estar llenos')}
+{ //alert('!Error el nombre del producto no puede estar en blanco!')
+var alertx = document.getElementById("divAlerta");
+// alertx.innerHTML = "El campo de producto es obligatorio";
+alertx.style.display="block";
+}
 }
 
 
@@ -241,6 +245,9 @@ function Eliminar(){
 
 function Cancelar(e){
     e.preventDefault();
+
+    var alertx = document.getElementById("divAlerta");
+    alertx.style.display="none";
 
     Empresas(null);
 

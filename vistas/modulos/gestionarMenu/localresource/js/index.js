@@ -3,12 +3,80 @@ var data = null;
 
 var accion = 0;
 
-RevisionModulador1(null);
+listarUsuarios(null);
 //ObtenerRoles();
 //ObtenerPersonal();
 
 
 // Funciones
+
+
+function listarUsuarios (valPaginacion) 
+{
+
+    if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
+
+    ajaxGeneral(function(res){
+
+        data = res;
+        elemento = document.getElementById('crpTablaUsuarios');
+
+        var tabla = '';
+
+        var x = 1;
+
+            for (item in res) {
+                tabla = tabla+ '<tr><td style="width:100px;">' + res[item].usuario + '</td><td><input style="width:30px; value="' + x + '" id="r' + x +'" name="r' + x + '" type="radio" /></td></tr>';
+
+                x = x + 1;
+                 
+            }
+
+            elemento.innerHTML = tabla;
+
+            elemento = document.getElementById('listPaginacion');
+
+            
+            var paginacion = '';
+
+
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
+       console.log(valBucle);
+       if (valBucle > 1) 
+        {
+
+            for (var i=1; i<=valBucle; i++) 
+            {
+                if (i == paginaActiva)
+                {
+                    paginacion = paginacion + '<li><a onclick="Usuarioss('+i+')" class="active" >'+ i +'</a></li>';
+                }
+                else
+                {
+                    paginacion = paginacion + '<li><a onclick="Usuarios('+i+')" >'+ i +'</a></li>';
+                }
+            }
+
+        }
+        else
+        {
+            paginacion =  '<li><aonclick="Usuarios('+i+')" class="active" >1</a></li>';  
+        }
+
+        elemento.innerHTML = paginacion;
+
+        // funcionalidad
+
+        // fin funcionalidad    
+    }, urlapp+"controladores/usuarios.php?funcion=listar&parametros=10," + paginaActiva);
+    
+}
+
+
+
+
+
+
 
 function AccionAutorizar(accion){
 
