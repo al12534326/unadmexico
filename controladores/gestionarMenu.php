@@ -1,15 +1,18 @@
 <?php 
 require '../modelos/conexion.php';
-require '../modelos/usuarios.php';
+//require '../modelos/usuarios.php';
+require '../modelos/gestionarMenu.php';
+
+
 
     switch($_GET['funcion'])
     {
         case 'listarUsuarios': 
 
-            $parametros = explode(',', $_GET['parametros']);
+          //  $parametros = explode(',', $_GET['parametros']);
         
-            $renglones = $parametros [0];
-            $pagina = $parametros[1];
+          //  $renglones = $parametros [0];
+          //  $pagina = $parametros[1];
            
             $res = [];
            
@@ -23,16 +26,15 @@ require '../modelos/usuarios.php';
 
         break;
 
-        case 'listarPermisos': 
+        case 'listarModulos': 
 
         $parametros = explode(',', $_GET['parametros']);
     
-        $renglones = $parametros [0];
-        $pagina = $parametros[1];
-       
+        $idUsuario = $parametros [0];
+              
         $res = [];
-       
-        $stmt = $conn->query(str_replace( array("{{idUsuario}}","{{idModulo}}","{{accion}}"), array($pagina, $renglones,$accion), $getPermisos));  
+  
+        $stmt = $conn->query(str_replace( array("{{idUsuario}}"), array($idUsuario), $getModulos));  
         
         while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
              array_push ($res, $row);
