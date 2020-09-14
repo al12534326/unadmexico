@@ -3,6 +3,7 @@ var data = null;
 
 var accion = 0;
 
+
 listarUsuarios(null);
 //ObtenerRoles();
 //ObtenerPersonal();
@@ -10,6 +11,76 @@ listarUsuarios(null);
 
 // Funciones
 
+
+function verificarPermisos(idModulo, idUsuaio){
+
+alert(idModulo);
+
+
+}
+
+
+
+function verificarModulos(idUsuario){
+
+   // if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
+
+    ajaxGeneral(function(res){
+
+        data = res;
+        elemento = document.getElementById('crpTablaModulos');
+
+        var tabla = '';
+
+        var x = 1;
+
+            for (item in res) {
+
+                    tabla = tabla+ '<tr><td class="column1">' + res[item].usuario  + '</td>'+
+                    '<td class="column2">' + '<input onclick="verificarPermisos(' + res[item].idModulo + ',' + res[item].idUsuario  +')"' + ' value="' + x + '" id="r' + x +'" name="r" type="checkbox" />' + '</td></tr>';
+
+                x = x + 1;
+            }
+
+            elemento.innerHTML = tabla;
+
+            elemento = document.getElementById('listPaginacion');
+
+            
+            var paginacion = '';
+
+
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
+       console.log(valBucle);
+       if (valBucle > 1) 
+        {
+
+            for (var i=1; i<=valBucle; i++) 
+            {
+                if (i == paginaActiva)
+                {
+                    paginacion = paginacion + '<li><a onclick="Usuarioss('+i+')" class="active" >'+ i +'</a></li>';
+                }
+                else
+                {
+                    paginacion = paginacion + '<li><a onclick="Usuarios('+i+')" >'+ i +'</a></li>';
+                }
+            }
+
+        }
+        else
+        {
+           // paginacion =  '<li><aonclick="Usuarios('+i+')" class="active" >1</a></li>';  
+        }
+
+      //  elemento.innerHTML = paginacion;
+
+        // funcionalidad
+
+        // fin funcionalidad    
+    }, urlapp+"controladores/gestionarMenu.php?funcion=listarModulos&parametros=" + idUsuario);
+
+}
 
 
 
@@ -29,13 +100,10 @@ function listarUsuarios (valPaginacion)
 
             for (item in res) {
 
-                tabla = tabla+ '<tr><td class="column1">' + res[item].usuario  + '</td>'+
-                    '<td class="column2">' + '<input style ="z-index: 100" value="' + x + '" id="r' + x +'" name="r" type="radio" />' + '</td></tr>';
-
-
+                    tabla = tabla+ '<tr><td class="column1">' + res[item].usuario  + '</td>'+
+                    '<td class="column2">' + '<input onclick="verificarModulos(' + res[item].id +')"' + ' value="' + x + '" id="r' + x +'" name="r" type="radio" />' + '</td></tr>';
 
                 x = x + 1;
-                 
             }
 
             elemento.innerHTML = tabla;
@@ -74,23 +142,9 @@ function listarUsuarios (valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, urlapp+"controladores/usuarios.php?funcion=listar&parametros=10," + paginaActiva);
+    }, urlapp+"controladores/gestionarMenu.php?funcion=listarUsuarios&parametros=10," + paginaActiva);
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
