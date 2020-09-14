@@ -33,7 +33,7 @@ switch($_GET['funcion'])
         $_SESSION["idUsuario"] = (json_decode($cadena)[0])->idUsuario;
 
       //  $_SESSION["app"] = 'http://187.237.138.152:9025/' ; //http://187.237.138.152:9025/
-        $_SESSION["app"] = 'http://10.34.66.83:8066/' ; //http://187.237.138.152:9025/
+        $_SESSION["app"] = 'http://10.34.66.82:8055/' ; //http://187.237.138.152:9025/
 
         echo 'true';
        }
