@@ -41,29 +41,42 @@
                            <center>
                               <div class="grid">
                                  <div>
-                                 <table>
-                                       <thead>
-                                          <tr>
-                                             <th style="width:500px;color:white;">Usuarios</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody id ="crpTablaUsuarios">
-                                       </tbody>
-                                    </table>
+
+                                     <table>
+                                         <thead>
+                                         <tr class="table100-head">
+                                             <th class="column1">USUARIOS</th>
+                                             <th class="column2"> </th>
+
+
+                                         </tr>
+                                         </thead>
+                                         <tbody id ="crpTablaUsuarios">
+                                         </tbody>
+                                     </table>
+
+
                                    
                                  </div>
-                                 <div>
-                                   
-                                    <table>
-                                       <thead>
-                                          <tr >
-                                             <th style="width:500px;color:white;" >Modulos</th>
+
+                                  <div>
+
+                                      <table>
+                                          <thead>
+                                          <tr class="table100-head">
+                                              <th class="column1">USUARIOS</th>
+                                              <th class="column2"> </th>
+
+
                                           </tr>
-                                       </thead>
-                                       <tbody id ="crpTablaModulos">
-                                       </tbody>
-                                    </table>
-                                 </div>
+                                          </thead>
+                                          <tbody id ="crpTablaUsuarios">
+                                          </tbody>
+                                      </table>
+
+
+
+                                  </div>
                               </div>
                               <section class="paginacion">
                                  <div id="InsertaModifica">
