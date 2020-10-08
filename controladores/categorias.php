@@ -46,7 +46,12 @@ require '../modelos/categorias.php';
                         
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarCategoria));  
+            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarCategoria)); 
+               
+			while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 
@@ -62,6 +67,11 @@ require '../modelos/categorias.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarCategoria));  
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 

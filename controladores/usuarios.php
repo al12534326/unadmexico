@@ -38,7 +38,13 @@ require '../modelos/usuarios.php';
            
             $stmt = $conn->query(str_replace( array("{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array( $idrol, $idpersonal, $usuario , md5($password), $email, ), $insertaUsuario));  
             
-        break;
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+       
+            break;
 
         case 'modificar' : 
 
@@ -54,7 +60,16 @@ require '../modelos/usuarios.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array($id, $idrol, $idpersonal, $usuario , md5($password), $email), $modificaUsuario));  
-        break;
+           
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+       
+       
+       
+            break;
 
         case 'eliminar'  : 
 

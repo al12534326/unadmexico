@@ -11,10 +11,12 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardar(){
+function AccionGuardar(event){
+    event.preventDefault()
 
+   // alert ('AccionGuardar = ' + accion);
 
-    if (accion == 1){Guardar();}else{ Modificar(); }
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function Remesas (valPaginacion)
@@ -30,16 +32,16 @@ function Remesas (valPaginacion)
         var tabla = '';
 
         for (item in res) {
-                tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
-                '<td class="column2">' +res[item].Empresa + '</td>'+
-                '<td class="column3">' + res[item].noRemesa + '</td>'+
-                '<td class="column4">' + res[item].noOficio + '</td>'+
-                '<td class="column5">' + res[item].fechaOficio + '</td>'+
-                '<td class="column6">' + res[item].descripcion + '</td>'+
-                '<td class="column6">' + res[item].cantidad + '</td>'+
-                '<td class="column6">' + res[item].noPedimento + '</td>'+
-                '<td class="column6">' + res[item].fechaPedimento + '</td>'+
-                '<td class="column7" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>'; 
+                tabla = tabla+ '<tr><td style="width:10px; text-align:left;">' + res[item].id + '</td>'+
+                '<td style="width:50px; text-align:left;">' +res[item].Empresa + '</td>'+
+                '<td style="width:20px; text-align:left;">' + res[item].noRemesa + '</td>'+
+                '<td style="width:50px; text-align:left;">' + res[item].noOficio + '</td>'+
+                '<td style="width:50px; text-align:left;">' + res[item].fechaOficio + '</td>'+
+                '<td style="width:50px; text-align:left;">' + res[item].descripcion + '</td>'+
+                '<td style="width:10px; text-align:left;">' + res[item].cantidad + '</td>'+
+                '<td style="width:300px; text-align:left;">' + res[item].noPedimento + '</td>'+
+                '<td style="width:50px; text-align:left;">' + res[item].fechaPedimento + '</td>'+
+                '<td style="width:100px; text-align:left;" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>'; 
                 if (res[item].totalVines == 0) {
                     tabla = tabla + '<i style="margin-left:15px;" onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>'  + 
                     '<i style="margin-left:15px;" onclick = "CargarRemesa('+res[item].id+','+3+')"class="fa fa-archive aria-hidden="true"></i>';
@@ -102,7 +104,7 @@ function Pedimentos()
 
         elemento.innerHTML = select;
 
-    }, urlapp+"controladores/pedimentos.php?funcion=catalogo")
+    }, urlapp+"controladores/pedimentos.php?funcion=catalogoPedimentoXEmpresa")
 
 
 }
@@ -233,6 +235,9 @@ function Editar(nodo,tipo){
 
 
 function Guardar(){
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
 
 
     var a = encodeURI(document.getElementById('select_pedimento').value)
@@ -243,11 +248,25 @@ function Guardar(){
 
     //alert('a = '+a + 'b = '+b + 'c = '+ c + 'd = '+d + ' e = '+e)
 
-    if (a != '' && b != '' && c != '' && d != '' && e != ''){
+    if (a != '' && b != '' && c != '' && d != '' && e != '' && e >=1 && e <= 200){
       
         ajaxGeneral(function(res){  
-        alert('!Registro correcto');
-        Cancelar();
+            console.log(res[0])
+
+            if(res[0].error == 'true'){
+     
+             var alertx = document.getElementById("divAlerta");
+                     // alertx.innerHTML = "El campo de producto es obligatorio";
+                     alertx.style.display="block";
+     
+                     var div = document.getElementById('txt_alert');
+     
+                     div.innerHTML += res[0].data;
+            }else{
+     
+             Cancelar();
+     
+            }
     }, urlapp+"controladores/remesas.php?funcion=guardar&parametros="+a+','+b+','+c+','+d+','+e)
 }else
 { //alert('!Error el nombre del producto no puede estar en blanco!')

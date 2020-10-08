@@ -36,6 +36,11 @@ require '../modelos/correos.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{correo}}"), array( $idEmpresa, $correo), $insertarCorreo));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 
@@ -50,6 +55,11 @@ require '../modelos/correos.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{correo}}"), array($id, $idEmpresa, $correo), $modificarCorreo));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
         break;
 
         case 'eliminar'  : 

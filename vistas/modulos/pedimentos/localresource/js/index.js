@@ -13,10 +13,12 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardar(){
+function AccionGuardar(event){
+    event.preventDefault()
 
+   // alert ('AccionGuardar = ' + accion);
 
-    if (accion == 1){Guardar();}else{ Modificar(); }
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function Pedimentos (valPaginacion)
@@ -32,13 +34,13 @@ function Pedimentos (valPaginacion)
         var tabla = '';
 
         for (item in res) {
-                tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
-                '<td class="column2">' +res[item].Empresa + '</td>'+
-                '<td class="column3">' + res[item].TipoPedimentos + '</td>'+
-                '<td class="column4">' + res[item].Producto + '</td>'+
-                '<td class="column5">' + res[item].noPedimento + '</td>'+
-                '<td class="column6">' + res[item].fechaCreacion + '</td>'+
-                '<td class="column7" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                tabla = tabla+ '<tr><td style="width:10px:txt-align:left;">' + res[item].id + '</td>'+
+                '<td style="width:100px:txt-align:left;">' +res[item].Empresa + '</td>'+
+                '<td style="width:100px:txt-align:left;">' + res[item].TipoPedimentos + '</td>'+
+                '<td style="width:100px:txt-align:left;">' + res[item].Producto + '</td>'+
+                '<td style="width:350px; text-align:left;">' + res[item].noPedimento + '</td>'+
+                '<td style="width:10px:txt-align:left;">' + res[item].fechaCreacion + '</td>'+
+                '<td style="width:10px:txt-align:left;">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -239,8 +241,55 @@ function Editar(nodo,tipo){
 
 }
 
+function validarTamaño(e){
+    var Max_Length = 35;
+    var keyA = e.keyCode || e.which;
+    var length = document.getElementById("noPedimento").value.length;
+    if (length > Max_Length) {
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="block";
+
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="none";
+    }else{
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="none";
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="block";
+    }
+}
+
+function sololetras(e) {
+    var Max_Length = 35;
+    var key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+
+        var alertx = document.getElementById("divAlerta2");
+
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+    return false;
+  }
+
+}
+
 
 function Guardar(){
+
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
+    
     var a = encodeURI(document.getElementById('noPedimento').value)
     var b = encodeURI(document.getElementById('select_producto').value)
     var c = encodeURI(document.getElementById('select_empresa').value)
@@ -248,8 +297,22 @@ function Guardar(){
 
     if (a != '' && b != '' && c != '' && d != ''){
         ajaxGeneral(function(res){
-        alert('Registro correcto');
-        Cancelar();
+            console.log(res[0])
+
+            if(res[0].error == 'true'){
+     
+             var alertx = document.getElementById("divAlerta");
+                     // alertx.innerHTML = "El campo de producto es obligatorio";
+                     alertx.style.display="block";
+     
+                     var div = document.getElementById('txt_alert');
+     
+                     div.innerHTML += res[0].data;
+            }else{
+     
+             Cancelar();
+     
+            }
     }, urlapp+"controladores/pedimentos.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
 }else
 { //alert('!Error el nombre del producto no puede estar en blanco!')

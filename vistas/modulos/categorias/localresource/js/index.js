@@ -9,7 +9,8 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardar(){
+function AccionGuardar(event){
+    event.preventDefault()
 
    // alert ('AccionGuardar = ' + accion);
 
@@ -165,19 +166,88 @@ function Editar(nodo,tipo){
 
 }
 
+function validarTamaño(e){
+    var Max_Length = 35;
+    var keyA = e.keyCode || e.which;
+    var length = document.getElementById("categoria").value.length;
+    if (length > Max_Length) {
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="block";
+
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="none";
+    }else{
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="none";
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="block";
+    }
+}
+
+function sololetras(e) {
+    var Max_Length = 35;
+    var key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+
+        var alertx = document.getElementById("divAlerta2");
+
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+    return false;
+  }
+
+}
+
 
 function Guardar(){
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
+   
     var a =  encodeURI(document.getElementById('categoria').value)
     if (a !='' ){
     ajaxGeneral(function(res){
-        alert('Registro Correcto');
+       
+       console.log(res[0])
+
+       if(res[0].error == 'true'){
+
+        var alertx = document.getElementById("divAlerta");
+                // alertx.innerHTML = "El campo de producto es obligatorio";
+                alertx.style.display="block";
+
+                var div = document.getElementById('txt_alert');
+
+                div.innerHTML += res[0].data;
+       }else{
+
         Cancelar();
+
+       }
+        
     }, urlapp+"controladores/categorias.php?funcion=guardar&parametros="+a)
    }else
    {//alert('!Error el nombre del producto no puede estar en blanco!')
+
+
   var alertx = document.getElementById("divAlerta");
   // alertx.innerHTML = "El campo de producto es obligatorio";
    alertx.style.display="block";
+
+   var div = document.getElementById('txt_alert');
+
+   div.innerHTML += 'El campo de Categoria es obligatorio';
+
    }
   
 }

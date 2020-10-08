@@ -7,16 +7,30 @@ let listaVins = null;
 let listData = null;
 let listError = null;
 
+let contadorVines = 0;
+let tamañoVines = 0;
+let tamañoErrorVines = 0;
+let leyendaErrorVines = '';
+let str = null;
+let cantidad = 0;
+
 const selectElement = document.getElementById('my_upload');
 
 selectElement.addEventListener('change', (evt) => {
     var selectedFile = evt.target.files[0];
     var reader = new FileReader();
+
+    if (selectedFile.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+
+   // alert(selectedFile.type);
+
     reader.onload = function(event) {
         var data = event.target.result;
         var workbook = XLSX.read(data, {
             type: 'binary'
         });
+
+
         workbook.SheetNames.forEach(function(sheetName) {
 
             var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
@@ -32,37 +46,75 @@ selectElement.addEventListener('change', (evt) => {
 
            for (items in obj){
             console.log(obj[items].Vin);
+            contadorVines = contadorVines + 1;
+            str = obj[items].Vin;
+            tamañoVines = str.length;
+
+            if (tamañoVines == 17){
+                 tamañoErrorVines = 0;
+                 leyendaErrorVines = '';
+             }else{
+                 tamañoErrorVines = 1;
+                 leyendaErrorVines = 'la longitud del vin debe ser de 17 caracteres';
+             }
 
             listaVins = listaVins +  obj[items].Vin + ",  ";
           
           }
 
-          var listadoVines = listaVins.replace(null,'');
 
-          document.getElementById("jsonObject").innerHTML = listadoVines;
-
-          
+          if (contadorVines !=0 ){
+            var listadoVines = listaVins.replace(null,'');
+            document.getElementById("jsonObject").innerHTML = listadoVines;
+          }
+ 
             cargamaster = json_object;
             cargamasterExcel = json_object;
-
 
             //document.getElementById("jsonObject").innerHTML = json_object;
         }
         
         )
 
-        console.log(cargamaster);
-        CargaMaster(JSON.stringify(cargamaster))
+        cantidad = document.getElementById("cantidad").value;
 
+       
+
+      //  alert("cantidad = " + cantidad);
+
+        if (contadorVines != 0 ){
+
+          //  alert(contadorVines);
+         //  alert(tamañoErrorVines);
+
+            if (contadorVines == cantidad && tamañoErrorVines == 0){
+                console.log(cargamaster);
+                CargaMaster(JSON.stringify(cargamaster))
+            }else{
+                document.getElementById("Aviso").innerHTML = 'La cantidad de vins en la remesa es de = ' + cantidad + ' y el Excel tiene = ' + contadorVines + ' ' + leyendaErrorVines;
+                var accion = document.getElementById("salirCargaExcel");
+                accion.style.display = "block";
+            }
+           
+        }else{
+            document.getElementById("Aviso").innerHTML = 'El archivo de excel no contiene vins';
+            var accion = document.getElementById("salirCargaExcel");
+            accion.style.display = "block";
+        }
     };
 
-
-
     reader.onerror = function(event) {
+        alert( "File could not be read! Code  " + event.target.error.code);
+
         console.error("File could not be read! Code " + event.target.error.code);
     };
 
     reader.readAsBinaryString(selectedFile);
+}else{
+    document.getElementById("Aviso").innerHTML = 'El archivo No es un formato de excel';
+    var accion = document.getElementById("salirCargaExcel");
+    accion.style.display = "block";
+}
 
 });
 

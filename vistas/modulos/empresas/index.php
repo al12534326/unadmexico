@@ -78,17 +78,17 @@
                                         <option value="value3">Madrinas</option>
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NOMBRE:</b></label>
-                                      <input name="nombre" type="text"  required autofocus id="nombre"/>
+                                      <input name="nombre" type="text"  required autofocus id="nombre" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>RAZON SOCIAL:</b></label>
-                                      <input name="razon" type="text"  required id = "razon"/>	
+                                      <input name="razon" type="text"  required id = "razon" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PATENTE:</b></label>
-                                      <input name="patente" type="text" id = "patente" required />	
+                                      <input name="patente" type="text" id = "patente" required onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)" />	
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -105,7 +105,11 @@
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>Todos los campos son obligatorios</strong> 
+                                        <strong id="txt_alert"></strong> 
+                                      </div>
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres para el campo es de 35</strong> 
                                       </div>
                              </form>	
                         </div>

@@ -43,12 +43,12 @@
                      <table>
                         <thead>
                           <tr class="table100-head">
-                            <th class="column1">ID</th>
-                            <th class="column2">EMPRESA</th>
-                            <th class="column3">APELLIDO PATERNO</th>
-                            <th class="column3">APELLIDO MATERNO</th>
-                            <th class="column3">NOMBRE</th>
-                            <th class="column4">ACCIONES</th>
+                            <th style="width:10px;txt-align:left;">ID</th>
+                            <th style="width:100px;txt-align:left;">EMPRESA</th>
+                            <th style="width:100px;txt-align:left;">APELLIDO PATERNO</th>
+                            <th style="width:100px;txt-align:left;">APELLIDO MATERNO</th>
+                            <th style="width:100px;txt-align:left;">NOMBRE</th>
+                            <th style="width:100px;txt-align:left;">ACCIONES</th>
                           </tr>
                         </thead>
                         <tbody id ="crpTabla">
@@ -80,17 +80,17 @@
                                         <option value="value3">SSA</option>
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>APELLIDO PATERNO:</b></label>
-                                      <input name="apellidoPaterno" type="text"  required autofocus id="apellidoPaterno"/>
+                                      <input name="apellidoPaterno" type="text"  required autofocus id="apellidoPaterno" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>APELLIDO MATERNO:</b></label>
-                                      <input name="apellidoMaterno" type="text"  required autofocus id="apellidoMaterno"/>
+                                      <input name="apellidoMaterno" type="text"  required autofocus id="apellidoMaterno" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NOMBRES:</b></label>
-                                      <input name="nombre" type="text"  required autofocus id="nombre"/>
+                                      <input name="nombre" type="text"  required autofocus id="nombre" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -107,8 +107,15 @@
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>Todos los campos son obligatorios</strong> 
+                                        <strong id="txt_alert"></strong> 
                                       </div>
+
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres para este campo es de es de 35</strong> 
+                                      </div>
+
+
                              </form>	
                         </div>
                         </section>

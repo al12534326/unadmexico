@@ -10,6 +10,8 @@ function autenticar(){
 
         if(res == true){
            window.location.replace("../../../vistas/modulos/inicio/index.php");
+
+           grabarBitacora();
         }
         else{
 
@@ -18,7 +20,12 @@ function autenticar(){
         }
 
   //  }, "http://187.237.138.152:9025/controladores/login.php?funcion=login&parametros="+user+","+pass);
-    }, "http://10.34.66.82:8055/controladores/login.php?funcion=login&parametros="+user+","+pass);
+    }, "http://10.34.66.83:8066/controladores/login.php?funcion=login&parametros="+user+","+pass);
+}
+
+
+function grabarBitacora(){
+    
 }
 
 

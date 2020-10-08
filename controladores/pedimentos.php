@@ -1,9 +1,29 @@
 <?php 
+session_start();
+
 require '../modelos/conexion.php';
 require '../modelos/pedimentos.php';
 
     switch($_GET['funcion'])
     {
+
+
+        case 'catalogoPedimentoXEmpresa':
+
+        $idEmpresa = $_SESSION["idEmpresa"];
+
+
+        $res = [];
+
+        $stmt = $conn->query(str_replace( array("{{idEmpresa}}"), array($idEmpresa), $getCatalogoPedimentosxEmpresa));
+
+        while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
+            array_push ($res, $row);
+        }
+        echo json_encode($res);
+
+
+        break;
 
 
         case 'catalogo':
@@ -20,9 +40,6 @@ require '../modelos/pedimentos.php';
 
 
             break;
-
-
-
 
         case 'listar':
 
@@ -57,6 +74,12 @@ require '../modelos/pedimentos.php';
            
             $stmt = $conn->query(str_replace( array("{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array( $pedimento, $idProducto, $idEmpresa , $idTipoPedimento ), $insertarPedimento));
             
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+
+
         break;
 
         case 'modificar' :
@@ -73,6 +96,12 @@ require '../modelos/pedimentos.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array($id, $pedimento, $idProducto, $idEmpresa , $idTipoPedimento), $modificarPedimento));
+        
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
         break;
 
         case 'eliminar'  :

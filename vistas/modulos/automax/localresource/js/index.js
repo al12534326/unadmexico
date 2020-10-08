@@ -44,13 +44,13 @@ function RevisionAutomax(valPaginacion)
         var tabla = '';
 
             for (item in res) {
-                tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
-                '<td class="column2">' +res[item].fechaCreacion + '</td>'+
-                '<td class="column3">' +res[item].empresa + '</td>'+
-                '<td class="column4">' + res[item].placas + '</td>'+
-				'<td class="column5">' + res[item].NoViaje + '</td>'+
-				'<td class="column6">' + res[item].cantidad + '</td>'+
-	            '<td class="column7" style = "">' + '<i onclick = "EditarPlaca('+res[item].id+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>' + '</td></tr>';
+                tabla = tabla+ '<tr><td style="width:10px;text-align:left;">' + res[item].id + '</td>'+
+                '<td style="width:150px;text-align:left;">' +res[item].fechaCreacion + '</td>'+
+                '<td style="width:150px;text-align:left;">' +res[item].empresa + '</td>'+
+                '<td style="width:150px;text-align:left;">' + res[item].placas + '</td>'+
+				'<td style="width:150px;text-align:left;">' + res[item].NoViaje + '</td>'+
+				'<td style="width:150px;text-align:left;">' + res[item].cantidad + '</td>'+
+	            '<td style="width:150px;text-align:left;">' + '<i onclick = "EditarPlaca('+res[item].id+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;

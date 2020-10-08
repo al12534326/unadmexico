@@ -71,7 +71,7 @@
                                       
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PRODUCTO:</b></label>
-                                      <input name="producto" type="text"  required autofocus id="producto"/>
+                                      <input name="producto" type="text"  required autofocus id="producto" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
 
                                       <section  class="paginacion">
@@ -79,21 +79,21 @@
 
                                       <div style="display:none;" id="alerta" name="alerta" class="alert">
                                          <span  id="aviso" name="aviso" class="closebtn" onclick="cerrarBoton(event)">&times;</span>
-                                        x
+                                      
                                       </div>
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
                                             <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
-                                          </ul>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
+                                          </ul>s
                                         </div>
 
 
@@ -102,10 +102,12 @@
                                       
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>El campo de producto es obligatorio</strong> 
+                                        <strong id="txt_alert"></strong> 
                                       </div>
-
-
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El El maximo de caracteres es de 35</strong> 
+                                      </div>
 
                              </form>	
                         </div>

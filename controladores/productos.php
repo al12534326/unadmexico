@@ -47,11 +47,19 @@ require '../modelos/productos.php';
             
             $res = [];
 
-            if ($nombre != '' ){
-                $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
-            }else{
-                $res = "error el campo al guardar el registro";
-            }
+            $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+
+          //  if ($nombre != '' ){
+          //      $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
+         //   }else{
+         //       $res = "error el campo al guardar el registro";
+         //   }
            
            
             
@@ -67,7 +75,14 @@ require '../modelos/productos.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarProducto));
-        break;
+       
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+       
+            break;
 
         case 'eliminar'  :
 

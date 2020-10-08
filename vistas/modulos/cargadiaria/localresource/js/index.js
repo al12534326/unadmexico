@@ -6,12 +6,16 @@ let listaVins = null;
 
 let listData = null;
 let listError = null;
+let contadorVines = 0;
 
 const selectElement = document.getElementById('my_upload');
 
 selectElement.addEventListener('change', (evt) => {
     var selectedFile = evt.target.files[0];
     var reader = new FileReader();
+
+    if (selectedFile.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+
     reader.onload = function(event) {
         var data = event.target.result;
         var workbook = XLSX.read(data, {
@@ -40,16 +44,36 @@ selectElement.addEventListener('change', (evt) => {
 
         for (items in obj){
          console.log(obj[items].Vin);
+         contadorVines = contadorVines + 1;
 
          listaVins = listaVins +  obj[items].vin + ",  ";
        
        }
 
-       var listadoVines = listaVins.replace(null,'');
 
-       document.getElementById("jsonObject").innerHTML = listadoVines;
+       if (contadorVines !=0 ){
+        var listadoVines = listaVins.replace(null,'');
+        document.getElementById("jsonObject").innerHTML = listadoVines;
+      }
+
+
+
+
+       //var listadoVines = listaVins.replace(null,'');
+
+      // document.getElementById("jsonObject").innerHTML = listadoVines;
+
+      if (contadorVines != 0 ){
 
         CargaDiaria(JSON.stringify(cargadiaria))
+         
+      }else{
+          document.getElementById("Aviso").innerHTML = 'El archivo de excel no contiene vins';
+          var accion = document.getElementById("salirCargaExcel");
+          accion.style.display = "block"
+      }
+
+      //  CargaDiaria(JSON.stringify(cargadiaria))
 
     };
 
@@ -60,6 +84,12 @@ selectElement.addEventListener('change', (evt) => {
     };
 
     reader.readAsBinaryString(selectedFile);
+
+}else{
+    document.getElementById("Aviso").innerHTML = 'El archivo No es un formato de excel';
+    var accion = document.getElementById("salirCargaExcel");
+    accion.style.display = "block";
+}
 
 });
 

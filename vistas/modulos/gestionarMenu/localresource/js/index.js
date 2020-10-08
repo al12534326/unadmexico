@@ -2,24 +2,47 @@
 var data = null;
 
 var accion = 0;
+var permiso = 0;
 
 
 listarUsuarios(null);
-//ObtenerRoles();
-//ObtenerPersonal();
-
-
 // Funciones
 
 
-function verificarPermisos(idModulo, idUsuaio){
+function Cancelar(){
 
-alert(idModulo);
+    listarUsuarios(null);
 
-
+   
 }
 
 
+function verificarPermisos(idModulo, idUsuario){
+
+    cajaBox = document.getElementById('p'+idModulo);
+
+    var isChecked = cajaBox.checked;
+    if(isChecked){
+        permiso = 1;
+    }
+    else{
+        console.log('no esa chekeado');
+        permiso = 0;
+    }
+
+ajaxGeneral(function(res){
+
+    data = res;
+    elemento = document.getElementById('crpTablaModulos');
+    var tabla = '';
+    var checado ="Checked"
+
+    var x = 1;
+    
+}, urlapp+"controladores/gestionarMenu.php?funcion=asignarPermisos&parametros=" + idUsuario + ',' + idModulo + ',' + permiso);
+
+
+}
 
 function verificarModulos(idUsuario){
 
@@ -32,12 +55,19 @@ function verificarModulos(idUsuario){
 
         var tabla = '';
 
+        var checado ="Checked"
+
         var x = 1;
 
             for (item in res) {
 
+                if (res[item].Existe == 1){
+                    checado ="Checked"
+                } else{checado =""}
+
+
                     tabla = tabla+ '<tr><td class="column1">' + res[item].menu  + '</td>'+
-                    '<td class="column2">' + '<input onclick="verificarPermisos(' + res[item].idModulo + ',' + res[item].idUsuario  +')"' + ' value="' + x + '" id="r' + x +'" name="r" type="checkbox" />' + '</td></tr>';
+                    '<td class="column2">' + '<input ' + checado +' onclick="verificarPermisos(' + res[item].idModulo + ',' + res[item].idUsuario +  ')"  id="p' + x +'" name="p' + x +'" type="checkbox" />' + '</td></tr>';
 
                 x = x + 1;
             }
