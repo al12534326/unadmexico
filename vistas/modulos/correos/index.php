@@ -78,13 +78,13 @@
                                         <option value="value3">SSA</option>
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CORREO:</b></label>
-                                      <input name="correo" type="text"  required autofocus id="correo"/>
+                                      <input name="correo" type="text"  required autofocus id="correo" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -101,7 +101,11 @@
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>El campo de Correo es obligatorio</strong> 
+                                        <strong id="txt_alert"></strong> 
+                                      </div>
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres es de 35</strong> 
                                       </div>
                              </form>	
                         </div>

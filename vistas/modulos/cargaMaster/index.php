@@ -86,7 +86,7 @@
                             <tr><td class="column1"><?php echo $_GET["idRemesa"]; ?></td>
                                 <td class="column2"><?php echo $_GET["remesa"]; ?></td>
                                 <td class="column3"><?php echo $_GET["noOficio"]; ?></td>
-                                <td class="column3"><?php echo $_GET["cantidad"]; ?></td>
+                                <td class="column4"><input id="cantidad" disabled value=<?php echo $_GET["cantidad"]; ?> /></td>
                             </tr>  
                         </tbody>
                       </table>

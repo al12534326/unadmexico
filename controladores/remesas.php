@@ -1,10 +1,14 @@
 <?php 
+
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/remesas.php';
 
     switch($_GET['funcion'])
     {
         case 'listar':
+
+           $idEmpresa = $_SESSION["idEmpresa"];
 
             $parametros = explode(',', $_GET['parametros']);
         
@@ -13,7 +17,7 @@ require '../modelos/remesas.php';
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}"), array($pagina, $renglones), $getRemesas));
+            $stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}","{{idEmpresa}}"), array($pagina, $renglones, $idEmpresa), $getRemesas));
             
 			while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
 			     array_push ($res, $row);
@@ -38,7 +42,14 @@ require '../modelos/remesas.php';
            
             $stmt = $conn->query(str_replace( array("{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array( $idPedimento, $noRemesa, $noOficio , $descripcion,  $cantidad ), $insertarRemesa));
             
-        break;
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+       
+       
+            break;
 
         case 'modificar' :
 
@@ -55,7 +66,15 @@ require '../modelos/remesas.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{idPedimento}}","{{noRemesa}}","{{noOficio}}","{{descripcion}}", "{{cantidad}}"), array($id, $idPedimento, $noRemesa, $noOficio , $descripcion, $cantidad ), $modificarRemesa));
-        break;
+       
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+       
+       
+            break;
 
         case 'eliminar'  :
 

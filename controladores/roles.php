@@ -50,6 +50,12 @@ require '../modelos/roles.php';
 
             $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarRol));
 
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
+
             break;
 
 
@@ -64,6 +70,12 @@ require '../modelos/roles.php';
             $res = [];
 
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarRol));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+        
 
             break;
 

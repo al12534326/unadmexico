@@ -10,11 +10,12 @@ var accion = 0;
 
 // Funciones
 
-function AccionGuardar(){
+function AccionGuardar(event){
+    event.preventDefault()
 
-   
+   // alert ('AccionGuardar = ' + accion);
 
-    if (accion == 1){Guardar();}else{ Modificar(); }
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function Usuarios (valPaginacion) 
@@ -212,7 +213,57 @@ function Editar(nodo,tipo){
 }
 
 
+function validarTamaño(e){
+    var Max_Length = 35;
+    var keyA = e.keyCode || e.which;
+    var lengthUS = document.getElementById("usuario").value.length;
+    var lengthPS = document.getElementById("password").value.length;
+    var lengthEmail = document.getElementById("email").value.length;
+    var alertaCampo = document.getElementById("divAlerta2");
+   
+    var mostrarInsertaModifica = document.getElementById('InsertaModifica');
+     
+    if (lengthUS > Max_Length || lengthPS > Max_Length || lengthEmail > Max_Length ) {
+        alertaCampo.style.display="block";
+        mostrarInsertaModifica.style.display="none";
+    }else{
+        alertaCampo.style.display="none";
+        mostrarInsertaModifica.style.display="block";
+    }
+
+   
+}
+
+function sololetras(e) {
+    var Max_Length = 35;
+    var key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+
+        var alertx = document.getElementById("divAlerta2");
+
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+    return false;
+  }
+
+}
+
+
 function Guardar(){
+
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
 
     var a = encodeURI(document.getElementById('select_roles').value)
     var b = encodeURI(document.getElementById('select_personal').value)
@@ -224,8 +275,22 @@ function Guardar(){
    
 
     ajaxGeneral(function(res){
-        alert('!Registro correcto!')
-        Cancelar();
+        console.log(res[0])
+
+        if(res[0].error == 'true'){
+ 
+         var alertx = document.getElementById("divAlerta");
+                 // alertx.innerHTML = "El campo de producto es obligatorio";
+                 alertx.style.display="block";
+ 
+                 var div = document.getElementById('txt_alert');
+ 
+                 div.innerHTML += res[0].data;
+        }else{
+ 
+         Cancelar();
+ 
+        }
     }, urlapp+"controladores/usuarios.php?funcion=guardar&parametros="+a+','+b+','+c+','+d+','+e)
    }else
    { //alert('!Error el nombre del producto no puede estar en blanco!')

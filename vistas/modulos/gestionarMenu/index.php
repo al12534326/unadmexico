@@ -64,8 +64,8 @@
                                       <table>
                                           <thead>
                                           <tr class="table100-head">
-                                              <th class="column1">Modulos</th>
-                                              <th class="column2"> </th>
+                                              <th class="column3">Modulos</th>
+                                              <th class="column4"> </th>
 
 
                                           </tr>
@@ -81,9 +81,8 @@
                               <section class="paginacion">
                                  <div id="InsertaModifica">
                                     <ul >
-                                       <li><a ><button onclick="AccionAutorizar(1)" class="btn">AUTORIZAR</i></button></a></li>
-                                       <li><a ><button onclick="AccionAutorizar(2)" class="btn">RECHAZAR</i></button></a></li>
-                                       <li><a ><button onclick="CancelarRevision1()">CANCELAR</i></button></a></li>
+                                      
+                                       <li><a ><button onclick="Cancelar()">LIMPIAR PANTALLA</i></button></a></li>
                                     </ul>
                                  </div>
                               </section>

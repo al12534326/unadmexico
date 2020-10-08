@@ -18,17 +18,23 @@ function AccionAutorizar(accion){
 	var modulador = 2;
 	var estado = accion;
     var obs = encodeURI(document.getElementById('observaciones').value);
-
     if (obs != ''){
-
-    ajaxGeneral(function(res){
-    alert('!Se autorizo corretamente')
-    CancelarRevision1();
-    }, urlapp+"controladores/revision2.php?funcion=autorizar_modulador2&parametros="+id+'¬'+modulador+'¬'+estado+'¬'+obs)
-}else
-{alert('!El campo de observaciojes es obligatorio')}	
+        if (accion == 1){
+            var x = document.getElementById("divAlerta2");
+            x.style.display = "block";
+               // alert('Se autorizo la placa'); 
+        }else{
+                //alert('Se rechazo la placa'); 
+                var y = document.getElementById("divAlerta");
+                y.style.display = "block";
+        }
+        ajaxGeneral(function(res){
+          
+        CancelarRevision2();
+        },  urlapp+"controladores/revision2.php?funcion=autorizar_modulador2&parametros="+id+'¬'+modulador+'¬'+estado+'¬'+obs)
+      }else
+      {alert('!El campo de observaciones es obligatorio')}
 }
-
 
 
 function AccionGuardar(){
@@ -49,13 +55,13 @@ function RevisionModulador2(valPaginacion)
         var tabla = '';
 
             for (item in res) {
-                tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
-                '<td class="column2">' +res[item].fechaCreacion + '</td>'+
-                '<td class="column3">' +res[item].empresa + '</td>'+
-                '<td class="column4">' + res[item].placas + '</td>'+
-				'<td class="column5">' + res[item].NoViaje + '</td>'+
-				'<td class="column6">' + res[item].cantidad + '</td>'+
-	            '<td class="column7" style = "">' + '<i onclick = "EditarPlaca('+res[item].id+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>' + '</td></tr>';
+                tabla = tabla+ '<tr><td style="width:10px;text-align:left;">' + res[item].id + '</td>'+
+                '<td style="width:150px;text-align:left;">' +res[item].fechaCreacion + '</td>'+
+                '<td style="width:150px;text-align:left;">' +res[item].empresa + '</td>'+
+                '<td style="width:150px;text-align:left;">' + res[item].placas + '</td>'+
+				'<td style="width:150px;text-align:left;">' + res[item].NoViaje + '</td>'+
+				'<td style="width:150px;text-align:left;">' + res[item].cantidad + '</td>'+
+	            '<td style="width:150px;text-align:left;">' + '<i onclick = "EditarPlaca('+res[item].id+')" class="fa fa-pencil-square-o" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -232,7 +238,7 @@ function EditarPlaca(nodo){
     document.getElementById('placas').value = found.placas
     document.getElementById('noViaje').value =found.NoViaje
     document.getElementById('cantidad').value =found.cantidad
-    document.getElementById('observaciones').value =found.observacion
+    document.getElementById('histobservaciones').value =found.observacion
 
     document.getElementById('id').setAttribute("disabled", true);
     document.getElementById('fecha').setAttribute("disabled", false);
@@ -240,6 +246,8 @@ function EditarPlaca(nodo){
     document.getElementById('placas').setAttribute("disabled", false);
     document.getElementById('noViaje').setAttribute("disabled", false);
     document.getElementById('cantidad').setAttribute("disabled", false);
+    document.getElementById('histobservaciones').setAttribute("disabled", false);
+
     
 
 

@@ -71,22 +71,22 @@
                                       <input id="id" name="id" type="hidden">
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>TIPO DE PEDIMENTO:</b></label>
-                                      <input name="tipoPedimento" type="text"  required autofocus id="tipoPedimento"/>
+                                      <input name="tipoPedimento" type="text"  required autofocus id="tipoPedimento" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
                                             <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
@@ -95,7 +95,11 @@
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>El campo tipo de pedimento es obligatorio</strong> 
+                                        <strong id="txt_alert"></strong> 
+                                      </div>
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres es de 35</strong> 
                                       </div>
                              </form>	
                         </div>

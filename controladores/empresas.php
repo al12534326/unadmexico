@@ -93,6 +93,11 @@ require '../modelos/empresas.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array( $nombre, $razon, $patente , $categoria), $insertaEmpresa));  
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 
@@ -109,6 +114,12 @@ require '../modelos/empresas.php';
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array($id, $nombre, $razon, $patente , $categoria), $modificaEmpresa));  
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+
         break;
 
         case 'eliminar'  : 

@@ -92,17 +92,17 @@
                                       </select>	
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>USUARIO:</b></label>
-                                      <input name="usuario" type="text"  required autofocus id="usuario"/>
+                                      <input name="usuario" type="text"  required autofocus id="usuario"  onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PASSWORD:</b></label>
-                                      <input name="password" type="password"  required id = "password"/>	
+                                      <input name="password" type="password"  required id = "password"  onkeyup="return validarTamaño(event)"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>EMAIL:</b></label>
-                                      <input name="email" type="text" id = "email" required />	
+                                      <input name="email" type="text" id = "email" required onkeyup="return validarTamaño(event)" />	
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -119,8 +119,14 @@
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>Todos los campos son obligatorios</strong> 
+                                        <strong id="txt_alert"></strong> 
                                       </div>
+
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres para este campo es de 35</strong> 
+                                      </div>
+
                              </form>	
                         </div>
                         </section>

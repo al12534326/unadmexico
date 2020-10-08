@@ -35,31 +35,12 @@ form input, form textarea, select{
 }
 
 @media screen and (max-width: 992px) {
-  table tbody tr td:nth-child(1):before {
-    content: "ID";
-  }
   table tbody tr td:nth-child(2):before {
-    content: "FECHA";
+    content: "USUARIO";
   }
-  table tbody tr td:nth-child(3):before {
-    content: "EMPRESA";
-  }
-
   table tbody tr td:nth-child(4):before {
-    content: "PLACAS";
+    content: "PERMISO";
   }
-
-  table tbody tr td:nth-child(5):before {
-    content: "NO. VIAJE";
-  }
-
-  table tbody tr td:nth-child(6):before {
-    content: "CANTIDAD";
-  }
-
  
-  table tbody tr td:nth-child(7):before {
-    content: "ACCIONES";
-  }
 
 }

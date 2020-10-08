@@ -44,7 +44,7 @@ require '../modelos/gestionarMenu.php';
 
         break;
 
-        case 'gestionPermiso' : 
+        case 'asignarPermisos' : 
 
             $parametros = explode(',', $_GET['parametros']);
 
@@ -53,8 +53,14 @@ require '../modelos/gestionarMenu.php';
             $idPermiso = urldecode ($parametros [2]);
                        
             $res = [];
-           
-            $stmt = $conn->query(str_replace( array("{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}"), array( $idrol, $idpersonal, $usuario , md5($password), $email, ), $insertaUsuario));  
+
+                     
+            $stmt = $conn->query(str_replace( array("{{idUsuario}}","{{idModulo}}","{{Permiso}}"), array( $idUsuario, $idModulo, $idPermiso), $grabarPermisos));  
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res);
             
         break;
         

@@ -43,14 +43,13 @@
                      <table>
                         <thead>
                           <tr class="table100-head">
-                            <th class="column1">ID</th>
-                            <th class="column2">FECHA</th>
-                            <th class="column3">EMPRESA</th>
-                            <th class="column4">PLACAS</th>
-							
-                            <th class="column5">NO. VIAJE</th>
-                            <th class="column6">CANTIDAD</th>
-	                        <th class="column7">ACCIONES</th>
+                            <th style="width:10px;text-align:left;">ID</th>
+                            <th style="width:150px;text-align:left;">FECHA</th>
+                            <th style="width:150px;text-align:left;">EMPRESA</th>
+                            <th style="width:150px;text-align:left;">PLACAS</th>
+                            <th style="width:150px;text-align:left;">NO. VIAJE</th>
+                            <th style="width:150px;text-align:left;">CANTIDAD</th>
+	                        <th style="width:150px;text-align:left;">ACCIONES</th>
                           </tr>
                         </thead>
                         <tbody id ="crpTabla">
@@ -83,15 +82,14 @@
                                         <input name="fecha" type="text"  required autofocus id="fecha"/>
                                         <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>EMPRESA:</b></label>
                                         <input name="empresa" type="text"  required id = "empresa"/>
-
-									    <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PLACAS:</b></label>
+									                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PLACAS:</b></label>
                                         <input name="placas" type="text"  required autofocus id="placas"/>
                                         <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NO. VIAJE:</b></label>
                                         <input name="noViaje" type="text"  required id = "noViaje"/>
-
-									    <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CANTIDAD:</b></label>
+                  									    <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CANTIDAD:</b></label>
                                         <input name="cantidad" type="text"  required id = "cantidad"/>
-									  
+									                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>HISTORIAL:</b></label>
+                                        <input name="histobservaciones" type="text" id = "histobservaciones" required />	
                                         <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>OBSERVACIONES:</b></label>
                                         <input name="observaciones" type="text" id = "observaciones" required />	
                                     </div>
@@ -119,6 +117,14 @@
                                         </div>
                                 </section>
                                 <br>
+                                <div style="display:none;" id="divAlerta" class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                <strong>Placa rechazada</strong> 
+                              </div>
+                              <div style="display:none;" id="divAlerta2" class="success">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                <strong>Placa Autorizada</strong> 
+                              </div>
                              </form>	
                         </div>
                         </section>

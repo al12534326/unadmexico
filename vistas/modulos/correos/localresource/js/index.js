@@ -8,10 +8,12 @@ var accion = 0;
 
 
 // Funciones
+function AccionGuardar(event){
+    event.preventDefault()
 
-function AccionGuardar(){
+   // alert ('AccionGuardar = ' + accion);
 
-    if (accion == 1){Guardar();}else{ Modificar(); }
+       if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
 function ObtenerCorreos(valPaginacion)
@@ -183,7 +185,55 @@ function Editar(nodo,tipo){
 
 }
 
+
+function validarTamaño(e){
+    var Max_Length = 35;
+    var keyA = e.keyCode || e.which;
+    var length = document.getElementById("correo").value.length;
+    if (length > Max_Length) {
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="block";
+
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="none";
+    }else{
+        var alertx = document.getElementById("divAlerta2");
+        alertx.style.display="none";
+        var IM = document.getElementById('InsertaModifica');
+        IM.style.display="block";
+    }
+}
+
+function sololetras(e) {
+    var Max_Length = 35;
+    var key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase(),
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    especiales = [8, 37, 39, 46],
+    tecla_especial = false;
+
+        var alertx = document.getElementById("divAlerta2");
+
+  for (var i in especiales) {
+    if (key == especiales[i]) {
+      tecla_especial = true;
+
+      break;
+    }
+  }
+
+  if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+    return false;
+  }
+
+}
+
+
 function Guardar(){
+
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
 
     var a = encodeURI(document.getElementById('select_empresas').value)
     var b = encodeURI(document.getElementById('correo').value)
@@ -191,9 +241,22 @@ function Guardar(){
     if (b != ''){
 
     ajaxGeneral(function(res){
-        alert('Registro correcto');
+        console.log(res[0])
 
-        Cancelar();
+        if(res[0].error == 'true'){
+ 
+         var alertx = document.getElementById("divAlerta");
+                 // alertx.innerHTML = "El campo de producto es obligatorio";
+                 alertx.style.display="block";
+ 
+                 var div = document.getElementById('txt_alert');
+ 
+                 div.innerHTML += res[0].data;
+        }else{
+ 
+         Cancelar();
+ 
+        }
     }, urlapp+"controladores/correos.php?funcion=guardar&parametros="+a+','+b)
    }else
    { //alert('!Error el nombre del producto no puede estar en blanco!')

@@ -42,17 +42,19 @@
                     <div id="content-table" style="border-style: solid;" >
                      <table>
                         <thead>
+
+
                           <tr class="table100-head">
-                            <th class="column1">ID</th>
-                            <th class="column2">EMPRESA</th>
-                            <th class="column3">REMESA</th>
-                            <th class="column4">OFICIO</th>
-                            <th class="column5">FECHA</th>
-                            <th class="column6">DESCRIPCION</th>
-                            <th class="column7">CANTIDAD</th>
-                            <th class="column8">PEDIMENTO</th>
-                            <th class="column9">FECHA</th>
-                            <th class="column10">ACCIONES</th>
+                            <th style="width:10px; text-align:left; padding-left:0px;">ID</th>
+                            <th style="width:50px; text-align:left;">EMPRESA</th>
+                            <th style="width:20px; text-align:left;">REMESA</th>
+                            <th style="width:50px; text-align:left;">OFICIO</th>
+                            <th style="width:50px; text-align:left;">FECHA</th>
+                            <th style="width:50px; text-align:left;">DESCRIPCION</th>
+                            <th style="width:10px; text-align:left;">CANTIDAD</th>
+                            <th style="width:300px; text-align:left;">PEDIMENTO</th>
+                            <th style="width:50px; text-align:left;">FECHA</th>
+                            <th style="width:100px; text-align:left;">ACCIONES</th>
                           </tr>
                         </thead>
                         <tbody id ="crpTabla">
@@ -75,6 +77,7 @@
                           <form>
                                       
                                       <input id="id" name="id" type="hidden">
+                                      <input id="idEmpresa" name="idEmpresa" type="hidden" value="<?php echo $_SESSION["idEmpresa"] ?>">
                                      
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>Pedimento:</b></label>
                                       <select name="select_pedimento" id="select_pedimento">
@@ -90,29 +93,33 @@
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>DESCRIPCION:</b></label>
                                       <input name="descripcion" type="text" id = "descripcion" required />
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CANTIDAD:</b></label>
-                                      <input name="cantidad" type="number" id="cantidad" required />
+                                      <input name="cantidad" type="number" id="cantidad" required min="1" max="200"/>
 
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
-                                            <li><a ><button onclick="AccionGuardar()" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
                                             <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
                                       </section>
                                       <br>
                                       <div style="display:none;" id="divAlerta" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>Todos los campos son obligatorios</strong> 
+                                        <strong id="txt_alert"></strong> 
+                                      </div>
+                                      <div style="display:none;" id="divAlerta2" class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                                        <strong>El maximo de caracteres es de 35</strong> 
                                       </div>
                              </form>	
                         </div>
