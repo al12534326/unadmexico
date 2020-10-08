@@ -10,6 +10,7 @@
        <link rel="stylesheet" href="localresource/css/index.css">
       <!-- Local Resource-->
 
+
      
     </head>
     <body>
@@ -84,7 +85,7 @@
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar(event)" class="btn">ELIMINAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -119,7 +120,21 @@
              <!-- Global Component--> 
 
           </section>
+
+      <div class="notification">
+	    <span class="icon">
+	        <i class=""></i>
+	    </span>
+          <span class="text"></span>
+          <span class="close"><i class="fa fa-close"></i></span>
+      </div>
+
+
     </body>
+
+    <script>
+
+    </script>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>
     <!-- Global Resource-->
@@ -128,16 +143,3 @@
     <script src="./localresource/js/index.js"></script>
      <!-- Local Resource-->
 </html>
-<div class="notification">
-	    <span class="icon">
-	        <i class=""></i>
-	    </span>
-	    <span class="text"></span>
-	    <span class="close"><i class="fa fa-close"></i></span>
-	</div>
-
-<section class="buttons">
-     <button id="info" onclick="goAlert()">Info</button>
-     <button id="warn">Warning</button>
-     <button id="error">Fatal</button>
-</section>

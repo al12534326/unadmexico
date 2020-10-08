@@ -321,7 +321,7 @@
         El recurso solicitado requiere una autenticación.
     </p>
     <p class="lead">
-        <a href="http://localhost:8098"> Regresar a la pagina de inicio.
+        <a href="http://10.34.66.83:8066"> Regresar a la pagina de inicio.
     </p>
 </div>
 <footer></footer>

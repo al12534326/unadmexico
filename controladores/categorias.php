@@ -81,13 +81,17 @@ require '../modelos/categorias.php';
 
             $id = $parametros [0];
 
-            console.log('Elimnar categoria = ' . $id);
+
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarCategoria));  
-            
-        break;
+            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarCategoria));
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
+                array_push ($res, $row);
+            }
+            echo json_encode($res);
+
+            break;
 
 
         

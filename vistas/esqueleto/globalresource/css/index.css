@@ -702,7 +702,9 @@ tbody tr:hover {
 }
 
 
-/*///////////notificacines flotantes/////////////*/  
+/*///////////notificacines flotantes/////////////*/
+
+
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600);
 
@@ -734,7 +736,7 @@ body {
   opacity: 0;
   padding-right: 15px;
   position: absolute;
-  right: 30px;
+  right: 100px;
   top: 150px;
   visibility: hidden;
   transition: all .5s ease;
@@ -808,3 +810,5 @@ body {
   margin: 0 5px;
   padding: .5rem;
 }
+
+
