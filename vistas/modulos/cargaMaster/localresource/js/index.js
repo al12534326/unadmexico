@@ -78,9 +78,7 @@ selectElement.addEventListener('change', (evt) => {
 
         cantidad = document.getElementById("cantidad").value;
 
-       
-
-      //  alert("cantidad = " + cantidad);
+             //  alert("cantidad = " + cantidad);
 
         if (contadorVines != 0 ){
 

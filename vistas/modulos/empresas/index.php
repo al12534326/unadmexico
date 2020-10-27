@@ -78,25 +78,25 @@
                                         <option value="value3">Madrinas</option>
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NOMBRE:</b></label>
-                                      <input name="nombre" type="text"  required autofocus id="nombre" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
+                                      <input name="nombre" type="text"  required autofocus id="nombre" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>RAZON SOCIAL:</b></label>
-                                      <input name="razon" type="text"  required id = "razon" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>	
+                                      <input name="razon" type="text"  required id = "razon" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PATENTE:</b></label>
-                                      <input name="patente" type="text" id = "patente" required onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)" />	
+                                      <input name="patente" type="text" id = "patente" required onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)" />	
 
                                       <section class="paginacion">
                                         
                                         <div id="InsertaModifica">
                                           <ul >
                                             <li><a ><button onclick="AccionGuardar(event)" class="btn">GUARDAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
-                                            <li><a ><button onclick="Cancelar()">CANCELAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar(event)" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
 
@@ -125,6 +125,13 @@
              <!-- Global Component--> 
 
           </section>
+          <div class="notification">
+	    <span class="icon">
+	        <i class=""></i>
+	    </span>
+          <span class="text"></span>
+          <span class="close"><i class="fa fa-close"></i></span>
+      </div>
     </body>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>

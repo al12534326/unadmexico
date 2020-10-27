@@ -10,7 +10,6 @@
        <link rel="stylesheet" href="localresource/css/index.css">
       <!-- Local Resource-->
 
-
      
     </head>
     <body>
@@ -27,16 +26,18 @@
           <section class="page-content">
 
              <!-- Global Component-->
+            
              <?php require "../../esqueleto/navbar.php";?>
+            
              <!-- Global Component--> 
             
               <!-- Code Local-->
               <div class="container-table100">  
                 <div class="wrap-table100">
-                    <center><h1 >CATEGORIAS</h1><center><br>
+                    <center><h1 >BITACORA</h1><center><br>
 
                     <div class="table100">
-                    <button  id="btnNuevo" name="btnNuevo" style="float:left;" onclick="Crear(1)" class="buttom">NUEVA</button>
+                    <button id="btnNuevo" name="btnNuevo" style="float:left;" onclick="Crear(1)" class="buttom">NUEVO</button>
                     <br>
                     <br>
 
@@ -45,9 +46,10 @@
                         <thead>
                           <tr class="table100-head">
                             <th class="column1">ID</th>
-                            <th class="column2">FECHA</th>
-                            <th class="column3">CATEGORIA</th>
-                            <th class="column4">ACCIONES</th>
+                            <th class="column2">USUARIO</th>
+                            <th class="column3">MODULO</th>
+                            <th class="column4">ACCION</th>
+                            <th class="column5">FECHA</th>
                           </tr>
                         </thead>
                         <tbody id ="crpTabla">
@@ -63,16 +65,37 @@
 
                      <div id="content-form"  style="display:none">
 
-                      <section class="edit">
+                  
+                     <section class="edit" style="margin-top:150px; !important">
                         <div style="border-style: solid;">
                         <div style="background-color:#242e42;padding-bottom:30px;padding-top:15px;" > <b style="color:white"><span id="titulo"><span></b> </div>
                           <form>
                                       
                                       <input id="id" name="id" type="hidden">
+                                      <input id="idRol" name="idRol" type="hidden">
+                                      <input id="idPersonal" name="idPersonal" type="hidden">
 
-                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>CATEGORIA:</b></label>
-                                      <input name="categoria" type="text"  required autofocus id="categoria" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>Rol:</b></label>
+                                      <select name="select_roles" id="select_roles">
+                                        <option value="value1" selected>Administrador</option> 
+                                        <option value="value2">Modulador1</option>
+                                        <option value="value3">Modulador2</option>
+                                      </select>	
+
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>Personal:</b></label>
+                                      <select name="select_personal" id="select_personal">
+                                        <option value="value1" selected>Administrador</option> 
+                                        <option value="value2">Modulador1</option>
+                                        <option value="value3">Modulador2</option>
+                                      </select>	
+
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>USUARIO:</b></label>
+                                      <input name="usuario" type="text"  required autofocus id="usuario"  onkeyup="return validarTamaño(event)"/>
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PASSWORD:</b></label>
+                                      <input name="password" type="password"  required id = "password"  onkeyup="return validarTamaño(event)"/>	
+                                      <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>EMAIL:</b></label>
+                                      <input name="email" type="text" id = "email" required onkeyup="return validarTamaño(event)" />	
 
                                       <section class="paginacion">
                                         
@@ -97,9 +120,10 @@
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                                         <strong id="txt_alert"></strong> 
                                       </div>
+
                                       <div style="display:none;" id="divAlerta2" class="alert">
                                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                                        <strong>El maximo de caracteres es de 35</strong> 
+                                        <strong>El maximo de caracteres para este campo es de 35</strong> 
                                       </div>
 
                              </form>	
@@ -110,31 +134,20 @@
                   </div>
                 </div>
 
-                
-
-                
-
             <!-- Code Local-->
              <!-- Global Component-->
               <?php require "../../esqueleto/footer.php";?>
              <!-- Global Component--> 
 
           </section>
-
-      <div class="notification">
+          <div class="notification">
 	    <span class="icon">
 	        <i class=""></i>
 	    </span>
           <span class="text"></span>
           <span class="close"><i class="fa fa-close"></i></span>
       </div>
-
-
     </body>
-
-    <script>
-
-    </script>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>
     <!-- Global Resource-->

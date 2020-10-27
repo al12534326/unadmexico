@@ -52,26 +52,35 @@ selectElement.addEventListener('change', (evt) => {
 
 
        if (contadorVines !=0 ){
-        var listadoVines = listaVins.replace(null,'');
-        document.getElementById("jsonObject").innerHTML = listadoVines;
-      }
-
-
-
+           if (contadorVines <= 200){
+            var listadoVines = listaVins.replace(null,'');
+            document.getElementById("jsonObject").innerHTML = listadoVines;
+            CargaDiaria(JSON.stringify(cargadiaria))
+           }else{
+              document.getElementById("Aviso").innerHTML = 'El archivo de excel sobrepasa 200 vines';
+              var accion = document.getElementById("salirCargaExcel");
+              accion.style.display = "block"
+           }
+        
+      }else{
+        document.getElementById("Aviso").innerHTML = 'El archivo de excel no contiene vins';
+        var accion = document.getElementById("salirCargaExcel");
+        accion.style.display = "block"
+    }
 
        //var listadoVines = listaVins.replace(null,'');
 
       // document.getElementById("jsonObject").innerHTML = listadoVines;
 
-      if (contadorVines != 0 ){
+     // if (contadorVines != 0 ){
 
-        CargaDiaria(JSON.stringify(cargadiaria))
+      //  CargaDiaria(JSON.stringify(cargadiaria))
          
-      }else{
-          document.getElementById("Aviso").innerHTML = 'El archivo de excel no contiene vins';
-          var accion = document.getElementById("salirCargaExcel");
-          accion.style.display = "block"
-      }
+      //}else{
+      //    document.getElementById("Aviso").innerHTML = 'El archivo de excel no contiene vins';
+      //    var accion = document.getElementById("salirCargaExcel");
+      //    accion.style.display = "block"
+     // }
 
       //  CargaDiaria(JSON.stringify(cargadiaria))
 
@@ -81,6 +90,7 @@ selectElement.addEventListener('change', (evt) => {
 
     reader.onerror = function(event) {
         console.error("File could not be read! Code " + event.target.error.code);
+        document.getElementById("Aviso").innerHTML = 'Se encontro un error revise su archivo de excel';
     };
 
     reader.readAsBinaryString(selectedFile);

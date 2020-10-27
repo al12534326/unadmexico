@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/personal.php';
 
@@ -46,6 +47,8 @@ require '../modelos/personal.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $idEmpresa = urldecode ($parametros [0]);
             $apellidoPaterno = urldecode ($parametros [1]);
             $apellidoMaterno = urldecode ($parametros [2]);
@@ -55,7 +58,7 @@ require '../modelos/personal.php';
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{apellidoPaterno}}","{{apellidoMaterno}}","{{nombre}}"), array( $idEmpresa, $apellidoPaterno, $apellidoMaterno , $nombre), $insertarPersonal));
+            $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{apellidoPaterno}}","{{apellidoMaterno}}","{{nombre}}","{{usuario}}"), array( $idEmpresa, $apellidoPaterno, $apellidoMaterno , $nombre, $usuario), $insertarPersonal));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -69,15 +72,17 @@ require '../modelos/personal.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = urldecode ($parametros [0]);
-            $idEmpresa = urldecode ($parametros [0]);
-            $apellidoPaterno = urldecode ($parametros [1]);
-            $apellidoMaterno = urldecode ($parametros [2]);
-            $nombre= $parametros [3];
+            $idEmpresa = urldecode ($parametros [1]);
+            $apellidoPaterno = urldecode ($parametros [2]);
+            $apellidoMaterno = urldecode ($parametros [3]);
+            $nombre= $parametros [4];
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{apellidoPaterno}}","{{apellidoMaterno}}","{{nombre}}"), array($id, $idEmpresa, $apellidoPaterno, $apellidoMaterno , $nombre), $modificarPersonal));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{apellidoPaterno}}","{{apellidoMaterno}}","{{nombre}}", "{{usuario}}"), array($id, $idEmpresa, $apellidoPaterno, $apellidoMaterno , $nombre, $usuario), $modificarPersonal));
            
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -94,11 +99,18 @@ require '../modelos/personal.php';
 
             $id = $parametros [0];
 
-            console.log('Elimnar usuario = ' . $id);
+            $usuario =  $_SESSION['Vusuario'];
+
+           // console.log('Elimnar usuario = ' . $id);
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarPersonal));
+            $stmt = $conn->query(str_replace( array("{{id}}", "{{usuario}}"), array($id, $usuario), $eliminarPersonal));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
 
             break;

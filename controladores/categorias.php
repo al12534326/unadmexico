@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/categorias.php';
 
@@ -41,12 +42,15 @@ require '../modelos/categorias.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
            
             $nombre = urldecode ($parametros [0]);
+            
                         
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarCategoria)); 
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{usuario}}"), array( $nombre, $usuario), $insertarCategoria)); 
                
 			while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -62,11 +66,13 @@ require '../modelos/categorias.php';
 
             $id = $parametros [0];
             $nombre = urldecode ($parametros [1]);
+
+            $usuario =  $_SESSION['Vusuario'];
             
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarCategoria));  
+            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{usuario}}"), array($id, $nombre,$usuario), $modificarCategoria));  
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -81,11 +87,11 @@ require '../modelos/categorias.php';
 
             $id = $parametros [0];
 
-
+            $usuario =  $_SESSION['Vusuario'];
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarCategoria));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id, $usuario), $eliminarCategoria));
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
                 array_push ($res, $row);
             }

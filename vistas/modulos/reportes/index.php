@@ -49,7 +49,7 @@
                                 <tr>
                                   <td> <select name="select_reporte" id="select_reporte">
                                   <option value="1">Pedimentos por fecha</option>
-                                  <option value="2">Concentado por dia</option>
+                                  <option value="2">Concentrado por dia</option>
                                 </select></td>
                                   <td> <input type="date" id="desde" name="desde" ></td>
                                   <td><input type="date" id="hasta" name="hasta" ></td>
@@ -63,22 +63,8 @@
                     <div style="display:none" id="content-table" style="border-style: solid;" >
                     <button onclick="bajarExcel('content-table')">Listado de oficios</button>
                    
-                     <table>
-                        <thead>
-                          <tr class="table100-head">
-                          <th class="column1">FECHA</th>
-                          <th class="column2">FECHA CIERRE</th>
-                          <th class="column1">EMPRESA</th>
-                          <th class="column2">CANTIDAD</th>
-                          <th class="column3">NO.OFICIO</th>
-                          <th class="column1">VINS</th>
-                          <th class="column2">PENDIENTES</th>
-                          <th class="column3">ESTATUS</th>
-                          </tr>
-                        </thead>
-                        <tbody id ="crpTabla">
-                        </tbody>
-                      </table>
+                    <span id="tablaped"></span>
+                    
                       <!---->
                           <section class="paginacion">
                           <ul id ="listPaginacion">

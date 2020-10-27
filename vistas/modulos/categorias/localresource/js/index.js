@@ -95,19 +95,19 @@ function init() {
 
 //run
 var data = null;
+var valBucle = 0;
 
 Categorias(null);
 
 
 var accion = 0;
 
-
 // Funciones
 
 function AccionGuardar(event){
     event.preventDefault()
 
-   // alert ('AccionGuardar = ' + accion);
+    //alert ('AccionGuardar = ' + accion);
 
        if (accion == 1){Guardar();}else{ Modificar(); }
 }
@@ -139,7 +139,16 @@ function Categorias (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            valBucle = 0;   
+
+           
+            if (res.length == 0){
+              valBucle = 0; 
+     
+            
+            }else{
+              valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            } 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -161,7 +170,12 @@ function Categorias (valPaginacion)
         {
 
 
-            paginacion =  '<li><a onclick="Categorias('+i+')" class="active" >1</a></li>';
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            } 
         }
 
         elemento.innerHTML = paginacion;
@@ -176,10 +190,15 @@ function Categorias (valPaginacion)
 
 function Crear(tipo){
 
-    accion = tipo;
+    
+
+    accion = 1;
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
+
+    var mostrar = document.getElementById('InsertaModifica');
+    mostrar.style.display = "block";
 
 
     
@@ -204,6 +223,8 @@ function Crear(tipo){
 
 function Editar(nodo,tipo){
 
+    accion = tipo;
+
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
 
@@ -214,6 +235,8 @@ function Editar(nodo,tipo){
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR CATEGORIA';
+
+        accion = 2;
 
        var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
@@ -231,6 +254,8 @@ function Editar(nodo,tipo){
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
+       document.getElementById('id').disabled = true;
+    document.getElementById('categoria').disabled=true;
     }
 
     function esID(itemValor) { 
@@ -245,6 +270,10 @@ function Editar(nodo,tipo){
 
     document.getElementById('id').value = found.id;
     document.getElementById('categoria').value = found.nombre;
+
+    
+
+
     
     var x = document.getElementById("content-table");
     if (x.style.display === "none") {
@@ -262,6 +291,25 @@ function Editar(nodo,tipo){
 
 
 }
+
+function quitarSimbolos(){
+
+    var Ecategoria = document.getElementById('categoria').value;
+
+   // alert(Ecategoria);
+    var specialChars = "!@$^&%*()+=-[]\/{}|:<>?,;.'";
+
+    for (var i = 0; i < specialChars.length; i++) {
+       Ecategoria = Ecategoria.replace(new RegExp("\\" + specialChars[i], "gi"), "");
+       
+    }
+
+    document.getElementById('categoria').value = Ecategoria;
+
+    validarTamaño(Ecategoria);
+}
+
+
 
 function validarTamaño(e){
     var Max_Length = 35;
@@ -285,7 +333,7 @@ function sololetras(e) {
     var Max_Length = 35;
     var key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase(),
-    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890",
     especiales = [8, 37, 39, 46],
     tecla_especial = false;
 
@@ -312,6 +360,9 @@ function Guardar(){
     div.innerHTML ='';
    
     var a =  encodeURI(document.getElementById('categoria').value)
+    
+    a = a.replace("'", "´");
+
     if (a !='' ){
     ajaxGeneral(function(res){
        
@@ -329,31 +380,20 @@ function Guardar(){
        }else{
 
            var notificator = new Notification(document.querySelector('.notification'));
-
-
-               notificator.info('Categoria Insertda');
-
-
-
+           notificator.info('Categoria Insertda');
            Cancelar();
-
        }
         
     }, urlapp+"controladores/categorias.php?funcion=guardar&parametros="+a)
    }else
    {//alert('!Error el nombre del producto no puede estar en blanco!')
 
-
   var alertx = document.getElementById("divAlerta");
   // alertx.innerHTML = "El campo de producto es obligatorio";
    alertx.style.display="block";
-
    var div = document.getElementById('txt_alert');
-
    div.innerHTML += 'El campo de Categoria es obligatorio';
-
    }
-  
 }
 
 
@@ -365,35 +405,30 @@ function Modificar(){
     var a =  encodeURI(document.getElementById('id').value)
     var b =  encodeURI(document.getElementById('categoria').value)
 
+    b = b.replace("'", "´");
+
          
     ajaxGeneral(function(res){
-
 
         console.log(res[0])
 
         if(res[0].error == 'true'){
 
             var alertx = document.getElementById("divAlerta");
-            // alertx.innerHTML = "El campo de producto es obligatorio";
+          
             alertx.style.display="block";
 
             var div = document.getElementById('txt_alert');
 
             div.innerHTML += res[0].data;
         }else{
-
             var notificator = new Notification(document.querySelector('.notification'));
-
-
             notificator.info('Categoria Actualizada');
 
-
+            document.getElementById('categoria').value = '';
 
             Cancelar();
-
         }
-
-
     }, urlapp+"controladores/categorias.php?funcion=modificar&parametros="+a+','+b)
 
 }
@@ -424,7 +459,9 @@ function Eliminar(e){
 
             notificator.info('Categoria Eliminada');
 
+           var oculta = document.getElementById('Eliminar');
 
+           oculta.style.display = "none";
 
             Cancelar();
 
@@ -436,6 +473,8 @@ function Eliminar(e){
 
 function Cancelar(){
     //e.preventDefault();
+    document.getElementById('categoria').value = '';
+    document.getElementById('categoria').disabled = false;
 
     var alertx = document.getElementById("divAlerta");
     alertx.style.display="none";

@@ -80,11 +80,11 @@
                                         <option value="value3">SSA</option>
                                       </select>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>APELLIDO PATERNO:</b></label>
-                                      <input name="apellidoPaterno" type="text"  required autofocus id="apellidoPaterno" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
+                                      <input name="apellidoPaterno" type="text"  required autofocus id="apellidoPaterno" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>APELLIDO MATERNO:</b></label>
-                                      <input name="apellidoMaterno" type="text"  required autofocus id="apellidoMaterno" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
+                                      <input name="apellidoMaterno" type="text"  required autofocus id="apellidoMaterno" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>NOMBRES:</b></label>
-                                      <input name="nombre" type="text"  required autofocus id="nombre" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
+                                      <input name="nombre" type="text"  required autofocus id="nombre" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
                                       <section class="paginacion">
                                         
@@ -97,7 +97,7 @@
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar(event)" class="btn">ELIMINAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -130,6 +130,13 @@
              <!-- Global Component--> 
 
           </section>
+          <div class="notification">
+	    <span class="icon">
+	        <i class=""></i>
+	    </span>
+          <span class="text"></span>
+          <span class="close"><i class="fa fa-close"></i></span>
+      </div>
     </body>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>

@@ -78,7 +78,7 @@
                     </br></br>
                               <label id="jsonObject"></label>
                               <br>
-                              <label style="color : red;" id="Aviso"></label>
+                              <label style="color : green;" id="Aviso"></label>
                               <section class="paginacion">
                                         
                                         <div style="display:none" id="InsertaModifica" name="insertaModifica">

@@ -1,6 +1,8 @@
 //run
 var data = null;
 
+var valBucle = 0;
+
 var accion = 0;
 
 RevisionModulador2(null);
@@ -72,7 +74,16 @@ function RevisionModulador2(valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+            valBucle = 0;   
+
+           
+            if (res.length == 0){
+              valBucle = 0; 
+     
+            
+            }else{
+              valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            } 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -92,7 +103,12 @@ function RevisionModulador2(valPaginacion)
         }
         else
         {
-            paginacion =  '<li><aonclick="RevisionModulador2('+i+')" class="active" >1</a></li>';  
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            } 
         }
 
         elemento.innerHTML = paginacion;
@@ -116,12 +132,20 @@ function ObtenerVins(id){
         var tablaVines = '';
 		
 		console.log(res);
-
-
+        var vines = '';
+        var totalVines = res.length;
+        var casilla1 = '';
+        var casilla2 = '';
         for (item in res) {
-            tablaVines = tablaVines + '<tr><td class="column1">' + res[item].vin + '</td>';
+            if (casilla1 == ''){
+                casilla1 = res[item].vin;
+            }else{
+                casilla2 = res[item].vin;
+                tablaVines = tablaVines + '<tr><td class="column1">' + casilla1 + '           ,            ' +  casilla2 + '</td></tr>';
+                casilla1 = '';
+                casilla2 = '';
+           }
         }
-
         elemento.innerHTML = tablaVines;
 
     }, urlapp+"controladores/revision2.php?funcion=obtener_vines&parametros="+id)

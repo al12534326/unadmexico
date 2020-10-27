@@ -92,11 +92,11 @@
                                       </select>	
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>USUARIO:</b></label>
-                                      <input name="usuario" type="text"  required autofocus id="usuario"  onkeyup="return validarTamaño(event)"/>
+                                      <input name="usuario" type="text"  required autofocus id="usuario" onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>PASSWORD:</b></label>
                                       <input name="password" type="password"  required id = "password"  onkeyup="return validarTamaño(event)"/>	
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>EMAIL:</b></label>
-                                      <input name="email" type="text" id = "email" required onkeyup="return validarTamaño(event)" />	
+                                      <input name="email" type="email" id = "email" required onkeyup="return validarTamaño(event)" />	
 
                                       <section class="paginacion">
                                         
@@ -109,7 +109,7 @@
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar(event)" class="btn">ELIMINAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -141,6 +141,13 @@
              <!-- Global Component--> 
 
           </section>
+          <div class="notification">
+	    <span class="icon">
+	        <i class=""></i>
+	    </span>
+          <span class="text"></span>
+          <span class="close"><i class="fa fa-close"></i></span>
+      </div>
     </body>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>

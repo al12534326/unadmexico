@@ -1,5 +1,5 @@
 <?php
 
-	$InsertarVins = "exec insertarTransporteX '{{vins}}'";
+	$InsertarVins = "exec insertarTransporteX '{{vins}}','{{usuario}}'";
 	
    

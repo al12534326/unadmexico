@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start(); 
 require '../modelos/conexion.php';
 require '../modelos/empresas.php';
 
@@ -84,6 +85,8 @@ require '../modelos/empresas.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
            
             $nombre = urldecode ($parametros [0]);
             $razon = urldecode ($parametros [1]);
@@ -92,7 +95,7 @@ require '../modelos/empresas.php';
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array( $nombre, $razon, $patente , $categoria), $insertaEmpresa));  
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{razon}}","{{patente}}","{{categoria}}","{{usuario}}"), array( $nombre, $razon, $patente , $categoria, $usuario), $insertaEmpresa));  
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -105,6 +108,8 @@ require '../modelos/empresas.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
             $nombre = urldecode ($parametros [1]);
             $razon = urldecode ($parametros [2]);
@@ -113,7 +118,7 @@ require '../modelos/empresas.php';
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{razon}}","{{patente}}","{{categoria}}"), array($id, $nombre, $razon, $patente , $categoria), $modificaEmpresa));  
+            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{razon}}","{{patente}}","{{categoria}}","{{usuario}}"), array($id, $nombre, $razon, $patente , $categoria, $usuario), $modificaEmpresa));  
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -128,13 +133,21 @@ require '../modelos/empresas.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
 
-            console.log('Elimnar empresa = ' . $id);
+           // console.log('Elimnar empresa = ' . $id);
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarEmpresa));  
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id, $usuario), $eliminarEmpresa));  
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+            
 
            
         break;

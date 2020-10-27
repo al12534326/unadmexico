@@ -1,4 +1,5 @@
-<?php session_start(); 
+<?php 
+session_start(); 
 require '../modelos/conexion.php';
 require '../modelos/cargadiaria.php';
 
@@ -8,11 +9,12 @@ require '../modelos/cargadiaria.php';
         case 'guardar':
 
             $res= [];
+            $usuario =  $_SESSION['Vusuario'];
 
 
             $vins = json_decode($_GET['parametros']);
 
-            $stmt = $conn->query(str_replace( array("{{vins}}"), array($vins), $InsertarVins));
+            $stmt = $conn->query(str_replace( array("{{vins}}","{{usuario}}"), array($vins,$usuario), $InsertarVins));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
              array_push ($res, $row);

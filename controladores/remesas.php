@@ -84,11 +84,16 @@ require '../modelos/remesas.php';
 
             $id = $parametros [0];
 
-            console.log('Elimnar usuario = ' . $id);
+           // console.log('Elimnar usuario = ' . $id);
            
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarRemesa));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
            
         break;

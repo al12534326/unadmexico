@@ -1,0 +1,74 @@
+
+
+
+/*///////////////////////////////*/
+
+
+
+form{
+  padding: 60px;
+  max-width: 90%;
+ 
+  margin: 0 auto;
+}
+
+form input, form textarea, select{
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+  border: none; 
+  color: #525c66; 
+  font-size: 1em;
+  resize: horizontal; 
+}
+
+
+@media screen and (max-width: 992px) {
+  table tbody tr td:nth-child(1):before {
+    content: "ID";
+  }
+  table tbody tr td:nth-child(2):before {
+    content: "ROL";
+  }
+  table tbody tr td:nth-child(3):before {
+    content: "PERSONAL";
+  }
+
+  table tbody tr td:nth-child(4):before {
+    content: "USUARIO";
+  }
+  table tbody tr td:nth-child(5):before {
+    content: "EMAIL";
+  }
+
+
+  table tbody tr td:nth-child(6):before {
+    content: "ACCIONES";
+  }
+
+}
+
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

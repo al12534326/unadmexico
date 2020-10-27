@@ -71,7 +71,7 @@
                                       <input id="id" name="id" type="hidden">
 
                                       <label style="float:left; padding-left:5px; margin-bottom:10px;"><b>TIPO DE PEDIMENTO:</b></label>
-                                      <input name="tipoPedimento" type="text"  required autofocus id="tipoPedimento" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
+                                      <input name="tipoPedimento" type="text"  required autofocus id="tipoPedimento"  onblur ="quitarSimbolos()" onkeypress="return sololetras(event)" onkeyup="return validarTamaño(event)"/>
 
 
                                       <section class="paginacion">
@@ -85,7 +85,7 @@
 
                                         <div id="Eliminar" style="display:none;">
                                           <ul >
-                                            <li><a ><button onclick="Eliminar()" class="btn">ELIMINAR</i></button></a></li>
+                                            <li><a ><button onclick="Eliminar(event)" class="btn">ELIMINAR</i></button></a></li>
                                             <li><a ><button onclick="Cancelar(event)">CANCELAR</i></button></a></li>
                                           </ul>
                                         </div>
@@ -115,6 +115,13 @@
              <!-- Global Component--> 
 
           </section>
+          <div class="notification">
+	    <span class="icon">
+	        <i class=""></i>
+	    </span>
+          <span class="text"></span>
+          <span class="close"><i class="fa fa-close"></i></span>
+      </div>
     </body>
     <!-- Global Resource-->
       <script src="../../esqueleto/globalresource/js/index.js"></script>

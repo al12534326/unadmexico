@@ -22,8 +22,6 @@ require '../modelos/reportes.php';
             break;
 
 
-
-
         case 'listar':
 
             $parametros = explode(',', $_GET['parametros']);
@@ -51,6 +49,39 @@ require '../modelos/reportes.php';
 			
 
         break;
+
+
+        //Concentrado 
+        case 'concentrado':
+
+            $parametros = explode(',', $_GET['parametros']);
+
+            //var_dump($parametros);
+        
+            $renglones = urldecode($parametros [0]);
+            $pagina = urldecode($parametros[1]);
+
+            $fechaInicial = $parametros [2];
+            $fechaFinal =$parametros[3];
+
+           
+            $res = [];
+           
+            //$stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}"), array($pagina, $renglones,urldecode($fechaInicial), urldecode($fechaFinal)), $getReporteOficioPorFecha));
+            
+            $stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}","{{fechaInicial}}","{{fechaFinal}}"), array($pagina, $renglones, $fechaInicial, $fechaFinal), $getconcentrado));
+
+
+			while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+			     array_push ($res, $row);
+            }  
+            echo json_encode($res);
+			
+
+        break;
+
+
+        //Concentrado
 
         case 'guardar' :
 

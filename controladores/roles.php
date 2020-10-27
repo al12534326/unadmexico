@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/roles.php';
 
@@ -43,12 +44,14 @@ require '../modelos/roles.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
 
             $nombre = urldecode ($parametros [0]);
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarRol));
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{usuario}}"), array( $nombre,$usuario), $insertarRol));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -66,10 +69,12 @@ require '../modelos/roles.php';
             $id = $parametros [0];
             $nombre = urldecode ($parametros [1]);
 
+            $usuario =  $_SESSION['Vusuario'];
+
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarRol));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{usuario}}"), array($id, $nombre,$usuario), $modificarRol));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -83,13 +88,20 @@ require '../modelos/roles.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
 
-            console.log('Elimnar rol = ' . $id);
+           // console.log('Elimnar rol = ' . $id);
 
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarRol));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id,$usuario), $eliminarRol));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
             break;
         

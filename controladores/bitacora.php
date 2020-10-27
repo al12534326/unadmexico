@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require '../modelos/conexion.php';
-require '../modelos/usuarios.php';
+require '../modelos/bitacora.php';
 
     switch($_GET['funcion'])
     {
@@ -14,7 +14,7 @@ require '../modelos/usuarios.php';
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}"), array($pagina, $renglones), $getUsuarios));  
+            $stmt = $conn->query(str_replace( array("{{pagina}}","{{renglones}}"), array($pagina, $renglones), $getBitacora));  
             
 			while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
 			     array_push ($res, $row);

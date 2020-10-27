@@ -12,6 +12,8 @@ require '../modelos/pedimentos.php';
 
         $idEmpresa = $_SESSION["idEmpresa"];
 
+       // dd( $idEmpresa);
+
 
         $res = [];
 
@@ -64,6 +66,8 @@ require '../modelos/pedimentos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
 
             $pedimento = urldecode ($parametros [0]);
             $idProducto = urldecode ($parametros [1]);
@@ -72,7 +76,7 @@ require '../modelos/pedimentos.php';
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array( $pedimento, $idProducto, $idEmpresa , $idTipoPedimento ), $insertarPedimento));
+            $stmt = $conn->query(str_replace( array("{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}","{{usuario}}"), array( $pedimento, $idProducto, $idEmpresa , $idTipoPedimento, $usuario ), $insertarPedimento));
             
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -86,6 +90,8 @@ require '../modelos/pedimentos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = urldecode ($parametros [0]);
             $pedimento = urldecode ($parametros [1]);
             $idProducto = urldecode ($parametros [2]);
@@ -95,7 +101,7 @@ require '../modelos/pedimentos.php';
 
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}"), array($id, $pedimento, $idProducto, $idEmpresa , $idTipoPedimento), $modificarPedimento));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}","{{usuario}}"), array($id, $pedimento, $idProducto, $idEmpresa , $idTipoPedimento, $usuario), $modificarPedimento));
         
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -110,13 +116,20 @@ require '../modelos/pedimentos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
 
-            console.log('Elimnar usuario = ' . $id);
+           // console.log('Elimnar usuario = ' . $id);
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarPedimento));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id, $usuario), $eliminarPedimento));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
            
         break;

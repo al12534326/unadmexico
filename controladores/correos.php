@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 require '../modelos/conexion.php';
 require '../modelos/correos.php';
 
@@ -29,13 +31,17 @@ require '../modelos/correos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
            
             $idEmpresa = urldecode ($parametros [0]);
             $correo = urldecode ($parametros [1]);
-                       
+
+
+                              
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{correo}}"), array( $idEmpresa, $correo), $insertarCorreo));
+            $stmt = $conn->query(str_replace( array("{{idEmpresa}}","{{correo}}","{{usuario}}"), array( $idEmpresa, $correo,$usuario), $insertarCorreo));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -48,13 +54,15 @@ require '../modelos/correos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
             $idEmpresa = urldecode ($parametros [1]);
             $correo = urldecode ($parametros [2]);
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{correo}}"), array($id, $idEmpresa, $correo), $modificarCorreo));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{idEmpresa}}","{{correo}}","{{usuario}}"), array($id, $idEmpresa, $correo, $usuario), $modificarCorreo));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -68,13 +76,22 @@ require '../modelos/correos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
 
-            console.log('Elimnar empresa = ' . $id);
+            //console.log('Elimnar empresa = ' . $id);
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarCorreo));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id, $usuario), $eliminarCorreo));
+            
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
+
+            
 
            
         break;

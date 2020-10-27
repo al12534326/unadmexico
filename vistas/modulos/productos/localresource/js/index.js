@@ -1,5 +1,100 @@
+function Notification(htmlElement) {
+
+    this.htmlElement = htmlElement;
+    this.icon = htmlElement.querySelector('.icon > i');
+    this.text = htmlElement.querySelector('.text');
+    this.close = htmlElement.querySelector('.close');
+    this.isRunning = false;
+    this.timeout;
+
+    this.bindEvents();
+};
+
+Notification.prototype.bindEvents = function() {
+    var self = this;
+    this.close.addEventListener('click', function() {
+        window.clearTimeout(self.timeout);
+        self.reset();
+    });
+}
+
+Notification.prototype.info = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification info';
+    this.icon.className = 'fa fa-2x fa-info-circle';
+
+    this.show();
+}
+
+Notification.prototype.warning = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification warning';
+    this.icon.className = 'fa fa-2x fa-exclamation-triangle';
+
+    this.show();
+}
+
+Notification.prototype.error = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification error';
+    this.icon.className = 'fa fa-2x fa-exclamation-circle';
+
+    this.show();
+}
+
+Notification.prototype.show = function() {
+    if(!this.htmlElement.classList.contains('visible'))
+        this.htmlElement.classList.add('visible');
+
+    this.isRunning = true;
+    this.autoReset();
+};
+
+Notification.prototype.autoReset = function() {
+    var self = this;
+    this.timeout = window.setTimeout(function() {
+        self.reset();
+    }, 5000);
+}
+
+Notification.prototype.reset = function() {
+    this.htmlElement.className = "notification";
+    this.icon.className = "";
+    this.isRunning = false;
+};
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    var info = document.getElementById('info');
+    var warn = document.getElementById('warn');
+    var error = document.getElementById('error');
+
+    var notificator = new Notification(document.querySelector('.notification'));
+
+    info.onclick = function() {
+        notificator.info('Esta es una información');
+    }
+
+    warn.onclick = function() {
+        notificator.warning('Te te te advieeeerto!');
+    }
+
+    error.onclick = function() {
+        notificator.error('Le causaste derrame al sistema');
+    }
+}
+
+
 //run
 var data = null;
+var valBucle = 0;
 
 Productos(null);
 
@@ -42,8 +137,16 @@ function Productos (valPaginacion)
             
             var paginacion = '';
 
+            valBucle = 0;   
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
+           
+            if (res.length == 0){
+              valBucle = 0; 
+     
+            
+            }else{
+              valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            }  
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -63,7 +166,12 @@ function Productos (valPaginacion)
         }
         else
         {
-            paginacion =  '<li><aonclick="Productos('+i+')" class="active" >1</a></li>';
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            } 
         }
 
         elemento.innerHTML = paginacion;
@@ -82,6 +190,16 @@ function Crear(tipo){
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
+
+
+    document.getElementById('producto').disabled=false;
+    document.getElementById('producto').value = '';
+
+    var mostrar = document.getElementById('InsertaModifica');
+    mostrar.style.display = "block";
+
+    var esconder = document.getElementById('Eliminar');
+    esconder.style.display = "none";
 
     
     elementoTitle = document.getElementById('titulo');
@@ -107,6 +225,8 @@ function Editar(nodo,tipo){
 
     //alert('editar ' + nodo);
 
+    accion = tipo;
+
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
 
@@ -116,6 +236,9 @@ function Editar(nodo,tipo){
     elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
+
+        accion = 2;
+
        elementoTitle.innerHTML = 'EDITAR PRODUCTO';
 
       var botonNuevo = document.getElementById("btnNuevo");
@@ -132,6 +255,8 @@ function Editar(nodo,tipo){
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
+       document.getElementById('id').disabled = true;
+       document.getElementById('producto').disabled = true;
     }
 
     function esID(itemValor) { 
@@ -165,6 +290,25 @@ function Editar(nodo,tipo){
 }
 
 
+function quitarSimbolos(){
+
+    var EProducto = document.getElementById('producto').value;
+
+   // alert(Ecategoria);
+    var specialChars = "!@$^&%*()+=-[]\/{}|:<>?,;.'";
+
+    for (var i = 0; i < specialChars.length; i++) {
+        EProducto = EProducto.replace(new RegExp("\\" + specialChars[i], "gi"), "");
+       
+    }
+
+    document.getElementById('producto').value = EProducto;
+
+    validarTamaño(EProducto);
+}
+
+
+
 function validarTamaño(e){
     var Max_Length = 35;
     var keyA = e.keyCode || e.which;
@@ -183,31 +327,20 @@ function validarTamaño(e){
     }
 }
 
-
-
-
 function sololetras(e) {
     var Max_Length = 35;
     var key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase(),
-    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890",
     especiales = [8, 37, 39, 46],
     tecla_especial = false;
 
-   // var length = document.getElementById("producto").value.length;
-  //  if (length > Max_Length) {
         var alertx = document.getElementById("divAlerta2");
-   //     alertx.style.display="block";
-  //  }
 
   for (var i in especiales) {
     if (key == especiales[i]) {
       tecla_especial = true;
 
-      //if (length < Max_Length) {
-      //  var alertx = document.getElementById("divAlerta2");
-      //  alertx.style.display="none";
-   // }
       break;
     }
   }
@@ -215,15 +348,7 @@ function sololetras(e) {
   if (letras.indexOf(tecla) == -1 && !tecla_especial) {
     return false;
   }
-//tecla = (document.all) ? event.keyCode : event.which;
-//var Max_Length = 35;
-//var length = document.getElementById("producto").value.length;
 
-
-//if (tecla==8) return true; //Tecla de retroceso (para poder borrar)
-//patron =/[A-Za-z\s]/; // Solo acepta letras
-//te = String.fromCharCode(tecla);
-//return patron.test(te);
 }
 
 
@@ -235,6 +360,10 @@ function Guardar(){
 
    // e.preventDefault();
     var a =  encodeURI(document.getElementById('producto').value)
+
+    a = a.replace("'", "´");
+
+
     if (a != ''){
         ajaxGeneral(function(res){
             console.log(res[0])
@@ -249,6 +378,9 @@ function Guardar(){
      
                      div.innerHTML += res[0].data;
             }else{
+
+                var notificator = new Notification(document.querySelector('.notification'));
+                notificator.info('Producto insertado');
      
              Cancelar();
      
@@ -257,8 +389,12 @@ function Guardar(){
     }else
     {//alert('!Error el nombre del producto no puede estar en blanco!')
     var alertx = document.getElementById("divAlerta");
-   // alertx.innerHTML = "El campo de producto es obligatorio";
-    alertx.style.display="block";
+  // alertx.innerHTML = "El campo de producto es obligatorio";
+   alertx.style.display="block";
+
+   var div = document.getElementById('txt_alert');
+
+   div.innerHTML += 'El campo de producto es obligatorio';
     }
 }
 
@@ -279,36 +415,73 @@ function cerrarBoton(){
 
 
 function Modificar(){
-   // e.preventDefault();
+  
+   var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
 
     
 
     var a =  encodeURI(document.getElementById('id').value)
     var b =  encodeURI(document.getElementById('producto').value)
 
+  
+    b = b.replace("'", "´");
+
     //alert('modificar =' + a +' b  ' + b);
 
          
     ajaxGeneral(function(res){
+
+        console.log(res[0])
+
+        if (res[0].error == 'true'){
+
+        var alertx = document.getElementById("divAlerta");
+        alertx.style.display="block";
+
+        var div = document.getElementById('txt_alert');
+        div.innerHTML += res[0].data;
+        
+        }else{
+
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.info('Producto actualizado');
+
+
+            Cancelar();
+
+        }
         
         
-        Cancelar();
+        
     }, urlapp+"controladores/productos.php?funcion=modificar&parametros="+a+','+b)
 
 }
 
 
-function Eliminar(){
-    //e.preventDefault(); 
+function Eliminar(e){
+    e.preventDefault(); 
 
     var a =  encodeURI(document.getElementById('id').value)
 
     // alert('Aqui ára eliminar el Usuario = ' + a);
     
     ajaxGeneral(function(res){
-        
-        
-       Cancelar();
+
+        if (res[0].error == 'true'){
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.error('Error al eliminar');
+
+        }else{
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.error('Producto eliminado');
+
+            document.getElementById('producto').enabled = false;
+
+            Cancelar();
+        }
+      
     }, urlapp+"controladores/productos.php?funcion=eliminar&parametros="+a)
 
 }

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/cargamaster.php';
 
@@ -9,11 +10,15 @@ require '../modelos/cargamaster.php';
 
             $res= [];
 
+            $usuario =  $_SESSION['Vusuario'];
+
 
             $vins = json_decode($_GET['parametros']);
 
 
-            $stmt = $conn->query(str_replace( array("{{vins}}"), array($vins), $ValidarrVinsMaster));
+           
+
+            $stmt = $conn->query(str_replace( array("{{vins}}","{{usuario}}"), array($vins, $usuario), $ValidarrVinsMaster));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
              array_push ($res, $row);
@@ -24,12 +29,13 @@ require '../modelos/cargamaster.php';
         case 'insertarCargaMaster':
 
         $res= [];
+        $usuario =  $_SESSION['Vusuario'];
 
        $vins = json_decode($_GET['parametros']);
        $id = json_decode($_GET['id']);
 
 
-        $stmt = $conn->query(str_replace( array("{{vins}}","{{id}}"), array($vins, $id), $insertarCargaMaster));
+        $stmt = $conn->query(str_replace( array("{{vins}}","{{id}}","{{usuario}}"), array($vins, $id, $usuario), $insertarCargaMaster));
 
         while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
          array_push ($res, $row);

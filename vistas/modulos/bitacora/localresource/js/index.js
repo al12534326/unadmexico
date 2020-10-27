@@ -94,17 +94,21 @@ function init() {
 
 
 
+
 //run
 var data = null;
-var valBucle = 0;
 
-Personal(null);
-Empresas();
+bitacora();
+
+//Usuarios(null);
+//Roles();
+//Personal();
 
 var accion = 0;
 
 
 // Funciones
+
 function AccionGuardar(event){
     event.preventDefault()
 
@@ -113,7 +117,7 @@ function AccionGuardar(event){
        if (accion == 1){Guardar();}else{ Modificar(); }
 }
 
-function Personal(valPaginacion)
+function bitacora (valPaginacion) 
 {
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
@@ -126,12 +130,13 @@ function Personal(valPaginacion)
         var tabla = '';
 
             for (item in res) {
-                tabla = tabla+ '<tr><td style="width:10px;txt-align:left">' + res[item].id + '</td>'+
-                '<td style="width:100px;txt-align:left">' +res[item].empresa + '</td>'+
-                '<td style="width:100px;txt-align:left">' +res[item].apellidoPaterno + '</td>'+
-                '<td style="width:100px;txt-align:left">' +res[item].apellidoMaterno + '</td>'+
-                '<td style="width:100px;txt-align:left">' +res[item].nombre + '</td>'+
-                '<td style="width:100px;txt-align:left">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
+                tabla = tabla+ '<tr><td class="column1">' + res[item].id + '</td>'+
+                '<td class="column2">' +res[item].usuario + '</td>'+
+                '<td class="column3">' +res[item].modulo + '</td>'+
+                '<td class="column4">' + res[item].accion + '</td>'+
+                '<td class="column5">' + res[item].fechaCreacion + '</td>';
+                //+
+                //'<td class="column6" style = "">' + '<i onclick = "Editar('+res[item].id+','+1+')" class="fa fa-pencil-square-o" aria-hidden="true"></i> <i onclick = "Editar('+res[item].id+','+2+')"class="fa fa-trash" aria-hidden="true"></i>' + '</td></tr>';
             }
 
             elemento.innerHTML = tabla;
@@ -142,16 +147,7 @@ function Personal(valPaginacion)
             var paginacion = '';
 
 
-            valBucle = 0;   
-
-           
-            if (res.length == 0){
-              valBucle = 0; 
-     
-            
-            }else{
-              valBucle = Math.ceil(res[0].totalRegistros / 10); 
-            }  
+       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -160,23 +156,18 @@ function Personal(valPaginacion)
             {
                 if (i == paginaActiva)
                 {
-                    paginacion = paginacion + '<li><a onclick="Personal('+i+')" class="active" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="bitacora('+i+')" class="active" >'+ i +'</a></li>';
                 }
                 else
                 {
-                    paginacion = paginacion + '<li><a onclick="Personal('+i+')" >'+ i +'</a></li>';
+                    paginacion = paginacion + '<li><a onclick="bitacora('+i+')" >'+ i +'</a></li>';
                 }
             }
 
         }
         else
         {
-            if (valBucle == 0){
-                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
-
-            }else{
-                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
-            } 
+            paginacion =  '<li><a onclick="bitacora('+i+')" class="active" >1</a></li>';  
         }
 
         elemento.innerHTML = paginacion;
@@ -184,15 +175,15 @@ function Personal(valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, urlapp+"controladores/personal.php?funcion=listar&parametros=10," + paginaActiva);
+    }, urlapp+"controladores/bitacora.php?funcion=listar&parametros=10," + paginaActiva);
     
 }
 
-function Empresas()
+function Roles()
 {
 
      ajaxGeneral(function(res){
-        elemento = document.getElementById('select_empresas');
+        elemento = document.getElementById('select_roles');
 
         var select = '';
 
@@ -203,32 +194,44 @@ function Empresas()
 
         elemento.innerHTML = select;
 
-    }, urlapp+"controladores/empresas.php?funcion=catalogo_empresas")
+    }, urlapp+"controladores/roles.php?funcion=catalogo_roles")
 
 
 }
 
+function Personal()
+{
+
+     ajaxGeneral(function(res){
+        elemento = document.getElementById('select_personal');
+
+        var select = '';
+
+
+        for (item in res) {
+            select = select +  '<option value="'+ res[item].id+'">'+res[item].nombre+'</option>';
+        }
+
+        elemento.innerHTML = select;
+
+    }, urlapp+"controladores/personal.php?funcion=catalogo_personal")
+
+
+}
+
+
+
+
 function Crear(tipo){
 
-    accion = 1;
+    accion = tipo;
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
 
-    var mostrar = document.getElementById('InsertaModifica');
-    mostrar.style.display = "block";
-
-    document.getElementById('apellidoPaterno').value = '';
-    document.getElementById('apellidoMaterno').value = '';
-    document.getElementById('nombre').value = '';
-
-    document.getElementById('apellidoPaterno').disabled = false;
-    document.getElementById('apellidoMaterno').disabled = false;
-    document.getElementById('nombre').disabled = false;
-
-   
+    
     elementoTitle = document.getElementById('titulo');
-    elementoTitle.innerHTML = 'CREAR PERSONAL';
+    elementoTitle.innerHTML = 'CREAR USUARIO';
     
 
     var x = document.getElementById("content-table");
@@ -246,41 +249,6 @@ function Crear(tipo){
     }
 }
 
-function quitarSimbolos(){
-
-    var EapellidoPaterno = document.getElementById('apellidoPaterno').value;
-    var EapellidoMaterno = document.getElementById('apellidoMaterno').value;
-    var Enombre = document.getElementById('nombre').value;
-
-   // alert(Ecategoria);
-    var specialChars = "!@$^&%*()+=-[]\/{}|:<>?,;.'";
-
-    for (var i = 0; i < specialChars.length; i++) {
-        EapellidoPaterno = EapellidoPaterno.replace(new RegExp("\\" + specialChars[i], "gi"), "");
-       
-    }
-
-    for (var i = 0; i < specialChars.length; i++) {
-        EapellidoMaterno = EapellidoMaterno.replace(new RegExp("\\" + specialChars[i], "gi"), "");
-        
-     }
-
-     for (var i = 0; i < specialChars.length; i++) {
-        Enombre = Enombre.replace(new RegExp("\\" + specialChars[i], "gi"), "");
-        
-     }
-
-    document.getElementById('apellidoPaterno').value = Ecategoria;
-    document.getElementById('apellidoMaterno').value = Ecategoria;
-    document.getElementById('nombre').value = Ecategoria;
-
-    validarTamaño(EapellidoPaterno);
-    validarTamaño(EapellidoMaterno);
-    validarTamaño(Enombre);
-
-}
-
-
 function Editar(nodo,tipo){
 
     var tipoAccionEditar = document.getElementById("InsertaModifica");
@@ -292,33 +260,22 @@ function Editar(nodo,tipo){
     elementoTitle = document.getElementById('titulo');
 
     if (tipo==1){
-       elementoTitle.innerHTML = 'EDITAR PERSONAL';
+       elementoTitle.innerHTML = 'EDITAR USUARIO';
 
        var botonNuevo = document.getElementById("btnNuevo");
        botonNuevo.style.display = "none";
-   
       
        tipoAccionEditar.style.display = "block";
        tipoAccionEliminar.style.display = "none";
 
-
-       
-
     }else{
-       elementoTitle.innerHTML = 'ELIMINAR PERSONAL';
+       elementoTitle.innerHTML = 'ELIMINAR USUARIO';
 
        var botonNuevo = document.getElementById("btnNuevo");
        botonNuevo.style.display = "none";
-   
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
-
-       document.getElementById('id').disabled = true;
-       document.getElementById('select_empresas').disabled = true;
-       document.getElementById('apellidoPaterno').disabled = true;
-       document.getElementById('apellidoMaterno').disabled = true;
-       document.getElementById('nombre').disabled = true;
     }
 
     function esID(itemValor) { 
@@ -332,12 +289,12 @@ function Editar(nodo,tipo){
   
 
     document.getElementById('id').value = found.id
-    document.getElementById('select_empresas').value = found.idEmpresa
-    document.getElementById('apellidoPaterno').value =found.apellidoPaterno
-    document.getElementById('apellidoMaterno').value =found.apellidoMaterno
-    document.getElementById('nombre').value =found.nombre
+    document.getElementById('select_roles').value = found.idRol
+    document.getElementById('select_personal').value = found.idPersonal
+    document.getElementById('usuario').value =found.usuario
+    document.getElementById('password').value =found.password
+    document.getElementById('email').value = found.email
     
-   
     var x = document.getElementById("content-table");
     if (x.style.display === "none") {
         x.style.display = "block";
@@ -355,18 +312,18 @@ function Editar(nodo,tipo){
 
 }
 
+
 function validarTamaño(e){
     var Max_Length = 35;
     var keyA = e.keyCode || e.which;
-    var lengthAP = document.getElementById("apellidoPaterno").value.length;
-    var lengthAM = document.getElementById("apellidoMaterno").value.length;
-    var lengthNombre = document.getElementById("nombre").value.length;
+    var lengthUS = document.getElementById("usuario").value.length;
+    var lengthPS = document.getElementById("password").value.length;
+    var lengthEmail = document.getElementById("email").value.length;
     var alertaCampo = document.getElementById("divAlerta2");
    
-
     var mostrarInsertaModifica = document.getElementById('InsertaModifica');
-  
-    if (lengthAP > Max_Length || lengthAM > Max_Length || lengthNombre > Max_Length ) {
+     
+    if (lengthUS > Max_Length || lengthPS > Max_Length || lengthEmail > Max_Length ) {
         alertaCampo.style.display="block";
         mostrarInsertaModifica.style.display="none";
     }else{
@@ -401,53 +358,51 @@ function sololetras(e) {
 
 }
 
+
 function Guardar(){
 
     var div = document.getElementById('txt_alert');
 
     div.innerHTML ='';
 
-    var a = encodeURI(document.getElementById('select_empresas').value)
-    var b = encodeURI(document.getElementById('apellidoPaterno').value)
-    var c = encodeURI(document.getElementById('apellidoMaterno').value)
-    var d = encodeURI(document.getElementById('nombre').value)
+    var a = encodeURI(document.getElementById('select_roles').value)
+    var b = encodeURI(document.getElementById('select_personal').value)
+    var c = encodeURI(document.getElementById('usuario').value)
+    var d = encodeURI(document.getElementById('password').value)
+    var e =  encodeURI(document.getElementById('email').value)
 
-    a = a.replace("'", "´");
-    b = b.replace("'", "´");
-    c = c.replace("'", "´");
-    d = d.replace("'", "´");
+    if(a != '' && b != '' && c != '' && d != '' && e != ''){
+   
 
-    if (a != '' && b != '' && c != '' && d != ''){
+    ajaxGeneral(function(res){
+        console.log(res[0])
 
-        ajaxGeneral(function(res){
-            console.log(res[0])
+        if(res[0].error == 'true'){
+ 
+         var alertx = document.getElementById("divAlerta");
+                 // alertx.innerHTML = "El campo de producto es obligatorio";
+                 alertx.style.display="block";
+ 
+                 var div = document.getElementById('txt_alert');
+ 
+                 div.innerHTML += res[0].data;
+        }else{
 
-            if(res[0].error == 'true'){
-     
-             var alertx = document.getElementById("divAlerta");
-                     // alertx.innerHTML = "El campo de producto es obligatorio";
-                     alertx.style.display="block";
-     
-                     var div = document.getElementById('txt_alert');
-     
-                     div.innerHTML += res[0].data;
-            }else{
-
-                var notificator = new Notification(document.querySelector('.notification'));
-                notificator.info('Personal Insertado');
-     
-             Cancelar();
-     
-            }
-    }, urlapp+"controladores/personal.php?funcion=guardar&parametros="+a+','+b+','+c+','+d)
-}else
-{ //alert('!Error el nombre del producto no puede estar en blanco!')
-var alertx = document.getElementById("divAlerta");
-  // alertx.innerHTML = "El campo de producto es obligatorio";
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.info('Usuario Insertdo');
+ 
+         Cancelar();
+ 
+        }
+    }, urlapp+"controladores/usuarios.php?funcion=guardar&parametros="+a+','+b+','+c+','+d+','+e)
+   }else
+   { //alert('!Error el nombre del producto no puede estar en blanco!')
+   
+   var alertx = document.getElementById("divAlerta");
    alertx.style.display="block";
    var div = document.getElementById('txt_alert');
    div.innerHTML += 'Todos los campos son obligatorios';
-}
+   }
 }
 
 
@@ -458,18 +413,18 @@ function Modificar(){
     div.innerHTML ='';
 
     var a =  encodeURI(document.getElementById('id').value)
-    var b = encodeURI(document.getElementById('select_empresas').value)
-    var c = encodeURI(document.getElementById('apellidoPaterno').value)
-    var d = encodeURI(document.getElementById('apellidoMaterno').value)
-    var e = encodeURI(document.getElementById('nombre').value)
-
-    c = c.replace("'", "´");
-    d = d.replace("'", "´");
-    e = e.replace("'", "´");
-          
+    var b = encodeURI(document.getElementById('select_roles').value)
+    var c = encodeURI(document.getElementById('select_personal').value)
+    var d = encodeURI(document.getElementById('usuario').value)
+    var e = encodeURI(document.getElementById('password').value)
+    var f =  encodeURI(document.getElementById('email').value)
+         
     ajaxGeneral(function(res){
         
+        
         console.log(res[0])
+
+       // alert(console.log(res[0].error));
 
         if(res[0].error == 'true'){
 
@@ -482,22 +437,20 @@ function Modificar(){
             div.innerHTML += res[0].data;
         }else{
             var notificator = new Notification(document.querySelector('.notification'));
-            notificator.info('Personal Actualizado');
-            
-            document.getElementById('apellidoPaterno').value = '';
-            document.getElementById('apellidoMaterno').value = '';
-            document.getElementById('nombre').value = '';
+            notificator.info('Usuario Actualizado');
             Cancelar();
         }
-    }, urlapp+"controladores/personal.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e)
+    }, urlapp+"controladores/usuarios.php?funcion=modificar&parametros="+a+','+b+','+c+','+d+','+e+','+f)
 
 }
 
 
 function Eliminar(e){
+
     e.preventDefault();
 
-      var a =  encodeURI(document.getElementById('id').value)
+
+    var a =  encodeURI(document.getElementById('id').value)
 
     // alert('Aqui ára eliminar el Usuario = ' + a);
     
@@ -509,42 +462,33 @@ function Eliminar(e){
 
             notificator.error('error al eliminar');
 
-
-
         }else{
 
             var notificator = new Notification(document.querySelector('.notification'));
 
 
-            notificator.info('Personal Eliminado');
-
-            var oculta = document.getElementById('Eliminar');
-
-            oculta.style.display = "none";
-
-            document.getElementById('select_empresas').disabled = false;
+            notificator.info('Usuario Eliminado');
 
 
 
             Cancelar();
 
         }
-    }, urlapp+"controladores/personal.php?funcion=eliminar&parametros="+a)
+    }, urlapp+"controladores/usuarios.php?funcion=eliminar&parametros="+a)
 
 }
 
 
 function Cancelar(){
    
+
     var alertx = document.getElementById("divAlerta");
     alertx.style.display="none";
 
-    Empresas(null);
-    Personal();
+    Usuarios(null);
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "block";
-
 
     var x = document.getElementById("content-form");
     if (x.style.display === "none") {

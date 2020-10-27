@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/tiposPedimentos.php';
 
@@ -41,12 +42,19 @@ require '../modelos/tiposPedimentos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
            
             $nombre = urldecode ($parametros [0]);
                         
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarTiposPedimentos));
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{usuario}}"), array( $nombre,$usuario), $insertarTiposPedimentos));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 
@@ -55,12 +63,19 @@ require '../modelos/tiposPedimentos.php';
 
             $parametros = explode(',', $_GET['parametros']);
 
+            $usuario =  $_SESSION['Vusuario'];
+
            
             $nombre = urldecode ($parametros [0]);
                         
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array( $nombre), $insertarTiposPedimentos));
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{usuario}}"), array( $nombre,$usuario), $insertarTiposPedimentos));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 
@@ -69,13 +84,20 @@ require '../modelos/tiposPedimentos.php';
             
              $parametros = explode(',', $_GET['parametros']);
 
+             $usuario =  $_SESSION['Vusuario'];
+
             $id = $parametros [0];
             $nombre = urldecode ($parametros [1]);
             
             
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarTiposPedimentos));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{usuario}}"), array($id, $nombre,$usuario), $modificarTiposPedimentos));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
 
             
@@ -86,12 +108,18 @@ require '../modelos/tiposPedimentos.php';
              $parametros = explode(',', $_GET['parametros']);
 
             $id = $parametros [0];
+            $usuario =  $_SESSION['Vusuario'];
 
-            console.log('Elimnar categoria = ' . $id);
+           // console.log('Elimnar categoria = ' . $id);
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarTiposPedimentos));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id,$usuario), $eliminarTiposPedimentos));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
             
         break;
 

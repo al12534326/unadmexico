@@ -1,5 +1,105 @@
+function Notification(htmlElement) {
+
+    this.htmlElement = htmlElement;
+    this.icon = htmlElement.querySelector('.icon > i');
+    this.text = htmlElement.querySelector('.text');
+    this.close = htmlElement.querySelector('.close');
+    this.isRunning = false;
+    this.timeout;
+
+    this.bindEvents();
+};
+
+Notification.prototype.bindEvents = function() {
+    var self = this;
+    this.close.addEventListener('click', function() {
+        window.clearTimeout(self.timeout);
+        self.reset();
+    });
+}
+
+Notification.prototype.info = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification info';
+    this.icon.className = 'fa fa-2x fa-info-circle';
+
+    this.show();
+}
+
+Notification.prototype.warning = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification warning';
+    this.icon.className = 'fa fa-2x fa-exclamation-triangle';
+
+    this.show();
+}
+
+Notification.prototype.error = function(message) {
+    if(this.isRunning) return false;
+
+    this.text.innerHTML = message;
+    this.htmlElement.className = 'notification error';
+    this.icon.className = 'fa fa-2x fa-exclamation-circle';
+
+    this.show();
+}
+
+Notification.prototype.show = function() {
+    if(!this.htmlElement.classList.contains('visible'))
+        this.htmlElement.classList.add('visible');
+
+    this.isRunning = true;
+    this.autoReset();
+};
+
+Notification.prototype.autoReset = function() {
+    var self = this;
+    this.timeout = window.setTimeout(function() {
+        self.reset();
+    }, 5000);
+}
+
+Notification.prototype.reset = function() {
+    this.htmlElement.className = "notification";
+    this.icon.className = "";
+    this.isRunning = false;
+};
+
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    var info = document.getElementById('info');
+    var warn = document.getElementById('warn');
+    var error = document.getElementById('error');
+
+    var notificator = new Notification(document.querySelector('.notification'));
+
+    info.onclick = function() {
+        notificator.info('Esta es una información');
+    }
+
+    warn.onclick = function() {
+        notificator.warning('Te te te advieeeerto!');
+    }
+
+    error.onclick = function() {
+        notificator.error('Le causaste derrame al sistema');
+    }
+}
+
+
+
+
+
+
+
 //run
 var data = null;
+var valBucle = 0;
 
 ObtenerCorreos(null);
 ObtenerEmpresas();
@@ -13,7 +113,7 @@ function AccionGuardar(event){
 
    // alert ('AccionGuardar = ' + accion);
 
-       if (accion == 1){Guardar();}else{ Modificar(); }
+       if (accion == 1){validarEmail();}else{ validarEmailModificado(); }
 }
 
 function ObtenerCorreos(valPaginacion)
@@ -43,7 +143,16 @@ function ObtenerCorreos(valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 5); 
+            valBucle = 0;   
+
+           
+            if (res.length == 0){
+              valBucle = 0; 
+     
+            
+            }else{
+              valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            } 
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -63,7 +172,12 @@ function ObtenerCorreos(valPaginacion)
         }
         else
         {
-            paginacion =  '<li><aonclick="ObtenerCorreos('+i+')" class="active" >1</a></li>';
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            } 
         }
 
         elemento.innerHTML = paginacion;
@@ -71,7 +185,7 @@ function ObtenerCorreos(valPaginacion)
         // funcionalidad
 
         // fin funcionalidad    
-    }, urlapp+"controladores/correos.php?funcion=listar_correos&parametros=5," + paginaActiva);
+    }, urlapp+"controladores/correos.php?funcion=listar_correos&parametros=10," + paginaActiva);
     
 }
 
@@ -97,7 +211,7 @@ function ObtenerEmpresas()
 
 function Crear(tipo){
 
-    accion = tipo;
+    accion = 1;
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
@@ -125,6 +239,8 @@ function Crear(tipo){
 
 function Editar(nodo,tipo){
 
+    accion = tipo;
+
     var tipoAccionEditar = document.getElementById("InsertaModifica");
     var tipoAccionEliminar = document.getElementById("Eliminar");
 
@@ -135,6 +251,8 @@ function Editar(nodo,tipo){
 
     if (tipo==1){
        elementoTitle.innerHTML = 'EDITAR CORREO';
+
+       accion = 2;
 
        var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
@@ -152,6 +270,12 @@ function Editar(nodo,tipo){
 
        tipoAccionEditar.style.display = "none";
        tipoAccionEliminar.style.display = "block";
+
+       document.getElementById('id').disabled = true;
+       document.getElementById('select_empresas').disabled = true;
+       document.getElementById('correo').disabled = true;
+
+
     }
 
     function esID(itemValor) { 
@@ -186,6 +310,24 @@ function Editar(nodo,tipo){
 }
 
 
+function quitarSimbolos(){
+
+    var Ecorreo = document.getElementById('correo').value;
+
+   // alert(Ecategoria);
+    var specialChars = "@$^&%*()+=-[]\/{}|:<>?,;'";
+
+    for (var i = 0; i < specialChars.length; i++) {
+        Ecorreo = Ecorreo.replace(new RegExp("\\" + specialChars[i], "gi"), "");
+       
+    }
+
+    document.getElementById('correo').value = Ecorreo;
+
+    validarTamaño(Ecorreo);
+}
+
+
 function validarTamaño(e){
     var Max_Length = 35;
     var keyA = e.keyCode || e.which;
@@ -208,7 +350,7 @@ function sololetras(e) {
     var Max_Length = 35;
     var key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase(),
-    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz@1234567890.",
     especiales = [8, 37, 39, 46],
     tecla_especial = false;
 
@@ -229,6 +371,35 @@ function sololetras(e) {
 }
 
 
+function validarEmailModificado() {
+    var valor = document.getElementById('correo').value;
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)){
+    // alert("La dirección de email " + valor + " es correcta.");
+    Modificar()
+    } else {
+        var alertx = document.getElementById("divAlerta");
+        alertx.style.display="block";
+        var div = document.getElementById('txt_alert');
+        div.innerHTML = "La dirección de email es incorrecta.";
+    }
+  }
+
+
+
+function validarEmail() {
+    var valor = document.getElementById('correo').value;
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)){
+    // alert("La dirección de email " + valor + " es correcta.");
+    Guardar()
+    } else {
+        var alertx = document.getElementById("divAlerta");
+        alertx.style.display="block";
+        var div = document.getElementById('txt_alert');
+        div.innerHTML = "La dirección de email es incorrecta.";
+    }
+  }
+
+
 function Guardar(){
 
     var div = document.getElementById('txt_alert');
@@ -237,6 +408,9 @@ function Guardar(){
 
     var a = encodeURI(document.getElementById('select_empresas').value)
     var b = encodeURI(document.getElementById('correo').value)
+
+      
+    b = b.replace("'", "´");
 
     if (b != ''){
 
@@ -253,6 +427,9 @@ function Guardar(){
  
                  div.innerHTML += res[0].data;
         }else{
+
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.info('Correo insertado');
  
          Cancelar();
  
@@ -263,42 +440,93 @@ function Guardar(){
    var alertx = document.getElementById("divAlerta");
   // alertx.innerHTML = "El campo de producto es obligatorio";
    alertx.style.display="block";
+   var div = document.getElementById('txt_alert');
+   div.innerHTML += 'El campo de correo es obligatorio';
    }
 }
 
 
 function Modificar(){
 
+    var div = document.getElementById('txt_alert');
+
+    div.innerHTML ='';
+
     var a =  encodeURI(document.getElementById('id').value)
     var b = encodeURI(document.getElementById('select_empresas').value)
     var c = encodeURI(document.getElementById('correo').value)
 
+    c = c.replace("'", "´");
+
        
     ajaxGeneral(function(res){
-        
-        
-        Cancelar();
+        console.log(res[0])
+
+        if(res[0].error == 'true'){
+
+            var alertx = document.getElementById("divAlerta");
+            // alertx.innerHTML = "El campo de producto es obligatorio";
+            alertx.style.display="block";
+
+            var div = document.getElementById('txt_alert');
+
+            div.innerHTML += res[0].data;
+        }else{
+            var notificator = new Notification(document.querySelector('.notification'));
+            notificator.info('Correo Actualizado');
+            document.getElementById('correo').value = '';
+
+            Cancelar();
+        }
     }, urlapp+"controladores/correos.php?funcion=modificar&parametros="+a+','+b+','+c)
 
 }
 
 
-function Eliminar(){
+function Eliminar(e){
+
+    e.preventDefault();
+
 
     var a =  encodeURI(document.getElementById('id').value)
 
-     //alert('Aqui ára eliminar la empresa = ' + a);
+    // alert('Aqui ára eliminar el Usuario = ' + a);
     
     ajaxGeneral(function(res){
-        
-        
-        Cancelar();
+
+        if(res[0].error == 'true'){
+            var notificator = new Notification(document.querySelector('.notification'));
+
+
+            notificator.error('error al eliminar');
+
+
+
+        }else{
+
+            var notificator = new Notification(document.querySelector('.notification'));
+
+
+            notificator.info('Correo Eliminado');
+
+            var oculta = document.getElementById('Eliminar');
+
+           oculta.style.display = "none";
+
+
+
+            Cancelar();
+
+        }
     }, urlapp+"controladores/correos.php?funcion=eliminar&parametros="+a)
 
 }
 
 
 function Cancelar(){
+
+    document.getElementById('correo').value = '';
+    document.getElementById('correo').disabled = false;
 
     var alertx = document.getElementById("divAlerta");
     alertx.style.display="none";

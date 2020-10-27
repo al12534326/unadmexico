@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require '../modelos/conexion.php';
 require '../modelos/productos.php';
 
@@ -44,10 +45,12 @@ require '../modelos/productos.php';
 
             $nombre = urldecode ($parametros [0]);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             
             $res = [];
 
-            $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
+            $stmt = $conn->query(str_replace( array("{{nombre}}","{{usuario}}"), array($nombre,$usuario), $insertaProducto));
 
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -72,9 +75,11 @@ require '../modelos/productos.php';
             $id = urldecode ($parametros [0]);
             $nombre = urldecode ($parametros [1]);
 
+            $usuario =  $_SESSION['Vusuario'];
+
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}"), array($id, $nombre), $modificarProducto));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{usuario}}"), array($id, $nombre,$usuario), $modificarProducto));
        
             while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
                 array_push ($res, $row);
@@ -86,17 +91,23 @@ require '../modelos/productos.php';
 
         case 'eliminar'  :
 
-
-
+        
             $parametros = explode(',', $_GET['parametros']);
 
             $id = $parametros [0];
 
-            console.log('Elimnar empresa = ' . $id);
+            $usuario =  $_SESSION['Vusuario'];
+
+           // console.log('Elimnar empresa = ' . $id);
            
             $res = [];
            
-            $stmt = $conn->query(str_replace( array("{{id}}"), array($id), $eliminarProducto));
+            $stmt = $conn->query(str_replace( array("{{id}}","{{usuario}}"), array($id,$usuario), $eliminarProducto));
+
+            while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){  
+                array_push ($res, $row);
+           }  
+           echo json_encode($res); 
 
            
         break;

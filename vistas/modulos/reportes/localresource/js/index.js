@@ -1,10 +1,7 @@
 //run
 var data = null;
 
-//Pedimentos(null);
-//ObtenerEmpresas();
-//ObtenerProductos();
-//ObtenerTiposPedimentos();
+var valBucle = 0;
 
 var accion = 0;
 
@@ -41,65 +38,50 @@ function setHasta(){
 
 
 
-function Reportes(){
-    var Opcion = document.getElementById("select_reporte").value;
-    //alert(Opcion);
 
-    if (desde.value != '' && hasta.value != ''){
-        //alert('Desde = ' + desde.value +' Hasta = '+ hasta.value);
-        var x = document.getElementById("content-table");
-        x.style.display = "block";
-        Pedimentos(null)
+//concentado por dia
 
-       /* switch(Opcion) {
-            case 1:
-                    Pedimentos(null);
-              break;
-            case 2:
-              // code block
-              break;
-            default:
-              // code block
-        }*/
-       // RepOficioXFecha(null);
-         
-    }else
-    {alert('Fechas invalidad')}
-
-    
-
-   // alert(Opcion);
-
-   
-}
-
-
-
-// Funciones
-
-function AccionGuardar(){
-
-
-    if (accion == 1){Guardar();}else{ Modificar(); }
-}
-
-function Pedimentos (valPaginacion)
+function concentrado(valPaginacion)
 {
 
+    var tbl = '<table>' +
+    '<thead>' +
+      '<tr class="table100-head">' +
+      '<th class="column3">FECHA</th>' +
+      '<th class="column22">06:00 06:59</th>' +
+      '<th class="column22">07:00 07:59</th>' +
+      '<th class="column22">08:00 08:59</th>' +
+      '<th class="column22">09:00 09:59</th>' +
+      '<th class="column22">10:00 10:59</th>' +
+      '<th class="column22">11:00 11:59</th>' +
+      '<th class="column22">12:00 12:59</th>' +
+      '<th class="column22">13:00 13:59</th>' +
+      '<th class="column22">14:00 14:59</th>' +
+      '<th class="column22">15:00 15:59</th>' +
+      '<th class="column22">16:00 16:59</th>' +
+      '<th class="column22">17:00 17:59</th>' +
+      '<th class="column22">18:00 18:59</th>' +
+      '<th class="column22">19:00 19:59</th>' +
+      '<th class="column22">20:00 20:59</th>' +
+      '<th class="column22">21:00 21:59</th>' +
+      '<th class="column22">22:00 22:59</th>' +
+      '<th class="column22">23:00 23:59</th>' +
+      '</tr>' +
+      '</thead>';
+        
+    
     //alert('aqui tiene que entrar ');
 
     if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
 
     ajaxGeneral(function(res){
 
-
-
-        
-
         data = res;
 
+
+       
         var str = JSON.stringify(data);
-        elemento = document.getElementById('crpTabla');
+        elemento = document.getElementById('tablaped');
 
         var txt = document.getElementById('txt');
        // txt.innerHTML = str;
@@ -107,21 +89,38 @@ function Pedimentos (valPaginacion)
 
         var tabla = '';
 
+
+
+        
+
         for (item in res) {
-            tabla = tabla+ '<tr>' + 
-            '<td class="column1">' + res[item].fechaOficio + '</td>'+
-            '<td class="column1">' + res[item].fechaCierre + '</td>'+
-            '<td class="column1">' + res[item].nombre + '</td>'+
-            '<td class="column2">' +res[item].cantidad + '</td>'+
-            '<td class="column3">' +res[item].noOficio + '</td>'+
-            '<td class="column4">' + res[item].totalVines + '</td>'+
-            '<td class="column2">' +res[item].pendientes + '</td>'+
-            '<td class="column3">' +res[item].estatus + '</td></tr>';
+            tbl = tbl+ '<tr>' + 
+            '<td class="column3">' + res[item].fecha + '</td>'+
+            '<td class="column22">' + res[item].h1 + '</td>'+
+            '<td class="column22">' + res[item].h2 + '</td>'+
+            '<td class="column22">' + res[item].h3 + '</td>'+
+            '<td class="column22">' + res[item].h4 + '</td>'+
+            '<td class="column22">' + res[item].h5 + '</td>'+
+            '<td class="column22">' + res[item].h6 + '</td>'+
+            '<td class="column22">' + res[item].h7 + '</td>'+
+            '<td class="column22">' + res[item].h8 + '</td>'+
+            '<td class="column22">' + res[item].h9 + '</td>'+
+            '<td class="column22">' + res[item].h10 + '</td>'+
+            '<td class="column22">' + res[item].h11 + '</td>'+
+            '<td class="column22">' + res[item].h12 + '</td>'+
+            '<td class="column22">' + res[item].h13 + '</td>'+
+            '<td class="column22">' + res[item].h14 + '</td>'+
+            '<td class="column22">' + res[item].h15 + '</td>'+
+            '<td class="column22">' + res[item].h16 + '</td>'+
+            '<td class="column22">' + res[item].h17 + '</td>'+
+            '<td class="column22">' +res[item].h18 + '</td></tr>';
             
         }
 
 
-            elemento.innerHTML = tabla;
+         tbl = tbl + '<tbody ></tbody></table>';           
+        
+        elemento.innerHTML = tbl;
 
             elemento = document.getElementById('listPaginacion');
 
@@ -129,7 +128,16 @@ function Pedimentos (valPaginacion)
             var paginacion = '';
 
 
-       var valBucle = Math.ceil(res[0].totalRegistros / 10); 
+       valBucle = 0;   
+
+       if (res.length == 0){
+         valBucle = 0; 
+
+       
+       }else{
+         valBucle = Math.ceil(res[0].totalRegistros / 10); 
+       }
+
        console.log(valBucle);
        if (valBucle > 1) 
         {
@@ -149,7 +157,154 @@ function Pedimentos (valPaginacion)
         }
         else
         {
-            paginacion =  '<li><aonclick="Pedimentos('+i+')" class="active" >1</a></li>';
+           
+            
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            }
+           
+        }
+
+        elemento.innerHTML = paginacion;
+
+        // funcionalidad
+
+        // fin funcionalidad    
+    }, urlapp+"controladores/reportes.php?funcion=concentrado&parametros=10," + paginaActiva + "," + desde.value + "," + hasta.value );
+    
+}
+//Concentrado por dia
+
+function Reportes(){
+    var Opcion = document.getElementById("select_reporte").value;
+   // alert(Opcion);
+
+    if (desde.value != '' && hasta.value != ''){
+        //alert('Desde = ' + desde.value +' Hasta = '+ hasta.value);
+        var x = document.getElementById("content-table");
+        x.style.display = "block";
+        //Pedimentos(null)
+
+        if (Opcion == 1){
+            Pedimentos(null);
+        }
+
+        if (Opcion == 2){
+            concentrado();
+        }
+
+        
+    }else
+    {alert('Fechas invalidad')}
+  
+}
+
+
+
+// Funciones
+
+function AccionGuardar(){
+
+
+    if (accion == 1){Guardar();}else{ Modificar(); }
+}
+
+function Pedimentos (valPaginacion)
+{
+
+    var tbl = '<table>' +
+    '<thead>' +
+      '<tr class="table100-head">' +
+      '<th class="column5">FECHA</th>' +
+      '<th class="column5">FECHA CIERRE</th>' +
+      '<th class="column1">EMPRESA</th>' +
+      '<th class="column2">CANTIDAD</th>' +
+      '<th class="column3">NO.OFICIO</th>' +
+      '<th class="column3">VINS</th>' +
+      '<th class="column2">PENDIENTES</th>' +
+      '<th class="column3">ESTATUS</th>' +
+      '</tr>' +
+      '</thead>';
+        
+    
+    //alert('aqui tiene que entrar ');
+
+    if(valPaginacion == null){ var paginaActiva = 1  } else {var paginaActiva = valPaginacion }
+
+    ajaxGeneral(function(res){
+
+        data = res;
+
+        var str = JSON.stringify(data);
+        elemento = document.getElementById('tablaped');
+
+        var txt = document.getElementById('txt');
+       // txt.innerHTML = str;
+
+
+        var tabla = '';
+
+        for (item in res) {
+            tbl = tbl+ '<tr>' + 
+            '<td class="column5">' + res[item].fechaOficio + '</td>'+
+            '<td class="column3">' + res[item].fechaCierre + '</td>'+
+            '<td class="column1">' + res[item].nombre + '</td>'+
+            '<td class="column2">' +res[item].cantidad + '</td>'+
+            '<td class="column3">' +res[item].noOficio + '</td>'+
+            '<td class="column4">' + res[item].totalVines + '</td>'+
+            '<td class="column2">' +res[item].pendientes + '</td>'+
+            '<td class="column3">' +res[item].estatus + '</td></tr>';
+            
+        }
+
+
+         tbl = tbl + '<tbody ></tbody></table>';           
+        
+        elemento.innerHTML = tbl;
+
+            elemento = document.getElementById('listPaginacion');
+
+            
+            var paginacion = '';
+
+
+            valBucle = 0;   
+
+            if (res.length == 0){
+              valBucle = 0; 
+     
+            
+            }else{
+              valBucle = Math.ceil(res[0].totalRegistros / 10); 
+            }
+       console.log(valBucle);
+       if (valBucle > 1) 
+        {
+
+            for (var i=1; i<=valBucle; i++) 
+            {
+                if (i == paginaActiva)
+                {
+                    paginacion = paginacion + '<li><a onclick="Pedimentos('+i+')" class="active" >'+ i +'</a></li>';
+                }
+                else
+                {
+                    paginacion = paginacion + '<li><a onclick="Pedimentos('+i+')" >'+ i +'</a></li>';
+                }
+            }
+
+        }
+        else
+        {
+            if (valBucle == 0){
+                paginacion = '<li><a  class="active" >NO SE ENCONTRARON REGISTROS</a></li>';
+
+            }else{
+                paginacion =  '<li><a onclick="Pedimentos('+i+')" class="active" >1</a></li>';
+            }
         }
 
         elemento.innerHTML = paginacion;
