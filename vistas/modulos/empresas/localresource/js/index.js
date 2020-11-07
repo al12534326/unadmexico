@@ -217,6 +217,11 @@ function Crear(tipo){
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
 
+    var mostrar = document.getElementById("InsertaModifica");
+    mostrar.style.display = "block";
+    var ocultar = document.getElementById("Eliminar");
+    ocultar.style.display = "none";
+
 
     document.getElementById('nombre').value = '';
     document.getElementById('razon').value = '';
@@ -521,6 +526,9 @@ function Eliminar(e){
 
             document.getElementById('select_categorias').disabled = false;
             Cancelar();
+
+            var ocultar = document.getElementById("Eliminar");
+            ocultar.style.display = "none";
 
         }
     }, urlapp+"controladores/empresas.php?funcion=eliminar&parametros="+a)

@@ -92,6 +92,40 @@ require '../modelos/empresas.php';
             $razon = urldecode ($parametros [1]);
             $patente = urldecode ($parametros [2]);
             $categoria = $parametros [3];
+
+
+            $error = '0';
+
+            if (empty($razon) || empty($patente) || empty($nombre) ){
+                $error = 'Todos los campos son obligatorios';
+             }
+
+            if(strlen($razon) > 35 || strlen($patente) > 35 || strlen($nombre) > 35) {
+                $error = 'El Tamaño del campo es mayor de 35';
+             }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre de la empresa es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $razon)) {
+              
+            }else{
+                $error = 'El nombre de la razon social es invalido se permiten letras espacios numeros y el guion';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $patente)) {
+              
+            }else{
+                $error = 'El nombre de la atente es invalido se permiten letras espacios numeros y el guion';
+            }
+
+    
+
+            if ($error == '0'){
             
             $res = [];
            
@@ -101,6 +135,19 @@ require '../modelos/empresas.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
             
         break;
 
@@ -115,6 +162,39 @@ require '../modelos/empresas.php';
             $razon = urldecode ($parametros [2]);
             $patente = urldecode ($parametros [3]);
             $categoria = $parametros [4];
+
+            $error = '0';
+
+            if (empty($razon) || empty($patente) || empty($nombre) ){
+                $error = 'Todos los campos son obligatorios';
+             }
+
+            if(strlen($razon) > 35 || strlen($patente) > 35 || strlen($nombre) > 35) {
+                $error = 'El Tamaño del campo es mayor de 35';
+             }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre de la empresa es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $razon)) {
+              
+            }else{
+                $error = 'El nombre de la razon social es invalido se permiten letras espacios numeros y el guion';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $patente)) {
+              
+            }else{
+                $error = 'El nombre de la atente es invalido se permiten letras espacios numeros y el guion';
+            }
+
+    
+
+            if ($error == '0'){
             
             $res = [];
            
@@ -124,6 +204,19 @@ require '../modelos/empresas.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
 
         break;
 

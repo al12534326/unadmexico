@@ -67,6 +67,26 @@ require '../modelos/tiposPedimentos.php';
 
            
             $nombre = urldecode ($parametros [0]);
+
+            $error = '0';
+
+            if (empty($nombre) ){
+               $msg[0] = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($nombre) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre de la categoria es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
                         
             $res = [];
            
@@ -76,6 +96,19 @@ require '../modelos/tiposPedimentos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
             
         break;
 
@@ -88,6 +121,26 @@ require '../modelos/tiposPedimentos.php';
 
             $id = $parametros [0];
             $nombre = urldecode ($parametros [1]);
+
+            $error = '0';
+
+            if (empty($nombre) ){
+               $error = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($nombre) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre de la categoria es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
             
             
             $res = [];
@@ -98,6 +151,19 @@ require '../modelos/tiposPedimentos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
 
 
             

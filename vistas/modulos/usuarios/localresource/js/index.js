@@ -238,6 +238,11 @@ function Crear(tipo){
 
     var botonNuevo = document.getElementById("btnNuevo");
     botonNuevo.style.display = "none";
+
+
+    var ocultar = document.getElementById("Eliminar");
+    ocultar.style.display = "none";
+
     
     elementoTitle = document.getElementById('titulo');
     elementoTitle.innerHTML = 'CREAR USUARIO';

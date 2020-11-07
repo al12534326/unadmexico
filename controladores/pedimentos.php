@@ -74,6 +74,27 @@ require '../modelos/pedimentos.php';
             $idEmpresa = urldecode ($parametros [2]);
             $idTipoPedimento = $parametros [3];
 
+            $error = '0';
+
+            if (empty($pedimento) ){
+              $error = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($pedimento) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/([0-9])/', $pedimento)) {
+              
+            }else{
+                $error = 'El nombre del pedimento es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
+
+
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{noPedimento}}","{{idProducto}}","{{idEmpresa}}","{{idTipoPedimento}}","{{usuario}}"), array( $pedimento, $idProducto, $idEmpresa , $idTipoPedimento, $usuario ), $insertarPedimento));
@@ -82,6 +103,19 @@ require '../modelos/pedimentos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
 
 
         break;
@@ -98,6 +132,26 @@ require '../modelos/pedimentos.php';
             $idEmpresa = urldecode ($parametros [3]);
             $idTipoPedimento = $parametros [4];
 
+            $error = '0';
+
+            if (empty($pedimento) ){
+              $error = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($pedimento) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/([0-9][^$*#%&()=?"!]{2,35})/', $pedimento)) {
+              
+            }else{
+                $error = 'El nombre del pedimento es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
+
 
             $res = [];
            
@@ -107,6 +161,19 @@ require '../modelos/pedimentos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
         
         break;
 

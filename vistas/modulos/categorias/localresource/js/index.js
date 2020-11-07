@@ -297,7 +297,7 @@ function quitarSimbolos(){
     var Ecategoria = document.getElementById('categoria').value;
 
    // alert(Ecategoria);
-    var specialChars = "!@$^&%*()+=-[]\/{}|:<>?,;.'";
+    var specialChars = "!@$^&%*()+=[]\/{}|:<>?,;.'";
 
     for (var i = 0; i < specialChars.length; i++) {
        Ecategoria = Ecategoria.replace(new RegExp("\\" + specialChars[i], "gi"), "");
@@ -333,7 +333,7 @@ function sololetras(e) {
     var Max_Length = 35;
     var key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toLowerCase(),
-    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890",
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz1234567890-",
     especiales = [8, 37, 39, 46],
     tecla_especial = false;
 

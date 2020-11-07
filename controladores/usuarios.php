@@ -36,8 +36,34 @@ require '../modelos/usuarios.php';
             $usuario = urldecode ($parametros [2]);
             $password = $parametros [3];
             $email = urldecode ($parametros [4]);
-            
-            
+
+
+            $error = '0';
+
+            if (empty($usuario) || empty($password) || empty($email) ){
+                $error = 'Todos los campos son obligatorios';
+             }
+
+            if(strlen($usuario) > 35 || strlen($password) > 35 || strlen($email) > 35) {
+                $error = 'El Tamaño del campo es mayor de 35';
+             }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $usuario)) {
+              
+            }else{
+                $error = 'El nombre del usuario es invalido se permiten letras espacios numeros y el guion';
+            }
+
+            if (preg_match('/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/', $email)) {
+               
+            }else{
+                $error = 'La direccion de correo no tiene el formato correo@dominio.actividad.pais';
+            }
+
+
+            if ($error == '0'){
+
+           
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{idrol}}","{{idpersonal}}","{{usuario}}","{{password}}","{{email}}","{{usuario2}}"), array( $idrol, $idpersonal, $usuario , md5($password), $email,$usuario2 ), $insertaUsuario));  
@@ -46,6 +72,20 @@ require '../modelos/usuarios.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
         
        
             break;
@@ -63,6 +103,32 @@ require '../modelos/usuarios.php';
             $usuario = urldecode ($parametros [3]);
             $password = $parametros [4];
             $email = urldecode ($parametros [5]);
+
+            $error = '0';
+
+            if (empty($usuario) || empty($password) || empty($email) ){
+                $error = 'Todos los campos son obligatorios';
+             }
+
+            if(strlen($usuario) > 35 || strlen($password) > 35 || strlen($email) > 35) {
+                $error = 'El Tamaño del campo es mayor de 35';
+             }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $usuario)) {
+              
+            }else{
+                $error = 'El nombre del usuario es invalido se permiten letras espacios numeros y el guion';
+            }
+
+            if (preg_match('/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/', $email)) {
+               
+            }else{
+                $error = 'La direccion de correo no tiene el formato correo@dominio.actividad.pais';
+            }
+
+
+            if ($error == '0'){
+
             
             $res = [];
            
@@ -72,10 +138,21 @@ require '../modelos/usuarios.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
         
-       
-       
-       
+      
             break;
 
         case 'eliminar'  : 

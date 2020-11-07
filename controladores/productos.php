@@ -47,6 +47,26 @@ require '../modelos/productos.php';
 
             $usuario =  $_SESSION['Vusuario'];
 
+            $error = '0';
+
+            if (empty($nombre) ){
+              $error = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($nombre) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre del producto es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
+
             
             $res = [];
 
@@ -56,14 +76,20 @@ require '../modelos/productos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
-        
 
-          //  if ($nombre != '' ){
-          //      $stmt = $conn->query(str_replace( array("{{nombre}}"), array($nombre), $insertaProducto));
-         //   }else{
-         //       $res = "error el campo al guardar el registro";
-         //   }
-           
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
            
             
         break;
@@ -77,6 +103,26 @@ require '../modelos/productos.php';
 
             $usuario =  $_SESSION['Vusuario'];
 
+            $error = '0';
+
+            if (empty($nombre) ){
+              $error = 'El Campo categoria no puede estar vacio';
+            }
+
+
+            if(strlen($nombre) > 35) {
+               $error = 'El Tamaño del campo es mayor de 35';
+            }
+
+            if (preg_match('/^[a-zA-Z _-]{5,35}/', $nombre)) {
+              
+            }else{
+                $error = 'El nombre del producto es invalido se permiten letras espacios numeros y el guion';
+            }
+
+
+            if ($error == '0'){
+
             $res = [];
            
             $stmt = $conn->query(str_replace( array("{{id}}","{{nombre}}","{{usuario}}"), array($id, $nombre,$usuario), $modificarProducto));
@@ -85,6 +131,19 @@ require '../modelos/productos.php';
                 array_push ($res, $row);
            }  
            echo json_encode($res); 
+        }else{
+
+            $res = [];
+
+            $r = array();
+                               
+            $r['error'] = 'true';
+            $r['data'] = $error;
+
+            array_push ($res, $r);
+                                    
+           echo json_encode($res); 
+}
         
        
             break;
