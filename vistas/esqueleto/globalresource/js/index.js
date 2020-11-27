@@ -25,7 +25,7 @@ function Menu()
         var menu = '';
             for (item in res) {
 
-                menu = menu + '<li><a href="' + res[item].modulo + '"><svg><use xlink:href="' +  res[item].imagen + '"></use></svg><span>' + res[item].modulo.substring(3,20) +'</span></a></li>';
+                menu = menu + '<li><a href="' + res[item].modulo + '"><svg><use xlink:href="' +  res[item].imagen + '"></use></svg><span>' + res[item].mostrar +'</span></a></li>';
 
 
                // menu = menu+ '<tr><td class="column1">' + res[item].id + '</td>'+
